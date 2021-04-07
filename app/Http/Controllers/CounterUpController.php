@@ -50,7 +50,8 @@ class CounterUpController extends Controller
     }
 
     public function delete(Request $request, $id){
-        Counterup::find($id)->delete();
+        $row = Counterup::find($id)->delete();
+
         return redirect()->back()->with(['msg' => 'Counterup Item Deleted....','type' => 'danger']);
     }
 }

@@ -70,7 +70,7 @@ class FrontendController extends Controller
         $all_work = Works::get();
         $all_work_category = WorksCategory::where(['status' => 'publish', 'lang' => $lang])->get();
         // $all_blog = Blog::where('lang', $lang)->orderBy('id', 'desc')->take(9)->get();
-        $all_blog = Blog::orderBy('id', 'desc')->take(9)->get();
+        $all_blog = Blog::orderBy('id', 'desc')->where('lang',$lang)->take(9)->get();
         $all_faq = Faq::where('lang', $lang)->orderBy('id', 'desc')->take(get_static_option('home_page_01_faq_area_items'))->get();
 
         return view('frontend.frontend-home')->with([

@@ -25,7 +25,7 @@ class LicenseServiceProvider extends ServiceProvider
     public function boot()
     {
         $license_info = [
-            "item_license_status"=>  "not_verified",
+            "item_license_status"=>  "verified",
             "license_message" => "Please License the product to stay secure",
         ];
 

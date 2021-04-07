@@ -95,6 +95,7 @@
                                                                        value="{{'[url]/about'}}">
                                                                 <input type="hidden" class="menu-item-db-id" value="">
                                                             </li>
+                                                        
                                                             <li>
                                                                 <label class="menu-item-title">
                                                                     <input type="checkbox" class="menu-item-checkbox"

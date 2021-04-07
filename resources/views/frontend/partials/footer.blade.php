@@ -38,10 +38,12 @@
                         <h2 class="widget-title">{{get_static_option('useful_link_'.get_user_lang().'_widget_title')}}</h2>
                         <ul>
                             @php $useful_links_arr = json_decode($all_usefull_links->content); @endphp
+                            @if(isset($useful_links_arr))
                             @foreach($useful_links_arr as $data)
                                 @php $link = (in_array($data->menuTitle,$static_page_list)) ? url('/').'/'.get_static_option(strtolower($data->menuTitle).'_page_slug') :  str_replace('[url]',url('/'),$data->menuUrl) @endphp
                                 <li><a href="{{$link}}"> @if(in_array($data->menuTitle,$static_page_list)) {{get_static_option(strtolower($data->menuTitle).'_page_'.get_user_lang().'_name')}} @else {{__($data->menuTitle)}} @endif</a></li>
                             @endforeach
+                            @endif
                         </ul>
                     </div>
                 </div>
@@ -49,13 +51,16 @@
                     <div class="footer-widget widget widget_nav_menu">
                         <h2 class="widget-title">{{get_static_option('important_link_'.get_user_lang().'_widget_title')}}</h2>
                         <ul>
+                            
                             @php
                                 $useful_links_arr = json_decode($all_important_links->content);
-                            @endphp
-                            @foreach($useful_links_arr as $data)
-                                @php $link = (in_array($data->menuTitle,$static_page_list)) ? url('/').'/'.get_static_option(strtolower($data->menuTitle).'_page_slug') :  str_replace('[url]',url('/'),$data->menuUrl) @endphp
-                                <li><a href="{{$link}}"> @if(in_array($data->menuTitle,$static_page_list)) {{get_static_option(strtolower($data->menuTitle).'_page_'.get_user_lang().'_name')}} @else {{__($data->menuTitle)}} @endif</a></li>
-                            @endforeach
+                                @endphp
+                            @if(isset($useful_links_arr))
+                                @foreach($useful_links_arr as $data)
+                                    @php $link = (in_array($data->menuTitle,$static_page_list)) ? url('/').'/'.get_static_option(strtolower($data->menuTitle).'_page_slug') :  str_replace('[url]',url('/'),$data->menuUrl) @endphp
+                                    <li><a href="{{$link}}"> @if(in_array($data->menuTitle,$static_page_list)) {{get_static_option(strtolower($data->menuTitle).'_page_'.get_user_lang().'_name')}} @else {{__($data->menuTitle)}} @endif</a></li>
+                                @endforeach
+                            @endif
                         </ul>
                     </div>
                 </div>
@@ -63,6 +68,8 @@
                     <div class="footer-widget widget widget_recent_posts">
                         <h4 class="widget-title">{{get_static_option('recent_post_'.get_user_lang().'_widget_title')}}</h4>
                         <ul class="recent_post_item">
+                            {{-- {{dd($all_recent_post)}} --}}
+                            @if(isset($all_recent_post))
                             @foreach($all_recent_post as $data)
                                 <li class="single-recent-post-item">
                                     <div class="thumb">
@@ -79,6 +86,7 @@
                                     </div>
                                 </li>
                             @endforeach
+                            @endif
                         </ul>
                     </div>
                 </div>

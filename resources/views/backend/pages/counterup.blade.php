@@ -69,8 +69,16 @@
                                                 <td>{{$data->number}}</td>
                                                 <td>{{$data->title}}</td>
                                                 <td>{{$data->extra_text}}</td>
-                                                <td>
-                                                    <a tabindex="0" class="btn btn-lg btn-danger btn-sm mb-3 mr-1"
+                                                <td style="display: flex;">
+                                                   
+                                                    <form id="deleteCounterUp" method='post' action='{{route('admin.counterup.delete',$data->id)}}'>
+                                                        @csrf
+                                                         <a  class="btn btn-sm btn-danger" onclick="document.getElementById('deleteCounterUp').submit()">
+                                                        <i class="ti-trash"></i>
+                                                    </a>
+                                                    </form>
+                                                
+                                                    {{-- <a tabindex="0" class="btn btn-lg btn-danger btn-sm mb-3 mr-1"
                                                        role="button"
                                                        data-toggle="popover"
                                                        data-trigger="focus"
@@ -85,7 +93,7 @@
                                                 </form>
                                                 ">
                                                         <i class="ti-trash"></i>
-                                                    </a>
+                                                    </a> --}}
                                                     <a href="#"
                                                        data-toggle="modal"
                                                        data-target="#counterup_item_edit_modal"

@@ -1,5 +1,7 @@
 @php  $static_page_list = ['About','Service','FAQ','Team','Works','Price Plan','Blog','Contact','Career With Us','Events','Knowledgebase']; @endphp
-@if(!empty(get_static_option('home_page_support_bar_section_status')))
+
+{{-- remove this later on --}}
+{{-- @if(!empty(get_static_option('home_page_support_bar_section_status')))
     <div class="topbar-area">
         <div class="container">
             <div class="row">
@@ -35,13 +37,90 @@
             </div>
         </div>
     </div>
-@endif
+@endif --}}
+@section('style')
+<style>
+    .search-form #search_btn{
+        border-radius: 20px 20px;
+    } 
+    .search-form #submit_btn{
+        border-radius: 20px;
+    } 
+    .header-area-wrapper .right-content-area{
+        background-position: top right;
+        background-repeat: no-repeat;
+        padding: 60px 150px 60px 60px;
+        -webkit-box-shadow: 0 0 15px rgb(0 0 0 / 2%);
+        box-shadow: 0 0 15px rgb(0 0 0 / 2%);
+    }
+    .right-content-area .title{
+        font-size: 30px;
+        line-height: 46px;
+        font-weight: 700;
+        margin-bottom: 15px;
+    }
+    .overlay {
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+    .header-inner {
+        /* height: 338px; */
+        position: relative;
+        overflow: hidden;
+    }
+    .header-bg{
+        max-height: 70vh;
+    }
+   
+    #marquee li{
+        margin-right: 20px;
+        color: black;
+        display: inline;
+        list-style: none;
+        color: #fff;
+    }
+    #marquee li::before {
+        content: "•"; 
+    }
+    .our-cover-area .sub-title{
+        font-size: 18px;
+        text-align: center;
+        line-height: 34px;
+        font-weight: 400;
+        letter-spacing: .3px;
+    }
+    .our-cover-area .form-inline{
+        display: flex;
+        justify-content: space-between;
+        /* width: 20%; */
+    }
+    .our-cover-area .form-control{
+        max-width: 28%;
+        border-radius: 20px;
+        height: 50px;
+        background: gainsboro;
+    }
+    .our-cover-area .btn{
+        border-radius:20px;
+    }
+    .our-cover-area .form-inline {
+        position: relative
+    }
+    .our-cover-area .form-inline i {
+          position: absolute;
+            left: 15px;
+            top: 40px;
+            color: gray;
+    }
+
+</style>
+@endsection
+<style></style>
 
 <div class="info-bar-area">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <div class="info-bar-inner">
+                <div class="info-bar-inner" style="display: flex;justify-content:space-between;">
                     <div class="logo-wrapper desktop-logo">
                         <a href="{{url('/')}}" class="logo">
                             @php
@@ -52,26 +131,31 @@
                             @endif
                         </a>
                     </div>
+                    <div class=" widget-area widget_search">
+                        <form action="" method="get" class="search-form">
+                            <div class="form-group">
+                                <input type="text" name="search" placeholder="Search" class="form-control" id="search_btn">
+                            </div>
+                            <button id="submit_btn" class="submit-btn" type="submit"><i class="fa fa-search"></i></button>
+                        </form>
+                    </div>  
+                    
                     <div class="right-content">
                         <ul class="info-items">
                             @foreach($all_support_item as $data)
-                            <li>
-                                <div class="single-info-item">
-                                    <div class="icon">
-                                        <i class="{{$data->icon}}"></i>
+                                <li>
+                                    <div class="single-info-item">
+                                        <div class="icon">
+                                            <i class="{{$data->icon}}"></i>
+                                        </div>
+                                        <div class="content">
+                                            <h5 class="title">{{$data->title}}</h5>
+                                            <span class="details">{{$data->details}}</span>
+                                        </div>
                                     </div>
-                                    <div class="content">
-                                        <h5 class="title">{{$data->title}}</h5>
-                                        <span class="details">{{$data->details}}</span>
-                                    </div>
-                                </div>
-                            </li>
+                                </li>
                             @endforeach
                         </ul>
-                        <div class="request-quote">
-                            @php $quote_btn_url = !empty(get_static_option('navbar_button_custom_url_status')) ? get_static_option('navbar_button_custom_url') : route('frontend.request.quote'); @endphp
-                            <a href="{{$quote_btn_url}}" class="rq-btn">{{get_static_option('top_bar_'.get_user_lang().'_button_text')}}</a>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -96,7 +180,7 @@
             </button>
         </div>
         <div class="collapse navbar-collapse" id="bizcoxx_main_menu">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav" style="display:flex;justify-content: space-between;">
                 @if(!empty($primary_menu->content))
                     @php
                         $cc = 0;
@@ -142,10 +226,10 @@
         @endif
         >
             <div class="container">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="header-inner">
-                            <h1 class="title">{{$data->title}}</h1>
+                <div class="row ">
+                    <div class="col-lg-6 ml-auto">
+                        <div class="header-inner overlay right-content-area">
+                            <h4 class="title">{{$data->title}}</h4>
                             <p>{{$data->description}}</p>
                             <div class="btn-wrapper  desktop-left padding-top-20">
                                 @if(!empty($data->btn_01_status))
@@ -159,72 +243,52 @@
         </div>
     @endforeach
 </header>
-
-<div class="header-bottom-area section-bg-1">
-    <div class="container">
-        <div class="row">
-            @if(!empty(get_static_option('home_page_key_feature_section_status')))
-            <div class="col-lg-6">
-                <div class="left-content-area dark-bg">
-                    @foreach($all_key_features as $data)
-                    <div class="icon-box-one margin-bottom-30 white">
-                        <div class="icon">
-                            <i class="{{$data->icon}}"></i>
-                        </div>
-                        <div class="content">
-                            <h4 class="title">{{$data->title}}</h4>
-                            <p>{{$data->description}}</p>
-                        </div>
-                    </div>
-                    @endforeach
-                </div>
+<div style="font-size:17px;background: #2685f9;">
+    {{-- <div class="row" style="padding:10px;"> --}}
+        {{-- <div class="col-sm-12 col-md-12" style="visibility: visible; animation-name: fadeInLeft;"> --}}
+            <div id="marquee">
+                    <marquee behaviour="scroll" style="padding-top: 20px;">
+                        <ul>
+                            <li> This example will take only 50% width</li>
+                            <li> This example will take only 10% width</li>
+                            <li> This example will take only 20% width</li>
+                            <li> This example will take only 40% width</li>
+                            <li> This example will take only 80% width</li>
+                        </ul>
+                </marquee>
             </div>
-            @endif
-            @if(!empty(get_static_option('home_page_about_us_section_status')))
-            <div class="col-lg-6">
-                <div class="right-content-area"
-                @php
-                    $about_us_background_image = get_attachment_image_by_id(get_static_option('home_page_01_'.get_user_lang().'_about_us_background_image'),null,false);
-                @endphp
-                @if (!empty($about_us_background_image))
-                style="background-image: url({{$about_us_background_image['img_url']}})"
-                @endif
-                >
-                    <h4 class="title">{{get_static_option('home_page_01_'.get_user_lang().'_about_us_title')}}</h4>
-                    <p> {{get_static_option('home_page_01_'.get_user_lang().'_about_us_description')}}</p>
-                    <div class="sign">
-                        @php
-                            $about_us_signature_image = get_attachment_image_by_id(get_static_option('home_page_01_'.get_user_lang().'_about_us_signature_image'),null,false);
-                        @endphp
-                        @if (!empty($about_us_signature_image))
-                            <img src="{{$about_us_signature_image['img_url']}}" alt="{{get_static_option('home_page_01_'.get_user_lang().'_about_us_signature_text')}}">
-                        @endif
-                    </div>
-                    <h4 class="name">{{get_static_option('home_page_01_'.get_user_lang().'_about_us_signature_text')}}</h4>
-                    @if(get_static_option('home_page_01_'.get_user_lang().'_about_us_button_status'))
-                    <div class="btn-wrapper desktop-left">
-                        <a href="{{get_static_option('home_page_01_'.get_user_lang().'_about_us_button_url')}}" class="boxed-btn btn-rounded">{{get_static_option('home_page_01_'.get_user_lang().'_about_us_button_title')}}</a>
-                    </div>
-                    @endif
-                </div>
-            </div>
-            @endif
-        </div>
-    </div>
+        {{-- </div> --}}
+    {{-- </div> --}}
 </div>
 
+{{-- why india section --}}
 @if(!empty(get_static_option('home_page_service_section_status')))
-    <section class="our-cover-area section-bg-1 padding-top-110 padding-bottom-90">
+    <section class="our-cover-area  padding-top-90 padding-bottom-90">
         <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-6">
+            <div class="row" style="margin-bottom:90px;">
+                <div class="col-lg-12">
+                    <form action="" class="form-inline">
+                        <input class="form-control" type="text" placeholder="Discipline" name="discipline">
+                        <input class="form-control" type="text" placeholder="Level" name="level">
+                        <input class="form-control" type="text" placeholder="Course" name="course">
+                        <button type="submit" class="btn btn-lg btn-primary">Search</button>
+                    </form>
+                </div>
+            </div>
+            <div class="mt-5 row justify-content-center">
+                <div class="col-lg-10 col-md-12">
                     <div class="section-title desktop-center margin-bottom-55">
-                        <h2 class="title">{{get_static_option('home_page_01_'.get_user_lang().'_service_area_title')}}</h2>
-                        <p>{{get_static_option('home_page_01_'.get_user_lang().'_service_area_description')}}</p>
+                        <h2 class="title ">WHY INDIA ?</h2>
+                        <hr style="width: 30%;" class="mb-5">
+                        <p class="sub-title">
+                            The Indian Education system is the world's second largest Higher Education Systemwith more than 800 universities, 39,000 colleges and a capacity of enrolling more than a whopping 20 million students.
+                             Higher Education Institutions in India offer courses/degrees that are competitive in the world market in terms of quality but are delivered at one fourth the cost.
+                            The Indian Education system is vast in size, as well as its academic offerings. A vibrant and diverse education system means a wide variety of courses are available.
+                        </p>
                     </div>
                 </div>
             </div>
-            <div class="row">
+            {{-- <div class="row">
                 @foreach($all_service as $data)
                     <div class="col-lg-4 col-md-6">
                         <div class="icon-box-two margin-bottom-30">
@@ -238,47 +302,54 @@
                         </div>
                     </div>
                 @endforeach
-            </div>
+            </div> --}}
         </div>
     </section>
 
 @endif
-@if(!empty(get_static_option('home_page_call_to_action_section_status')))
-<section class="cta-area-one cta-bg-one padding-top-95 padding-bottom-100"
-@php
-    $home_cta_image = get_attachment_image_by_id(get_static_option('home_page_01_'.get_user_lang().'_cta_background_image'),null,false);
-@endphp
-@if (!empty($home_cta_image))
-style="background-image: url({{$home_cta_image['img_url']}})"
-@endif
+
+
+{{-- counter --}}
+@if(!empty(get_static_option('home_page_counterup_section_status')))
+<div class="counterup-area counterup-bg padding-top-115 padding-bottom-115"
+ @php
+     $home_counterup_image = get_attachment_image_by_id(get_static_option('home_01_counterup_bg_image'),null,false);
+ @endphp
+ @if (!empty($home_counterup_image))
+ style="background-image: url({{$home_counterup_image['img_url']}})"
+ @endif
 >
     <div class="container">
         <div class="row">
-            <div class="col-lg-9">
-                <div class="left-content-area">
-                    <h3 class="title">{{get_static_option('home_page_01_'.get_user_lang().'_cta_area_title')}}</h3>
-                    <p>{{get_static_option('home_page_01_'.get_user_lang().'_cta_area_description')}}</p>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="right-content-area">
-                    <div class="btn-wrapper">
-                        <a href="{{get_static_option('home_page_01_'.get_user_lang().'_cta_area_button_url')}}" class="boxed-btn btn-rounded white">{{get_static_option('home_page_01_'.get_user_lang().'_cta_area_button_title')}}</a>
+            @foreach($all_counterup as $data)
+            {{-- {{dd($data)}} --}}
+            <div class="col-lg-3 col-md-6 mx-auto">
+                <div class="singler-counterup-item-01 white">
+                    <div class="icon">
+                        <i class="{{$data->icon}}" aria-hidden="true"></i>
+                    </div>
+                    <div class="content">
+                        <div class="count-wrap"><span>{{$data->number}}</span>{{$data->extra_text}}</div>
+                        {{-- <div class="count-wrap"><span class="count-num">{{$data->number}}</span>{{$data->extra_text}}</div> --}}
+                        <h4 class="title">{{$data->title}}</h4>
                     </div>
                 </div>
             </div>
+            @endforeach
         </div>
     </div>
-</section>
+</div>
 @endif
-@if(!empty(get_static_option('home_page_recent_work_section_status')))
+{{-- counter --}}
+
+{{-- recent work --}}
+{{-- @if(!empty(get_static_option('home_page_recent_work_section_status'))) --}}
 <section class="our-work-area padding-top-110 padding-bottom-120">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-6">
                 <div class="section-title desktop-center margin-bottom-55">
-                    <h2 class="title">{{get_static_option('home_page_01_'.get_user_lang().'_recent_work_title')}}</h2>
-                    <p>{{get_static_option('home_page_01_'.get_user_lang().'_recent_work_description')}}</p>
+                    <h2 class="title">Recent News</h2>
                 </div>
             </div>
         </div>
@@ -313,36 +384,12 @@ style="background-image: url({{$home_cta_image['img_url']}})"
         </div>
     </div>
 </section>
-@endif
-@if(!empty(get_static_option('home_page_counterup_section_status')))
-<div class="counterup-area counterup-bg padding-top-115 padding-bottom-115"
- @php
-     $home_counterup_image = get_attachment_image_by_id(get_static_option('home_01_counterup_bg_image'),null,false);
- @endphp
- @if (!empty($home_counterup_image))
- style="background-image: url({{$home_counterup_image['img_url']}})"
- @endif
->
-    <div class="container">
-        <div class="row">
-            @foreach($all_counterup as $data)
-            <div class="col-lg-3 col-md-6">
-                <div class="singler-counterup-item-01 white">
-                    <div class="icon">
-                        <i class="{{$data->icon}}" aria-hidden="true"></i>
-                    </div>
-                    <div class="content">
-                        <div class="count-wrap"><span class="count-num">{{$data->number}}</span>{{$data->extra_text}}</div>
-                        <h4 class="title">{{$data->title}}</h4>
-                    </div>
-                </div>
-            </div>
-            @endforeach
-        </div>
-    </div>
-</div>
-@endif
-@if(!empty(get_static_option('home_page_price_plan_section_status')))
+{{-- @endif --}}
+{{-- recent work --}}
+
+
+{{-- pricing plan --}}
+{{-- @if(!empty(get_static_option('home_page_price_plan_section_status')))
 <section class="price-plan-area  padding-top-110 padding-bottom-120">
     <div class="container">
         <div class="row justify-content-center">
@@ -390,8 +437,10 @@ style="background-image: url({{$home_cta_image['img_url']}})"
         </div>
     </div>
 </section>
-@endif
-@if(!empty(get_static_option('home_page_team_member_section_status')))
+@endif --}}
+
+{{-- team section --}}
+{{-- @if(!empty(get_static_option('home_page_team_member_section_status')))
 <section class="meet-the-team-area section-bg-1 padding-top-110 padding-bottom-120">
     <div class="container">
         <div class="row justify-content-center">
@@ -440,7 +489,10 @@ style="background-image: url({{$home_cta_image['img_url']}})"
         </div>
     </div>
 </section>
-@endif
+@endif --}}
+{{-- team section --}}
+
+{{-- testimonials --}}
 @if(!empty(get_static_option('home_page_testimonial_section_status')))
 <section class="testimonial-area testimonial-bg padding-top-110 padding-bottom-120"
  @php
@@ -480,14 +532,16 @@ style="background-image: url({{$home_cta_image['img_url']}})"
     </div>
 </section>
 @endif
+
+{{-- blog --}}
 @if(!empty(get_static_option('home_page_latest_news_section_status')))
 <section class="latest-news padding-top-110 padding-bottom-120">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-6">
                 <div class="section-title desktop-center margin-bottom-55">
-                    <h2 class="title">{{get_static_option('home_page_01_'.get_user_lang().'_latest_news_title')}}</h2>
-                    <p>{{get_static_option('home_page_01_'.get_user_lang().'_latest_news_description')}}</p>
+                    <h2 class="title">Blog</h2>
+                    {{-- <p>{{get_static_option('home_page_01_'.get_user_lang().'_latest_news_description')}}</p> --}}
                 </div>
             </div>
         </div>
@@ -544,7 +598,4 @@ style="background-image: url({{$home_cta_image['img_url']}})"
             </div>
         </div>
     </div>
-@endif
-@if(!empty(get_static_option('home_page_newsletter_section_status')))
-@include('frontend.partials.newsletter')
 @endif

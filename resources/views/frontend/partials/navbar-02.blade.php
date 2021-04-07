@@ -6,6 +6,7 @@
                     <div class="info-bar-inner">
                         <div class="left-content">
                             <ul class="info-items-two">
+                                @if(isset($all_support_item))
                                 @foreach($all_support_item as $data)
                                     <li>
                                         <div class="single-info-item">
@@ -19,11 +20,14 @@
                                         </div>
                                     </li>
                                 @endforeach
+                                @endif
                             </ul>
                             <select id="langchange">
-                                @foreach($all_language as $lang)
-                                    <option @if( get_user_lang() == $lang->slug) selected @endif value="{{$lang->slug}}">{{$lang->name}}</option>
-                                @endforeach
+                                @if(isset($all_language))
+                                    @foreach($all_language as $lang)
+                                        <option @if( get_user_lang() == $lang->slug) selected @endif value="{{$lang->slug}}">{{$lang->name}}</option>
+                                    @endforeach
+                                @endif
                             </select>
                         </div>
                         <div class="right-content">

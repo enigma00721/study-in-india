@@ -540,7 +540,6 @@ function get_attachment_image_by_id($id, $size = null, $default = false)
     }elseif (empty($image_details) && $default){
         $return_val['img_url'] = asset('assets/uploads/no-image.png');
     }
-
     return $return_val;
 }
 
