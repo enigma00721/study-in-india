@@ -44,11 +44,7 @@
                                         <input type="text" class="form-control" id="faq_page_slug" value="{{get_static_option('faq_page_slug')}}" name="faq_page_slug" placeholder="{{__('Slug')}}" >
                                         <small>{{__('slug example: faq')}}</small>
                                     </div>
-                                    <div class="from-group">
-                                        <label for="price_plan_page_slug">{{__('Price Plan Page Slug')}}</label>
-                                        <input type="text" class="form-control" id="price_plan_page_slug" value="{{get_static_option('price_plan_page_slug')}}" name="price_plan_page_slug" placeholder="{{__('Slug')}}" >
-                                        <small>{{__('slug example: price-plan')}}</small>
-                                    </div>
+                                  
                                     <div class="from-group">
                                         <label for="blog_page_slug">{{__('Blog Page Slug')}}</label>
                                         <input type="text" class="form-control" id="blog_page_slug" value="{{get_static_option('blog_page_slug')}}" name="blog_page_slug" placeholder="{{__('Slug')}}" >
@@ -68,11 +64,6 @@
                                         <label for="events_page_slug">{{__('Events Page Slug')}}</label>
                                         <input type="text" class="form-control" id="events_page_slug" value="{{get_static_option('events_page_slug')}}" name="events_page_slug" placeholder="{{__('Slug')}}" >
                                         <small>{{__('slug example: events')}}</small>
-                                    </div>
-                                    <div class="from-group">
-                                        <label for="knowledgebase_page_slug">{{__('Knowledgebase Page Slug')}}</label>
-                                        <input type="text" class="form-control" id="knowledgebase_page_slug" value="{{get_static_option('knowledgebase_page_slug')}}" name="knowledgebase_page_slug" placeholder="{{__('Slug')}}" >
-                                        <small>{{__('slug example: knowledgebase')}}</small>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -173,23 +164,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="card">
-                                                            <div class="card-header" id="price_plan_page_{{$lang->slug}}">
-                                                                <h5 class="mb-0">
-                                                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#price_plan_page_content_{{$lang->slug}}" aria-expanded="false" >
-                                                                        <span class="page-title">@if(!empty(get_static_option('price_plan_page_'.$lang->slug.'_name'))) {{get_static_option('price_plan_page_'.$lang->slug.'_name')}} @else {{__('Price Plan')}}  @endif</span>
-                                                                    </button>
-                                                                </h5>
-                                                            </div>
-                                                            <div id="price_plan_page_content_{{$lang->slug}}" class="collapse"  data-parent="#accordion-{{$lang->slug}}">
-                                                                <div class="card-body">
-                                                                    <div class="from-group">
-                                                                        <label for="price_plan_page_{{$lang->slug}}_name">{{__('Name')}}</label>
-                                                                        <input type="text" class="form-control page-name" id="price_plan_page_{{$lang->slug}}_name" value="{{get_static_option('price_plan_page_'.$lang->slug.'_name')}}" name="price_plan_page_{{$lang->slug}}_name" placeholder="{{__('Name')}}" >
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                        
                                                         <div class="card">
                                                             <div class="card-header" id="blog_page_{{$lang->slug}}">
                                                                 <h5 class="mb-0">
@@ -258,25 +233,6 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-
-                                                        <div class="card">
-                                                            <div class="card-header" id="knowledgebase_page_{{$lang->slug}}">
-                                                                <h5 class="mb-0">
-                                                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#knowledgebase_page_content_{{$lang->slug}}" aria-expanded="false" >
-                                                                        <span class="page-title">@if(!empty(get_static_option('knowledgebase_page_'.$lang->slug.'_name'))) {{get_static_option('knowledgebase_page_'.$lang->slug.'_name')}} @else {{__('Knowledgebase')}}  @endif</span>
-                                                                    </button>
-                                                                </h5>
-                                                            </div>
-                                                            <div id="knowledgebase_page_content_{{$lang->slug}}" class="collapse"  data-parent="#accordion-{{$lang->slug}}">
-                                                                <div class="card-body">
-                                                                    <div class="from-group">
-                                                                        <label for="knowledgebase_page_{{$lang->slug}}_name">{{__('Name')}}</label>
-                                                                        <input type="text" class="form-control page-name" id="knowledgebase_page_{{$lang->slug}}_name" value="{{get_static_option('knowledgebase_page_'.$lang->slug.'_name')}}" name="knowledgebase_page_{{$lang->slug}}_name" placeholder="{{__('Name')}}" >
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
                                                     </div>
                                                 </div>
                                             </div>

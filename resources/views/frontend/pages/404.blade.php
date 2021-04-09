@@ -1,3 +1,5 @@
+@php  $static_page_list = ['About','Service','FAQ','Team','Works','Price Plan','Blog','Contact','Career With Us','Events','Knowledgebase']; @endphp
+
 @extends('frontend.frontend-page-master')
 @section('page-title')
     {{__('404')}}

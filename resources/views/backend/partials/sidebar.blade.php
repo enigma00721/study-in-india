@@ -63,20 +63,7 @@
                         </ul>
                     </li>
                     @endif
-                    @if(check_page_permission('quote_manage'))
-                        <li class="@if(request()->is('admin-home/quote-manage/*')) active @endif ">
-                            <a href="javascript:void(0)" aria-expanded="true"><i class="ti-quote-left"></i>
-                                <span>{{__('Quote Manage')}}</span></a>
-                            <ul class="collapse">
-                                <li class="{{active_menu('admin-home/quote-manage/all')}}"><a
-                                            href="{{route('admin.quote.manage.all')}}">{{__('All Quote')}}</a></li>
-                                <li class="{{active_menu('admin-home/quote-manage/pending')}}"><a
-                                            href="{{route('admin.quote.manage.pending')}}">{{__('Pending Quote')}}</a></li>
-                                <li class="{{active_menu('admin-home/quote-manage/completed')}}"><a
-                                            href="{{route('admin.quote.manage.completed')}}">{{__('Complete Quote')}}</a></li>
-                            </ul>
-                        </li>
-                    @endif
+                  
                     @if(check_page_permission('order_manage'))
                         <li class="@if(request()->is('admin-home/order-manage/*')) active @endif ">
                             <a href="javascript:void(0)" aria-expanded="true"><i class="ti-light-bulb"></i>
@@ -139,26 +126,7 @@
                             </ul>
                         </li>
                     @endif
-                    @if(check_page_permission('form_builder'))
-                        <li class="@if(request()->is('admin-home/form-builder/*')) active @endif">
-                            <a href="javascript:void(0)"
-                               aria-expanded="true">
-                                <i class="ti-layout"></i>
-                                <span>{{__('Form Builder')}}</span>
-                            </a>
-                            <ul class="collapse">
-                                <li class="{{active_menu('admin-home/form-builder/quote-form')}}"><a
-                                            href="{{route('admin.form.builder.quote')}}">{{__('Quote Form')}}</a></li>
-                                <li class="{{active_menu('admin-home/form-builder/order-form')}}"><a
-                                            href="{{route('admin.form.builder.order')}}">{{__('Order Form')}}</a></li>
-                                <li class="{{active_menu('admin-home/form-builder/contact-form')}}"><a
-                                            href="{{route('admin.form.builder.contact')}}">{{__('Contact Form')}}</a></li>
-                                <li class="{{active_menu('admin-home/form-builder/call-back-form')}}"><a
-                                            href="{{route('admin.form.builder.call.back')}}">{{__('Request Call Back Form')}}</a>
-                                </li>
-                            </ul>
-                        </li>
-                    @endif
+                
                     @if(check_page_permission('blogs'))
                         <li
                                 class="
@@ -221,40 +189,7 @@
                         </ul>
                     </li>
                     @endif
-                    @if(check_page_permission('knowledgebase'))
-                    <li class="{{active_menu('admin-home/knowledge')}} @if(request()->is('admin-home/knowledge/*')) active @endif">
-                        <a href="javascript:void(0)" aria-expanded="true"><i class="ti-write"></i>
-                            <span>{{__('Knowledgebase')}}</span></a>
-                        <ul class="collapse">
-                            <li class="{{active_menu('admin-home/knowledge')}}"><a
-                                        href="{{route('admin.knowledge.all')}}">{{__('All Articles')}}</a></li>
-                            <li class="{{active_menu('admin-home/knowledge/category')}}"><a
-                                        href="{{route('admin.knowledge.category.all')}}">{{__('Topics')}}</a></li>
-                            <li class="{{active_menu('admin-home/new-knowledge')}}"><a
-                                        href="{{route('admin.knowledge.new')}}">{{__('Add New Article')}}</a></li>
-                            <li class="{{active_menu('admin-home/knowledge/page-settings')}}"><a
-                                        href="{{route('admin.knowledge.page.settings')}}">{{__('Knowledgebase Page Settings')}}</a></li>
-                        </ul>
-                    </li>
-                    @endif
-                    @if(check_page_permission('home_variant'))
-                    <li class="{{active_menu('admin-home/home-variant')}}">
-                        <a href="{{route('admin.home.variant')}}"
-                           aria-expanded="true">
-                            <i class="ti-file"></i>
-                            <span>{{__('Home Variant')}}</span>
-                        </a>
-                    </li>
-                    @endif
-                    @if(check_page_permission('nabvar_settings'))
-                    <li class="{{active_menu('admin-home/navbar-settings')}}">
-                        <a href="{{route('admin.navbar.settings')}}"
-                           aria-expanded="true">
-                            <i class="ti-file"></i>
-                            <span>{{__('Nabvar Settings')}}</span>
-                        </a>
-                    </li>
-                    @endif
+                 
                     @if(check_page_permission('home_page_manage'))
                     <li class="@if(request()->is('admin-home/home-page-01/*')  ) active @endif
                     {{active_menu('admin-home/header')}}
@@ -345,39 +280,12 @@
                         </ul>
                     </li>
                     @endif
-                    @if(check_page_permission('quote_page_manage'))
-                    <li class="{{active_menu('admin-home/quote-page')}}">
-                        <a href="{{route('admin.quote.page')}}"
-                           aria-expanded="true">
-                            <i class="ti-dashboard"></i>
-                            <span>{{__('Quote Page Manage')}}</span>
-                        </a>
-                    </li>
-                    @endif
                     @if(check_page_permission('order_page_manage'))
                     <li class="{{active_menu('admin-home/order-page')}}">
                         <a href="{{route('admin.order.page')}}"
                            aria-expanded="true">
                             <i class="ti-dashboard"></i>
                             <span>{{__('Order Page Manage')}}</span>
-                        </a>
-                    </li>
-                    @endif
-                    @if(check_page_permission('price_plan_page_manage'))
-                    <li class="{{active_menu('admin-home/price-plan-page/settings')}}">
-                        <a href="{{route('admin.price.plan.page.settings')}}"
-                           aria-expanded="true">
-                            <i class="ti-dashboard"></i>
-                            <span>{{__('Price Plan Page Manage')}}</span>
-                        </a>
-                    </li>
-                    @endif
-                    @if(check_page_permission('work_single_page_manage'))
-                    <li class="{{active_menu('admin-home/work-single-page/settings')}}">
-                        <a href="{{route('admin.work.single.page.settings')}}"
-                           aria-expanded="true">
-                            <i class="ti-dashboard"></i>
-                            <span>{{__('Work Single Page Manage')}}</span>
                         </a>
                     </li>
                     @endif
@@ -439,12 +347,7 @@
                             <span>{{__('Brand Logos')}}</span></a>
                     </li>
                     @endif
-                    @if(check_page_permission('price_plan'))
-                    <li class="{{active_menu('admin-home/price-plan')}}">
-                        <a href="{{route('admin.price.plan')}}" aria-expanded="true"><i class="ti-control-forward"></i>
-                            <span>{{__('Price Plan')}}</span></a>
-                    </li>
-                    @endif
+                  
                     @if(check_page_permission('team_members'))
                     <li class="{{active_menu('admin-home/team-member')}}">
                         <a href="{{route('admin.team.member')}}" aria-expanded="true"><i class="ti-control-forward"></i>
@@ -455,20 +358,6 @@
                     <li class="{{active_menu('admin-home/testimonial')}}">
                         <a href="{{route('admin.testimonial')}}" aria-expanded="true"><i class="ti-control-forward"></i>
                             <span>{{__('Testimonial')}}</span></a>
-                    </li>
-                    @endif
-                    @if(check_page_permission('blog_settings'))
-                    <li class="{{active_menu('admin-home/blog-page')}}
-                    {{active_menu('admin-home/blog-single-page')}}
-                            ">
-                        <a href="javascript:void(0)" aria-expanded="true"><i class="ti-write"></i>
-                            <span>{{__('Blog Settings')}}</span></a>
-                        <ul class="collapse">
-                            <li class="{{active_menu('admin-home/blog-page')}}"><a
-                                        href="{{route('admin.blog')}}">{{__('Blog page')}}</a></li>
-                            <li class="{{active_menu('admin-home/blog-single-page')}}"><a
-                                        href="{{route('admin.blog.single.page')}}">{{__('Blog Single Page')}}</a></li>
-                        </ul>
                     </li>
                     @endif
                     @if(check_page_permission('counterup'))

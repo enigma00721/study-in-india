@@ -61,6 +61,8 @@
 </head>
 <body>
 
+@php  $static_page_list = ['About','Service','FAQ','Team','Works','Price Plan','Blog','Contact','Career With Us','Events','Knowledgebase']; @endphp
+
     {{-- newly put --}}
 <div class="info-bar-area">
     <div class="container">
@@ -88,6 +90,7 @@
                     
                     <div class="right-content">
                         <ul class="info-items">
+                            @if(isset($all_support_item))
                             @foreach($all_support_item as $data)
                                 <li>
                                     <div class="single-info-item">
@@ -101,6 +104,7 @@
                                     </div>
                                 </li>
                             @endforeach
+                            @endif
                         </ul>
                     </div>
                 </div>

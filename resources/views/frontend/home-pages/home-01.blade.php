@@ -94,10 +94,7 @@
         /* width: 20%; */
     }
     .our-cover-area .form-control{
-        max-width: 28%;
         border-radius: 20px;
-        height: 50px;
-        background: gainsboro;
     }
     .our-cover-area .btn{
         border-radius:20px;
@@ -116,7 +113,7 @@
 @endsection
 <style></style>
 
-<div class="info-bar-area">
+{{-- <div class="info-bar-area">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -161,8 +158,8 @@
             </div>
         </div>
     </div>
-</div>
-<nav class="navbar navbar-area navbar-expand-lg nav-style-01">
+</div> --}}
+{{-- <nav class="navbar navbar-area navbar-expand-lg nav-style-01">
     <div class="container nav-container">
         <div class="responsive-mobile-menu">
             <div class="logo-wrapper mobile-logo">
@@ -214,7 +211,7 @@
             </ul>
         </div>
     </div>
-</nav>
+</nav> --}}
 <header class="header-area-wrapper header-carousel-two bizzcox-rtl-slider">
     @foreach($all_header_slider as $data)
         <div class="header-area header-bg"
@@ -243,7 +240,7 @@
         </div>
     @endforeach
 </header>
-<div style="font-size:17px;background: #2685f9;">
+<div style="font-size:17px;background: #f7522d;">
     {{-- <div class="row" style="padding:10px;"> --}}
         {{-- <div class="col-sm-12 col-md-12" style="visibility: visible; animation-name: fadeInLeft;"> --}}
             <div id="marquee">
@@ -263,17 +260,41 @@
 
 {{-- why india section --}}
 @if(!empty(get_static_option('home_page_service_section_status')))
-    <section class="our-cover-area  padding-top-90 padding-bottom-90">
+    <section class="our-cover-area why-india-section  padding-top-90 padding-bottom-90">
         <div class="container">
             <div class="row" style="margin-bottom:90px;">
-                <div class="col-lg-12">
+                 <div class="col-md-3">
+                    <select name="course" id="" class="form-control">
+                        <option readonly>Discipline</option>
+                        <option value="1">1</option>
+                        <option value="1">1</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select name="course" id="" class="form-control">
+                        <option readonly>Course</option>
+                        <option value="1">1</option>
+                        <option value="1">1</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select name="course" id="" class="form-control">
+                        <option readonly>Level</option>
+                        <option value="1">1</option>
+                        <option value="1">1</option>
+                    </select>
+                </div>
+                <div class="col-md-3 btn-wrapper">
+                    <input type="submit" value="Search" class=" boxed-btn btn-rounded white border-none">
+                </div>
+                {{-- <div class="col-lg-12">
                     <form action="" class="form-inline">
                         <input class="form-control" type="text" placeholder="Discipline" name="discipline">
                         <input class="form-control" type="text" placeholder="Level" name="level">
                         <input class="form-control" type="text" placeholder="Course" name="course">
                         <button type="submit" class="btn btn-lg btn-primary">Search</button>
                     </form>
-                </div>
+                </div> --}}
             </div>
             <div class="mt-5 row justify-content-center">
                 <div class="col-lg-10 col-md-12">

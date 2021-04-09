@@ -5,6 +5,7 @@
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/responsive/2.2.3/css/responsive.jqueryui.min.css">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <style>
         .dataTables_wrapper .dataTables_paginate .paginate_button{
             padding: 0 !important;
@@ -85,22 +86,13 @@
                                                 <td>{{$data->category->name}}</td>
                                                 <td>{{$data->excerpt}}</td>
                                                 <td>
-                                                    <a tabindex="0" class="btn btn-lg btn-danger btn-sm mb-3 mr-1"
-                                                       role="button"
-                                                       data-toggle="popover"
-                                                       data-trigger="focus"
-                                                       data-html="true"
-                                                       title=""
-                                                       data-content="
-                                                       <h6>Are you sure to delete this blog post?</h6>
-                                                       <form method='post' action='{{route('admin.blog.delete',$data->id)}}'>
-                                                       <input type='hidden' name='_token' value='{{csrf_token()}}'>
-                                                       <br>
-                                                        <input type='submit' class='btn btn-danger btn-sm' value='Yes,Delete'>
-                                                        </form>
-                                                        ">
-                                                        <i class="ti-trash"></i>
-                                                    </a>
+                                                    <form action='{{route('admin.blog.delete',$data->id)}}' method="POST" >
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-sm btn-danger mb-3 mr-1  delete-confirm" >
+                                                            <i class="fas fa-trash" aria-hidden="true"></i>
+                                                        </button>
+                                                    </form>
+
                                                     <a class="btn btn-lg btn-primary btn-sm mb-3 mr-1" href="{{route('admin.blog.edit',$data->id)}}">
                                                         <i class="ti-pencil"></i>
                                                     </a>
@@ -136,5 +128,22 @@
                 "order": [[ 0, "desc" ]]
             } );
         } );
+    </script>
+    <script>
+          $('.delete-confirm').on('click', function (event) {
+          event.preventDefault();
+          var form = event.target.form; // storing the form
+        //   console.log(form);
+          swal({
+              title: 'Are you sure?',
+              text: 'This record will be permanantly deleted!',
+              icon: 'warning',
+              buttons: ["Cancel", "Yes!"],
+          }).then(function(value) {
+              if (value) {
+                  form.submit(); 
+              }
+          });
+      });
     </script>
 @endsection

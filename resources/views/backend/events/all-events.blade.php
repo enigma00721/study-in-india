@@ -1,5 +1,7 @@
 @extends('backend.admin-master')
 @section('style')
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css">
@@ -86,23 +88,13 @@
                                                     <td>{{$data->location}}</td>
                                                     <td>{{$data->category->title}}</td>
                                                     <td>{{date("d - M - Y", strtotime($data->date))}}</td>
-                                                    <td>
-                                                        <a tabindex="0" class="btn btn-lg btn-danger btn-sm mb-3 mr-1"
-                                                           role="button"
-                                                           data-toggle="popover"
-                                                           data-trigger="focus"
-                                                           data-html="true"
-                                                           title=""
-                                                           data-content="
-                                                       <h6>Are you sure to delete this event?</h6>
-                                                       <form method='post' action='{{route('admin.events.delete',$data->id)}}'>
-                                                       <input type='hidden' name='_token' value='{{csrf_token()}}'>
-                                                       <br>
-                                                        <input type='submit' class='btn btn-danger btn-sm' value='Yes,Delete'>
+                                                    <td style="display: flex;">
+                                                        <form action="{{route('admin.events.delete',$data->id)}}" method="post">
+                                                            @csrf
+                                                            <button type="submit" class="btn btn-sm btn-danger mb-3 mr-1 delete-confirm" >
+                                                                <i class="fas fa-trash" aria-hidden="true"></i>
+                                                            </button>
                                                         </form>
-                                                        ">
-                                                            <i class="ti-trash"></i>
-                                                        </a>
                                                         <a class="btn btn-lg btn-primary btn-sm mb-3 mr-1" href="{{route('admin.events.edit',$data->id)}}">
                                                             <i class="ti-pencil"></i>
                                                         </a>
@@ -134,6 +126,7 @@
     <script src="//cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
     <script src="//cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
     <script src="//cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>
+
     <script>
         $(document).ready(function() {
 
@@ -141,5 +134,22 @@
                 "order": [[ 0, "desc" ]]
             } );
         } );
+    </script>
+    <script>
+        $('.delete-confirm').on('click', function (event) {
+            event.preventDefault();
+            var form = event.target.form; // storing the form
+            //   console.log(form);
+            swal({
+                title: 'Are you sure?',
+                text: 'This record will be permanantly deleted!',
+                icon: 'warning',
+                buttons: ["Cancel", "Yes!"],
+            }).then(function(value) {
+                if (value) {
+                    form.submit(); 
+                }
+            });
+        });
     </script>
 @endsection

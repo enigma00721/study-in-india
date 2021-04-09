@@ -63,8 +63,8 @@
                                             </a>
                                         @endif
                                     </td>
-                                    <td>
-                                        <a tabindex="0" class="btn btn-lg btn-danger btn-sm mb-3 mr-1"
+                                    <td style="display: flex;">
+                                        {{-- <a tabindex="0" class="btn btn-lg btn-danger btn-sm mb-3 mr-1"
                                            role="button"
                                            data-toggle="popover"
                                            data-trigger="focus"
@@ -79,7 +79,18 @@
                                                 </form>
                                                 ">
                                             <i class="ti-trash"></i>
-                                        </a>
+                                        </a> --}}
+                                        {{-- <a href="{{route('admin.languages.delete',$data->id)}}" class="btn btn-danger btn-sm">
+                                            <i class="ti-trash"></i>
+                                        </a> --}}
+
+                                        <form action='{{route('admin.languages.delete',$data->id)}}' method="POST" >
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-sm btn-danger mb-3 mr-1  delete-confirm" >
+                                                            <i class="fas fa-trash" aria-hidden="true"></i>
+                                                        </button>
+                                                    </form>
+
                                         <a href="{{route('admin.languages.words.edit',$data->slug)}}" class="btn btn-lg btn-info btn-sm mb-3 mr-1" style="color: #fff;">
                                             <i class="ti-pencil"></i> {{__("Edit Words")}}
                                         </a>

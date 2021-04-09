@@ -48,6 +48,7 @@ class EventsController extends Controller
     }
 
     public function delete_event(Request $request,$id){
+        // dd($id);
         Events::find($id)->delete();
         return redirect()->back()->with(['msg' => 'Event Delete Success...','type'=>'danger']);
     }

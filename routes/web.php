@@ -18,7 +18,7 @@ Route::group(['middleware' => ['setlang','globalVariable']],function (){
     Route::get('/','FrontendController@index')->name('homepage');
     Route::get('/p/{id}/{any}','FrontendController@dynamic_single_page')->name('frontend.dynamic.page');
     Route::get('/plan-order/{id}','FrontendController@plan_order')->name('frontend.plan.order');
-    Route::get('/request-quote','FrontendController@request_quote')->name('frontend.request.quote');
+    // Route::get('/request-quote','FrontendController@request_quote')->name('frontend.request.quote');
 
     //payment status route
     Route::get('/order-success/{id}','FrontendController@order_payment_success')->name('frontend.order.payment.success');
@@ -36,7 +36,7 @@ Route::group(['middleware' => ['setlang','globalVariable']],function (){
     Route::get('/home/{id}','FrontendController@home_page_change');
     Route::post('/contact-message','FrontendController@send_contact_message')->name('frontend.contact.message');
     Route::post('/subscribe-newsletter','FrontendController@subscribe_newsletter')->name('frontend.subscribe.newsletter');
-    Route::post('/request-quote','FrontendController@send_quote_message')->name('frontend.quote.message');
+    // Route::post('/request-quote','FrontendController@send_quote_message')->name('frontend.quote.message');
     Route::post('/place-order','FrontendController@send_order_message')->name('frontend.order.message');
     Route::post('/request-call-back','FrontendController@send_call_back_message')->name('frontend.call.back.message');
 
@@ -86,10 +86,10 @@ Route::group(['middleware' => ['setlang','globalVariable']],function (){
     Route::get('/'.$events_page_slug.'/search','FrontendController@events_search')->name('frontend.events.search');
 
     //knowledgebase
-    Route::get('/'.$knowledgebase_page_slug,'FrontendController@knowledgebase')->name('frontend.knowledgebase');
-    Route::get('/'.$knowledgebase_page_slug.'/{id}/{any}','FrontendController@knowledgebase_single')->name('frontend.knowledgebase.single');
-    Route::get('/'.$knowledgebase_page_slug.'-category/{id}/{any}','FrontendController@knowledgebase_category')->name('frontend.knowledgebase.category');
-    Route::get('/'.$knowledgebase_page_slug.'/search','FrontendController@knowledgebase_search')->name('frontend.knowledgebase.search');
+    // Route::get('/'.$knowledgebase_page_slug,'FrontendController@knowledgebase')->name('frontend.knowledgebase');
+    // Route::get('/'.$knowledgebase_page_slug.'/{id}/{any}','FrontendController@knowledgebase_single')->name('frontend.knowledgebase.single');
+    // Route::get('/'.$knowledgebase_page_slug.'-category/{id}/{any}','FrontendController@knowledgebase_category')->name('frontend.knowledgebase.category');
+    // Route::get('/'.$knowledgebase_page_slug.'/search','FrontendController@knowledgebase_search')->name('frontend.knowledgebase.search');
 
 });
 
@@ -126,27 +126,27 @@ Route::prefix('admin-home')->middleware('events_manage')->group(function (){
 });
 
 //knowledgebase routes
-Route::prefix('admin-home')->middleware(['knowledgebase'])->group(function (){
+// Route::prefix('admin-home')->middleware(['knowledgebase'])->group(function (){
 
-    Route::get('/knowledge','KnowledgebaseController@all_knowledgebases')->name('admin.knowledge.all');
-    Route::get('/knowledge/new','KnowledgebaseController@new_knowledgebase')->name('admin.knowledge.new');
-    Route::post('/knowledge/new','KnowledgebaseController@store_knowledgebases');
-    Route::get('/knowledge/edit/{id}','KnowledgebaseController@edit_knowledgebases')->name('admin.knowledge.edit');
-    Route::post('/knowledge/update','KnowledgebaseController@update_knowledgebases')->name('admin.knowledge.update');
-    Route::post('/knowledge/delete/{id}','KnowledgebaseController@delete_knowledgebases')->name('admin.knowledge.delete');
+//     Route::get('/knowledge','KnowledgebaseController@all_knowledgebases')->name('admin.knowledge.all');
+//     Route::get('/knowledge/new','KnowledgebaseController@new_knowledgebase')->name('admin.knowledge.new');
+//     Route::post('/knowledge/new','KnowledgebaseController@store_knowledgebases');
+//     Route::get('/knowledge/edit/{id}','KnowledgebaseController@edit_knowledgebases')->name('admin.knowledge.edit');
+//     Route::post('/knowledge/update','KnowledgebaseController@update_knowledgebases')->name('admin.knowledge.update');
+//     Route::post('/knowledge/delete/{id}','KnowledgebaseController@delete_knowledgebases')->name('admin.knowledge.delete');
 
-    //knowledge base page settings
-    Route::get('/knowledge/page-settings','KnowledgebaseController@page_settings')->name('admin.knowledge.page.settings');
-    Route::post('/knowledge/page-settings','KnowledgebaseController@update_page_settings');
+//     //knowledge base page settings
+//     Route::get('/knowledge/page-settings','KnowledgebaseController@page_settings')->name('admin.knowledge.page.settings');
+//     Route::post('/knowledge/page-settings','KnowledgebaseController@update_page_settings');
 
-    //knowledge base category
-    Route::get('/knowledge/category','KnowledgebaseTopicsController@all_knowledgebase_category')->name('admin.knowledge.category.all');
-    Route::post('/knowledge/category/new','KnowledgebaseTopicsController@store_knowledgebase_category')->name('admin.knowledge.category.new');
-    Route::post('/knowledge/category/update','KnowledgebaseTopicsController@update_knowledgebase_category')->name('admin.knowledge.category.update');
-    Route::post('/knowledge/category/delete/{id}','KnowledgebaseTopicsController@delete_knowledgebase_category')->name('admin.knowledge.category.delete');
-    Route::post('/knowledge/category/lang','KnowledgebaseTopicsController@category_by_language_slug')->name('admin.knowledge.category.by.lang');
+//     //knowledge base category
+//     Route::get('/knowledge/category','KnowledgebaseTopicsController@all_knowledgebase_category')->name('admin.knowledge.category.all');
+//     Route::post('/knowledge/category/new','KnowledgebaseTopicsController@store_knowledgebase_category')->name('admin.knowledge.category.new');
+//     Route::post('/knowledge/category/update','KnowledgebaseTopicsController@update_knowledgebase_category')->name('admin.knowledge.category.update');
+//     Route::post('/knowledge/category/delete/{id}','KnowledgebaseTopicsController@delete_knowledgebase_category')->name('admin.knowledge.category.delete');
+//     Route::post('/knowledge/category/lang','KnowledgebaseTopicsController@category_by_language_slug')->name('admin.knowledge.category.by.lang');
 
-});
+// });
 
 //job post routes
 Route::prefix('admin-home')->middleware('job_post_manage')->group(function (){
@@ -172,14 +172,14 @@ Route::prefix('admin-home')->middleware('job_post_manage')->group(function (){
 });
 
 //quote manage route
-Route::prefix('admin-home')->middleware(['quote_manage'])->group(function (){
-    Route::get('/quote-manage/all','QuoteManageController@all_quotes')->name('admin.quote.manage.all');
-    Route::get('/quote-manage/pending','QuoteManageController@pending_quotes')->name('admin.quote.manage.pending');
-    Route::get('/quote-manage/completed','QuoteManageController@completed_quotes')->name('admin.quote.manage.completed');
-    Route::post('/quote-manage/change-status','QuoteManageController@change_status')->name('admin.quote.manage.change.status');
-    Route::post('/quote-manage/send-mail','QuoteManageController@send_mail')->name('admin.quote.manage.send.mail');
-    Route::post('/quote-manage/delete/{id}','QuoteManageController@quote_delete')->name('admin.quote.manage.delete');
-});
+// Route::prefix('admin-home')->middleware(['quote_manage'])->group(function (){
+//     Route::get('/quote-manage/all','QuoteManageController@all_quotes')->name('admin.quote.manage.all');
+//     Route::get('/quote-manage/pending','QuoteManageController@pending_quotes')->name('admin.quote.manage.pending');
+//     Route::get('/quote-manage/completed','QuoteManageController@completed_quotes')->name('admin.quote.manage.completed');
+//     Route::post('/quote-manage/change-status','QuoteManageController@change_status')->name('admin.quote.manage.change.status');
+//     Route::post('/quote-manage/send-mail','QuoteManageController@send_mail')->name('admin.quote.manage.send.mail');
+//     Route::post('/quote-manage/delete/{id}','QuoteManageController@quote_delete')->name('admin.quote.manage.delete');
+// });
 
 //order manage route
 Route::prefix('admin-home')->middleware(['order_manage'])->group(function (){
@@ -232,16 +232,16 @@ Route::prefix('admin-home')->middleware(['admin_role_manage'])->group(function (
     Route::post('/all-user/role/delete/{id}','UserRoleManageController@delete_user_role')->name('admin.user.role.delete');
 });
 //blog settings
-Route::prefix('admin-home')->middleware(['blog_settings'])->group(function (){
-    Route::get('/blog-page','AdminDashboardController@blog_page')->name('admin.blog.page');
-    Route::post('/blog-page','AdminDashboardController@blog_page_update');
+// Route::prefix('admin-home')->middleware(['blog_settings'])->group(function (){
+//     Route::get('/blog-page','AdminDashboardController@blog_page')->name('admin.blog.page');
+//     Route::post('/blog-page','AdminDashboardController@blog_page_update');
 
-    //blog single page
-    Route::get('/blog-single-page','AdminDashboardController@blog_single_page')->name('admin.blog.single.page');
-    Route::post('/blog-single-page','AdminDashboardController@blog_single_page_update');
-});
+//     //blog single page
+//     Route::get('/blog-single-page','AdminDashboardController@blog_single_page')->name('admin.blog.single.page');
+//     Route::post('/blog-single-page','AdminDashboardController@blog_single_page_update');
+// });
 
-//blogs
+//blogs dashboard
 Route::prefix('admin-home')->middleware(['blogs'])->group(function (){
     //blog
     Route::get('/blog','BlogController@index')->name('admin.blog');
@@ -331,17 +331,17 @@ Route::prefix('admin-home')->middleware(['footer_area'])->group(function (){
 });
 
 //form builder
-Route::prefix('admin-home')->middleware(['form_builder'])->group(function (){
-    //form builder routes
-    Route::get('/form-builder/quote-form','FormBuilderController@quote_form_index')->name('admin.form.builder.quote');
-    Route::post('/form-builder/quote-form','FormBuilderController@update_quote_form');
-    Route::get('/form-builder/order-form','FormBuilderController@order_form_index')->name('admin.form.builder.order');
-    Route::post('/form-builder/order-form','FormBuilderController@update_order_form');
-    Route::get('/form-builder/contact-form','FormBuilderController@contact_form_index')->name('admin.form.builder.contact');
-    Route::post('/form-builder/contact-form','FormBuilderController@update_contact_form');
-    Route::get('/form-builder/call-back-form','FormBuilderController@call_back_form_index')->name('admin.form.builder.call.back');
-    Route::post('/form-builder/call-back-form','FormBuilderController@update_call_back_form');
-});
+// Route::prefix('admin-home')->middleware(['form_builder'])->group(function (){
+//     //form builder routes
+//     // Route::get('/form-builder/quote-form','FormBuilderController@quote_form_index')->name('admin.form.builder.quote');
+//     // Route::post('/form-builder/quote-form','FormBuilderController@update_quote_form');
+//     Route::get('/form-builder/order-form','FormBuilderController@order_form_index')->name('admin.form.builder.order');
+//     Route::post('/form-builder/order-form','FormBuilderController@update_order_form');
+//     Route::get('/form-builder/contact-form','FormBuilderController@contact_form_index')->name('admin.form.builder.contact');
+//     Route::post('/form-builder/contact-form','FormBuilderController@update_contact_form');
+//     Route::get('/form-builder/call-back-form','FormBuilderController@call_back_form_index')->name('admin.form.builder.call.back');
+//     Route::post('/form-builder/call-back-form','FormBuilderController@update_call_back_form');
+// });
 
 //general settings
 Route::prefix('admin-home')->middleware(['general_settings'])->group(function (){
@@ -440,11 +440,11 @@ Route::prefix('admin-home')->middleware(['home_page_manage'])->group(function ()
     Route::post('/delete-header/{id}','HeaderSliderController@delete')->name('admin.header.delete');
 });
 //home variant
-Route::prefix('admin-home')->middleware(['home_variant'])->group(function (){
-    //home page variant select
-    Route::get('/home-variant',"AdminDashboardController@home_variant")->name('admin.home.variant');
-    Route::post('/home-variant',"AdminDashboardController@update_home_variant");
-});
+// Route::prefix('admin-home')->middleware(['home_variant'])->group(function (){
+//     //home page variant select
+//     Route::get('/home-variant',"AdminDashboardController@home_variant")->name('admin.home.variant');
+//     Route::post('/home-variant',"AdminDashboardController@update_home_variant");
+// });
 //languages
 Route::prefix('admin-home')->middleware(['languages'])->group(function (){
     //language
@@ -467,11 +467,11 @@ Route::prefix('admin-home')->middleware(['menus_manage'])->group(function (){
     Route::post('/menu-default/{id}','MenuController@set_default_menu')->name('admin.menu.default');
 });
 //navbar settings
-Route::prefix('admin-home')->middleware(['nabvar_settings'])->group(function (){
-    //navbar settings
-    Route::get('/navbar-settings',"AdminDashboardController@navbar_settings")->name('admin.navbar.settings');
-    Route::post('/navbar-settings',"AdminDashboardController@update_navbar_settings");
-});
+// Route::prefix('admin-home')->middleware(['nabvar_settings'])->group(function (){
+//     //navbar settings
+//     Route::get('/navbar-settings',"AdminDashboardController@navbar_settings")->name('admin.navbar.settings');
+//     Route::post('/navbar-settings',"AdminDashboardController@update_navbar_settings");
+// });
 //newsletter manage
 Route::prefix('admin-home')->middleware(['newsletter_manage'])->group(function (){
 
@@ -500,26 +500,26 @@ Route::prefix('admin-home')->middleware(['pages'])->group(function (){
     Route::post('/page-delete/{id}','PagesController@delete_page')->name('admin.page.delete');
 });
 //price plan
-Route::prefix('admin-home')->middleware(['price_plan'])->group(function (){
-    //price plan
-    Route::get('/price-plan','PricePlanController@index')->name('admin.price.plan');
-    Route::post('/price-plan','PricePlanController@store');
-    Route::post('/update-price-plan','PricePlanController@update')->name('admin.price.plan.update');
-    Route::post('/delete-price-plan/{id}','PricePlanController@delete')->name('admin.price.plan.delete');
-});
-//price plan page manage
-Route::prefix('admin-home')->middleware(['price_plan_page_manage'])->group(function (){
-    // price plan page
-    Route::get('/price-plan-page/settings','PricePlanPageController@price_plan_page_settings')->name('admin.price.plan.page.settings');
-    Route::post('/price-plan-page/settings','PricePlanPageController@update_price_plan_page_settings');
-});
+// Route::prefix('admin-home')->middleware(['price_plan'])->group(function (){
+//     //price plan
+//     Route::get('/price-plan','PricePlanController@index')->name('admin.price.plan');
+//     Route::post('/price-plan','PricePlanController@store');
+//     Route::post('/update-price-plan','PricePlanController@update')->name('admin.price.plan.update');
+//     Route::post('/delete-price-plan/{id}','PricePlanController@delete')->name('admin.price.plan.delete');
+// });
+// //price plan page manage
+// Route::prefix('admin-home')->middleware(['price_plan_page_manage'])->group(function (){
+//     // price plan page
+//     Route::get('/price-plan-page/settings','PricePlanPageController@price_plan_page_settings')->name('admin.price.plan.page.settings');
+//     Route::post('/price-plan-page/settings','PricePlanPageController@update_price_plan_page_settings');
+// });
 
 //quote page manage
-Route::prefix('admin-home')->middleware(['quote_page_manage'])->group(function (){
-    //quote
-    Route::get('/quote-page','QuotePageController@index')->name('admin.quote.page');
-    Route::post('/quote-page','QuotePageController@udpate');
-});
+// Route::prefix('admin-home')->middleware(['quote_page_manage'])->group(function (){
+//     //quote
+//     Route::get('/quote-page','QuotePageController@index')->name('admin.quote.page');
+//     Route::post('/quote-page','QuotePageController@udpate');
+// });
 //services
 Route::prefix('admin-home')->middleware(['services'])->group(function (){
     //services
@@ -578,11 +578,11 @@ Route::prefix('admin-home')->middleware(['works'])->group(function (){
     Route::post('/delete-works-category/{id}','WorksController@category_delete')->name('admin.work.category.delete');
 });
 //work single page manage
-Route::prefix('admin-home')->middleware(['work_single_page_manage'])->group(function (){
-    // work single page
-    Route::get('/work-single-page/settings','WorkSinglePageController@work_single_page_settings')->name('admin.work.single.page.settings');
-    Route::post('/work-single-page/settings','WorkSinglePageController@update_work_single_page_settings');
-});
+// Route::prefix('admin-home')->middleware(['work_single_page_manage'])->group(function (){
+//     // work single page
+//     Route::get('/work-single-page/settings','WorkSinglePageController@work_single_page_settings')->name('admin.work.single.page.settings');
+//     Route::post('/work-single-page/settings','WorkSinglePageController@update_work_single_page_settings');
+// });
 
 Route::prefix('admin-home')->group(function (){
 

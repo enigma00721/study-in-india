@@ -63,7 +63,6 @@ class FrontendController extends Controller
         $all_key_features = KeyFeatures::where('lang', $lang)->get();
         $all_service = Services::where('lang', $lang)->orderBy('id', 'desc')->take(get_static_option('home_page_01_service_area_items'))->get();
         $all_testimonial = Testimonial::where('lang', $lang)->get();
-        $all_price_plan = PricePlan::where(['lang' => $lang])->orderBy('id', 'desc')->take(get_static_option('home_page_01_price_plan_section_items'))->get();;
         $all_team_members = TeamMember::where('lang', $lang)->orderBy('id', 'desc')->get();;
         $all_brand_logo = Brand::all();
         // $all_work = Works::where('lang', $lang)->get();
@@ -80,7 +79,6 @@ class FrontendController extends Controller
             'all_service' => $all_service,
             'all_testimonial' => $all_testimonial,
             'all_blog' => $all_blog,
-            'all_price_plan' => $all_price_plan,
             'all_team_members' => $all_team_members,
             'all_brand_logo' => $all_brand_logo,
             'all_work' => $all_work,
@@ -294,6 +292,7 @@ class FrontendController extends Controller
 
     public function send_contact_message(Request $request)
     {
+        dd($request->all());
 
         $all_quote_form_fields = json_decode(get_static_option('contact_page_form_fields'));
         $required_fields = [];
@@ -392,19 +391,13 @@ class FrontendController extends Controller
     public function about_page()
     {
         $lang = !empty(session()->get('lang')) ? session()->get('lang') : Language::where('default', 1)->first()->slug;
-        $all_counterup = Counterup::where('lang', $lang)->get();
         $all_brand_logo = Brand::all();
         $all_team_members = TeamMember::where('lang', $lang)->orderBy('id', 'desc')->take(4)->get();
-        $all_blog = Blog::where('lang', $lang)->orderBy('id', 'desc')->take(9)->get();
-        $all_testimonial = Testimonial::where('lang', $lang)->get();
         $all_know_about = KnowAbout::where('lang', $lang)->get();
         $all_service = Services::where('lang', $lang)->orderBy('id', 'desc')->take(4)->get();
         return view('frontend.pages.about')->with([
-            'all_counterup' => $all_counterup,
             'all_brand_logo' => $all_brand_logo,
             'all_team_members' => $all_team_members,
-            'all_blog' => $all_blog,
-            'all_testimonial' => $all_testimonial,
             'all_service' => $all_service,
             'all_know_about' => $all_know_about,
         ]);
@@ -862,61 +855,6 @@ class FrontendController extends Controller
         return view('frontend.pages.events.event-single')->with([
             'event' => $event,
             'all_event_category' => $all_events_category
-        ]);
-    }
-
-    //knowledgebase
-    public function knowledgebase(){
-        $all_knowledgebase = Knowledgebase::where(['status' => 'publish','lang' => get_user_lang()])->paginate(get_static_option('site_knowledgebase_post_items'))->groupby('topic_id');
-        $all_knowledgebase_category = KnowledgebaseTopic::where(['status' => 'publish','lang' => get_user_lang()])->get();
-        $popular_articles = Knowledgebase::where(['status' => 'publish','lang' => get_user_lang()])->orderBy('views','desc')->get()->take(5);
-        return view('frontend.pages.knowledgebase.knowledgebase')->with([
-            'all_knowledgebase' => $all_knowledgebase,
-            'popular_articles' => $popular_articles,
-            'all_knowledgebase_category' => $all_knowledgebase_category,
-        ]);
-    }
-
-    public function knowledgebase_category($id,$any){
-
-        $all_knowledgebase = Knowledgebase::where(['status' => 'publish','lang' => get_user_lang(),'topic_id' => $id])->orderBy('views','desc')->paginate(get_static_option('site_knowledgebase_post_items'));
-        $all_knowledgebase_category = KnowledgebaseTopic::where(['status' => 'publish','lang' => get_user_lang()])->get();
-        $popular_articles = Knowledgebase::where(['status' => 'publish','lang' => get_user_lang()])->orderBy('views','desc')->get()->take(5);
-        $category_name = KnowledgebaseTopic::find($id)->title;
-        return view('frontend.pages.knowledgebase.knowledgebase-category')->with([
-            'all_knowledgebase' => $all_knowledgebase,
-            'all_knowledgebase_category' => $all_knowledgebase_category,
-            'popular_articles' => $popular_articles,
-            'category_name' => $category_name,
-        ]);
-    }
-
-    public function knowledgebase_search(Request $request){
-
-        $all_knowledgebase = Knowledgebase::where(['status' => 'publish','lang' => get_user_lang()])->where('title', 'LIKE', '%' . $request->search . '%')->orderBy('views','desc')->paginate(get_static_option('site_knowledgebase_post_items'));
-        $all_knowledgebase_category = KnowledgebaseTopic::where(['status' => 'publish','lang' => get_user_lang()])->get();
-        $popular_articles = Knowledgebase::where(['status' => 'publish','lang' => get_user_lang()])->orderBy('views','desc')->get()->take(5);
-        $search_term = $request->search;
-
-        return view('frontend.pages.knowledgebase.knowledgebase-search')->with([
-            'all_knowledgebase' => $all_knowledgebase,
-            'all_knowledgebase_category' => $all_knowledgebase_category,
-            'popular_articles' => $popular_articles,
-            'search_term' => $search_term,
-        ]);
-    }
-
-    public function knowledgebase_single($id){
-        $knowledgebase = Knowledgebase::find($id);
-        $old_views = is_null($knowledgebase->views) ? 0 : $knowledgebase->views +1;
-        Knowledgebase::find($id)->update(['views' => $old_views]);
-
-        $all_knowledgebase_category = KnowledgebaseTopic::where(['status' => 'publish','lang' => get_user_lang()])->get();
-        $popular_articles = Knowledgebase::where(['status' => 'publish','lang' => get_user_lang()])->orderBy('views','desc')->get()->take(5);
-        return view('frontend.pages.knowledgebase.knowledgebase-single')->with([
-            'knowledgebase' => $knowledgebase,
-            'all_knowledgebase_category' => $all_knowledgebase_category,
-            'popular_articles' => $popular_articles,
         ]);
     }
 

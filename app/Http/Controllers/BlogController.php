@@ -94,6 +94,7 @@ class BlogController extends Controller
         ]);
     }
     public function delete_blog(Request $request,$id){
+        // dd($id);
         Blog::find($id)->delete();
 
         return redirect()->back()->with([

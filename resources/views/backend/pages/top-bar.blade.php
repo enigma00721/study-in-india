@@ -115,7 +115,6 @@
                                                 <td>{{$data->title}}</td>
                                                 <td><i class="{{$data->icon}}"></i></td>
                                                 <td>{{$data->details}}</td>
-                                                <td>{{$data->link}}</td>
                                                 <td>
                                                     <a tabindex="0" class="btn btn-lg btn-danger btn-sm mb-3 mr-1"
                                                        role="button"

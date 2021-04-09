@@ -39,7 +39,6 @@ class AdminDashboardController extends Controller
         $total_testimonial = Testimonial::where('lang', $default_lang)->count();
         $total_team_member = TeamMember::where('lang', $default_lang)->count();
         $total_counterup = Counterup::where('lang', $default_lang)->count();
-        $total_price_plan = PricePlan::where('lang', $default_lang)->count();
         $total_services = Services::where('lang', $default_lang)->count();
         $total_key_features = KeyFeatures::where('lang', $default_lang)->count();
         $total_works = Works::where('lang', $default_lang)->count();
@@ -50,7 +49,6 @@ class AdminDashboardController extends Controller
             'total_testimonial' => $total_testimonial,
             'total_team_member' => $total_team_member,
             'total_counterup' => $total_counterup,
-            'total_price_plan' => $total_price_plan,
             'total_works' => $total_works,
             'total_services' => $total_services,
             'total_key_features' => $total_key_features,
@@ -138,106 +136,6 @@ class AdminDashboardController extends Controller
         update_static_option('contact_page_longitude', $request->longitude);
 
         return redirect()->back()->with(['msg' => 'Contact Page Info Update Success', 'type' => 'success']);
-    }
-
-
-    public function blog_page()
-    {
-        $all_languages = Language::all();
-        return view('backend.pages.blog')->with(['all_languages' => $all_languages]);
-    }
-
-    public function blog_page_update(Request $request)
-    {
-        $all_language = Language::all();
-        foreach ($all_language as $lang) {
-            $this->validate($request, [
-                'blog_page_' . $lang->slug . '_title' => 'nullable',
-                'blog_page_' . $lang->slug . '_item' => 'nullable',
-                'blog_page_' . $lang->slug . '_category_widget_title' => 'nullable',
-                'blog_page_' . $lang->slug . '_recent_post_widget_title' => 'nullable',
-                'blog_page_' . $lang->slug . '_recent_post_widget_item' => 'nullable',
-            ]);
-            $blog_page_title = 'blog_page_' . $lang->slug . '_title';
-            $blog_page_item = 'blog_page_' . $lang->slug . '_item';
-            $blog_page_category_widget_title = 'blog_page_' . $lang->slug . '_category_widget_title';
-            $blog_page_recent_post_widget_title = 'blog_page_' . $lang->slug . '_recent_post_widget_title';
-            $blog_page_recent_post_widget_item = 'blog_page_' . $lang->slug . '_recent_post_widget_item';
-
-            update_static_option('blog_page_' . $lang->slug . '_title', $request->$blog_page_title);
-            update_static_option('blog_page_' . $lang->slug . '_item', $request->$blog_page_item);
-            update_static_option('blog_page_' . $lang->slug . '_category_widget_title', $request->$blog_page_category_widget_title);
-            update_static_option('blog_page_' . $lang->slug . '_recent_post_widget_title', $request->$blog_page_recent_post_widget_title);
-            update_static_option('blog_page_' . $lang->slug . '_recent_post_widget_item', $request->$blog_page_recent_post_widget_item);
-        }
-
-
-        return redirect()->back()->with(['msg' => 'Blog Settings Update Success', 'type' => 'success']);
-    }
-
-
-    public function home_variant()
-    {
-        return view('backend.pages.home.home-variant');
-    }
-
-    public function update_home_variant(Request $request)
-    {
-        $this->validate($request, [
-            'home_page_variant' => 'required|string'
-        ]);
-        update_static_option('home_page_variant', $request->home_page_variant);
-        return redirect()->back()->with(['msg' => 'Home Variant Settings Updated..', 'type' => 'success']);
-    }
-
-    public function navbar_settings()
-    {
-        return view('backend.pages.navbar-settings');
-    }
-
-    public function update_navbar_settings(Request $request)
-    {
-
-        $this->validate($request, [
-            'navbar_button' => 'nullable|string',
-            'navbar_button_custom_url' => 'nullable|string',
-            'navbar_button_custom_url_status' => 'nullable|string',
-        ]);
-
-        update_static_option('navbar_button', $request->navbar_button);
-        update_static_option('navbar_button_custom_url', $request->navbar_button_custom_url);
-        update_static_option('navbar_button_custom_url_status', $request->navbar_button_custom_url_status);
-        update_static_option('site_header_type', $request->site_header_type);
-
-        $all_lang = Language::all();
-        foreach ($all_lang as $lang) {
-            $filed_name = 'navbar_' . $lang->slug . '_button_text';
-            update_static_option('navbar_' . $lang->slug . '_button_text', $request->$filed_name);
-        }
-
-
-
-        return redirect()->back()->with(['msg' => 'Navbar Settings Updated..', 'type' => 'success']);
-    }
-
-
-    public function blog_single_page(){
-        $all_languages = Language::all();
-        return view('backend.pages.blog-single')->with(['all_languages' => $all_languages]);
-    }
-
-    public function blog_single_page_update(Request $request){
-        $all_languages = Language::all();
-        foreach ($all_languages as $lang){
-            $this->validate($request,[
-                "blog_single_page_".$lang->slug."_related_post_title" => 'nullable|string'
-            ]);
-            $_related_post_title = "blog_single_page_".$lang->slug."_related_post_title";
-
-            update_static_option($_related_post_title,$request->$_related_post_title);
-        }
-
-        return redirect()->back()->with(['msg' => 'Blog Single Page Setting Updated...','type' => 'success']);
     }
 
 }

@@ -39,7 +39,7 @@
                         @endforeach
                         </div>
                     </div>
-                    <div class="col-lg-12 text-center">
+                    <div class="col-lg-12 text-center mt-5">
                         <nav class="pagination-wrapper " aria-label="Page navigation ">
                             {{$all_events->links()}}
                         </nav>

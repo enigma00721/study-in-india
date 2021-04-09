@@ -159,88 +159,10 @@
         </div>
     </section>
     @endif
-@if(!empty(get_static_option('about_page_testimonial_section_status')))
-    <section class="testimonial-area testimonial-bg padding-top-110 padding-bottom-120"
-         @php
-             $home_testimonial_image = get_attachment_image_by_id(get_static_option('home_01_testimonial_bg'),null,false);
-         @endphp
-         @if (!empty($home_testimonial_image))
-         style="background-image: url({{$home_testimonial_image['img_url']}})"
-        @endif
-    >
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="testimonial-carousel">
-                        @foreach($all_testimonial as $data)
-                            <div class="single-testimonial-item white">
-                                <div class="icon">
-                                    <i class="flaticon-quote"></i>
-                                </div>
-                                <p>{{$data->description}} </p>
-                                <div class="author-meta">
-                                    <h4 class="name">{{$data->name}}</h4>
-                                    <span class="designation">{{$data->designation}}</span>
-                                </div>
-                                <div class="thumb">
-                                    @php
-                                        $testimonial_image = get_attachment_image_by_id($data->image,"full",false);
-                                    @endphp
-                                    @if (!empty($testimonial_image))
-                                        <img src="{{$testimonial_image['img_url']}}" alt="{{__($data->name)}}">
-                                    @endif
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    @endif
-@if(!empty(get_static_option('about_page_latest_news_section_status')))
-    <section class="latest-news padding-top-110 padding-bottom-120">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-6">
-                    <div class="section-title desktop-center margin-bottom-55">
-                        <h2 class="title">{{get_static_option('home_page_01_'.get_user_lang().'_latest_news_title')}}</h2>
-                        <p>{{get_static_option('home_page_01_'.get_user_lang().'_latest_news_description')}}</p>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="latest-news-carousel">
-                        @foreach($all_blog as $data)
-                            <div class="single-blog-grid-01">
-                                <div class="thumb">
-                                    @php
-                                        $blog_image = get_attachment_image_by_id($data->image,"grid",false);
-                                    @endphp
-                                    @if (!empty($blog_image))
-                                        <img src="{{$blog_image['img_url']}}" alt="{{__($data->name)}}">
-                                    @endif
-                                </div>
-                                <div class="content">
-                                    <h4 class="title"><a href="{{route('frontend.blog.single',['id' => $data->id,'any' => Str::slug($data->title)])}}">{{$data->title}}</a></h4>
-                                    <ul class="post-meta">
-                                        <li><a href="#"><i class="fa fa-calendar"></i> {{date_format($data->created_at,'d M y')}}</a></li>
-                                        <li><a href="#"><i class="fa fa-user"></i> {{$data->user->username}}</a></li>
-                                        <li><div class="cats"><i class="fa fa-calendar"></i><a href="#"> Business</a></div></li>
-                                    </ul>
-                                    <p>{{$data->excerpt}}</p>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-@endif
+
+
 @if(!empty(get_static_option('about_page_brand_logo_section_status')))
-    <div class="brand-logo-area section-bg-1 padding-80">
+    <div class="brand-logo-area padding-80">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
