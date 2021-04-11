@@ -1,0 +1,70 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Level;
+
+class LevelController extends Controller
+{
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
+
+    public function index(){
+        // dd('nice');
+        $all_levels = Level::all()->groupBy('lang');
+        return view('backend.pages.level.index')->with(['all_levels' => $all_levels]);
+    }
+
+    public function store(Request $request){
+        // dd($request->all());
+        $this->validate($request, [
+            'title' => 'required|string|max:150',
+            'lang' => 'required|string|max:191',
+            'status' => 'required|string|max:191'
+        ]);
+        $row = Level::create($request->all());
+        if($row){
+            return redirect()->back()->with([
+                'msg' => 'New Level Added...',
+                'type' => 'success'
+                ]);
+        }else{
+           return redirect()->back()->with([
+                'msg' => 'Failed To Add New Level...',
+                'type' => 'error'
+                ]); 
+        }
+    }
+
+    public function update(Request $request)
+    {
+        $this->validate($request,[
+            'title' => 'required|string|max:191',
+            'status' => 'required|string|max:191'
+        ]);
+
+        $row = Level::find($request->id);
+        $row->update([
+            'title' => $request->title,
+            'status' => $request->status,
+        ]);
+
+        return redirect()->back()->with([
+            'msg' => 'Level Update Success...',
+            'type' => 'success'
+        ]);
+    }
+
+    public function delete($id)
+    {
+        $row = Level::find($id)->delete();
+        return redirect()->back()->with([
+            'msg' => 'Level Delete Success...',
+            'type' => 'danger'
+        ]);
+    }
+
+}

@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
+
+
 Route::group(['middleware' => ['setlang','globalVariable']],function (){
 
     Route::get('/','FrontendController@index')->name('homepage');
@@ -149,27 +151,27 @@ Route::prefix('admin-home')->middleware('events_manage')->group(function (){
 // });
 
 //job post routes
-Route::prefix('admin-home')->middleware('job_post_manage')->group(function (){
+// Route::prefix('admin-home')->middleware('job_post_manage')->group(function (){
 
-    Route::get('/jobs','JobsController@all_jobs')->name('admin.jobs.all');
-    Route::get('/jobs/new','JobsController@new_job')->name('admin.jobs.new');
-    Route::post('/jobs/new','JobsController@store_job');
-    Route::get('/jobs/edit/{id}','JobsController@edit_job')->name('admin.jobs.edit');
-    Route::post('/jobs/update','JobsController@update_job')->name('admin.jobs.update');
-    Route::post('/jobs/delete/{id}','JobsController@delete_job')->name('admin.jobs.delete');
+//     Route::get('/jobs','JobsController@all_jobs')->name('admin.jobs.all');
+//     Route::get('/jobs/new','JobsController@new_job')->name('admin.jobs.new');
+//     Route::post('/jobs/new','JobsController@store_job');
+//     Route::get('/jobs/edit/{id}','JobsController@edit_job')->name('admin.jobs.edit');
+//     Route::post('/jobs/update','JobsController@update_job')->name('admin.jobs.update');
+//     Route::post('/jobs/delete/{id}','JobsController@delete_job')->name('admin.jobs.delete');
 
-    //job page settings
-    Route::get('/jobs/page-settings','JobsController@page_settings')->name('admin.jobs.page.settings');
-    Route::post('/jobs/page-settings','JobsController@update_page_settings');
+//     //job page settings
+//     Route::get('/jobs/page-settings','JobsController@page_settings')->name('admin.jobs.page.settings');
+//     Route::post('/jobs/page-settings','JobsController@update_page_settings');
 
-    //job category
-    Route::get('/jobs/category','JobsCategoryController@all_jobs_category')->name('admin.jobs.category.all');
-    Route::post('/jobs/category/new','JobsCategoryController@store_jobs_category')->name('admin.jobs.category.new');
-    Route::post('/jobs/category/update','JobsCategoryController@update_jobs_category')->name('admin.jobs.category.update');
-    Route::post('/jobs/category/delete/{id}','JobsCategoryController@delete_jobs_category')->name('admin.jobs.category.delete');
-    Route::post('/jobs/category/lang','JobsCategoryController@Language_by_slug')->name('admin.jobs.category.by.lang');
+//     //job category
+//     Route::get('/jobs/category','JobsCategoryController@all_jobs_category')->name('admin.jobs.category.all');
+//     Route::post('/jobs/category/new','JobsCategoryController@store_jobs_category')->name('admin.jobs.category.new');
+//     Route::post('/jobs/category/update','JobsCategoryController@update_jobs_category')->name('admin.jobs.category.update');
+//     Route::post('/jobs/category/delete/{id}','JobsCategoryController@delete_jobs_category')->name('admin.jobs.category.delete');
+//     Route::post('/jobs/category/lang','JobsCategoryController@Language_by_slug')->name('admin.jobs.category.by.lang');
 
-});
+// });
 
 //quote manage route
 // Route::prefix('admin-home')->middleware(['quote_manage'])->group(function (){
@@ -379,8 +381,9 @@ Route::prefix('admin-home')->middleware(['general_settings'])->group(function ()
     Route::post('/general-settings/gdpr-settings','GeneralSettingsController@update_gdpr_cookie_settings');
 
     //update script
-    Route::get('/general-settings/update-script','ScriptUpdateController@index')->name('admin.general.script.update');
-    Route::post('/general-settings/update-script','ScriptUpdateController@update_script');
+    // controller doesn't exist make one
+    // Route::get('/general-settings/update-script','ScriptUpdateController@index')->name('admin.general.script.update');
+    // Route::post('/general-settings/update-script','ScriptUpdateController@update_script');
 
     //custom js
     Route::get('/general-settings/custom-js','GeneralSettingsController@custom_js_settings')->name('admin.general.custom.js');
@@ -600,3 +603,68 @@ Route::prefix('admin-home')->group(function (){
     Route::post('/password-change','AdminDashboardController@admin_password_chagne');
 
 });
+
+
+//universities
+// Route::prefix('admin-home')->middleware(['works'])->group(function (){
+//     //works
+//     Route::get('/universities','UniversityController@index')->name('admin.universities');
+//     Route::post('/works','UniversityController@store');
+//     Route::post('/update-works','UniversityController@update')->name('admin.work.update');
+//     Route::post('/delete-works/{id}','UniversityController@delete')->name('admin.work.delete');
+//     Route::post('/works-cat-by-slug','UniversityController@category_by_slug')->name('admin.work.category.by.slug');
+
+//     Route::get('/works/category','UniversityController@category_index')->name('admin.work.category');
+//     Route::post('/works/category','UniversityController@category_store');
+//     Route::post('/update-works-category','UniversityController@category_update')->name('admin.work.category.update');
+//     Route::post('/delete-works-category/{id}','UniversityController@category_delete')->name('admin.work.category.delete');
+// });
+
+// discipline
+Route::prefix('admin-home')->middleware(['discipline'])->group(function (){
+    Route::get('/discipline','DisciplineController@index')->name('admin.discipline');
+    Route::post('/discipline','DisciplineController@store')->name('admin.discipline.store');
+    Route::post('/discipline/update','DisciplineController@update')->name('admin.discipline.update');
+    Route::post('/discipline/delete/{id}','DisciplineController@delete')->name('admin.discipline.delete');
+});
+
+// level
+Route::prefix('admin-home')->middleware(['discipline'])->group(function (){
+    Route::get('/level','LevelController@index')->name('admin.level');
+    Route::post('/level','LevelController@store')->name('admin.level.store');
+    Route::post('/level/update','LevelController@update')->name('admin.level.update');
+    Route::post('/level/delete/{id}','LevelController@delete')->name('admin.level.delete');
+});
+
+// job post routes
+Route::prefix('admin-home')->middleware('job_post_manage')->group(function (){
+
+    Route::get('/university','UniversityController@index')->name('admin.university');
+    Route::get('/university/create','UniversityController@create')->name('admin.university.create');
+    Route::post('/university/store','UniversityController@store')->name('admin.university.store');
+    Route::get('/university/edit/{id}','UniversityController@edit')->name('admin.university.edit');
+    Route::post('/university/update','UniversityController@update')->name('admin.university.update');
+    Route::post('/university/delete/{id}','UniversityController@delete')->name('admin.university.delete');
+
+    //job page settings
+    // Route::get('/jobs/page-settings','UniversityController@page_settings')->name('admin.jobs.page.settings');
+    // Route::post('/jobs/page-settings','UniversityController@update_page_settings');
+
+});
+
+
+
+
+
+
+
+
+
+
+
+// 404 if route/page is not found
+Route::get('/{any}', function ($any) {
+
+  return view('frontend.pages.404');
+
+})->where('any', '.*');

@@ -143,6 +143,8 @@
 <script src="{{asset('assets/backend/js/jquery.slimscroll.min.js')}}"></script>
 <script src="{{asset('assets/backend/js/jquery.slicknav.min.js')}}"></script>
 <script src="{{asset('assets/backend/js/fontawesome-iconpicker.min.js')}}"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 @yield('script')
 <script src="{{asset('assets/backend/js/plugins.js')}}"></script>
 <script src="{{asset('assets/backend/js/scripts.js')}}"></script>

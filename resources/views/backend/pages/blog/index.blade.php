@@ -85,8 +85,8 @@
                                                 <td>{{$data->user->name}}</td>
                                                 <td>{{$data->category->name}}</td>
                                                 <td>{{$data->excerpt}}</td>
-                                                <td>
-                                                    <form action='{{route('admin.blog.delete',$data->id)}}' method="POST" >
+                                                <td >
+                                                    <form action='{{route('admin.blog.delete',$data->id)}}' method="POST">
                                                         @csrf
                                                         <button type="submit" class="btn btn-sm btn-danger mb-3 mr-1  delete-confirm" >
                                                             <i class="fas fa-trash" aria-hidden="true"></i>

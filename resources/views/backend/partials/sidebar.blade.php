@@ -148,25 +148,22 @@
                             </ul>
                         </li>
                     @endif
-                    @if(check_page_permission('job_post_manage'))
+                    @if(check_page_permission('blogs'))
                     <li
-                            class="
-                        {{active_menu('admin-home/jobs')}}
-                            {{active_menu('admin-home/jobs-category')}}
-                            @if(request()->is('admin-home/jobs/*')) active @endif
+                    class="
+                    {{active_menu('admin-home/university')}}
+                            @if(request()->is('admin-home/university/*')) active @endif
                                     "
                     >
                         <a href="javascript:void(0)" aria-expanded="true"><i class="ti-write"></i>
-                            <span>{{__('Job Post Manage')}}</span></a>
+                            <span>{{__('University Manage')}}</span></a>
                         <ul class="collapse">
-                            <li class="{{active_menu('admin-home/jobs')}}"><a
-                                        href="{{route('admin.jobs.all')}}">{{__('All Jobs')}}</a></li>
-                            <li class="{{active_menu('admin-home/jobs-category')}}"><a
-                                        href="{{route('admin.jobs.category.all')}}">{{__('Category')}}</a></li>
-                            <li class="{{active_menu('admin-home/new-jobs')}}"><a
-                                        href="{{route('admin.jobs.new')}}">{{__('Add New Job')}}</a></li>
-                            <li class="{{active_menu('admin-home/jobs/page-settings')}}"><a
-                                        href="{{route('admin.jobs.page.settings')}}">{{__('Job Page Settings')}}</a></li>
+                            <li class="{{active_menu('admin-home/university')}}"><a
+                                        href="{{route('admin.university')}}">{{__('All Universities')}}</a></li>
+                            <li class="{{active_menu('admin-home/university/create')}}"><a
+                                        href="{{route('admin.university.create')}}">Add New University</a></li>
+                            {{-- <li class="{{active_menu('admin-home/jobs/page-settings')}}"><a
+                                        href="{{route('admin.jobs.page.settings')}}">{{__('University Page Settings')}}</a></li> --}}
                         </ul>
                     </li>
                     @endif
@@ -316,6 +313,22 @@
                         </ul>
                     </li>
                     @endif
+
+                    
+                   @if(check_page_permission('services'))
+                    <li class="{{active_menu('admin-home/discipline')}}">
+                        <a href="{{route('admin.discipline')}}" aria-expanded="true"><i class="ti-control-forward"></i>
+                            <span>{{__('Discipline')}}</span></a>
+                    </li>
+                    @endif
+                   @if(check_page_permission('services'))
+                    <li class="{{active_menu('admin-home/level')}}">
+                        <a href="{{route('admin.level')}}" aria-expanded="true"><i class="ti-control-forward"></i>
+                            <span>{{__('Level')}}</span></a>
+                    </li>
+                    @endif
+
+
                     @if(check_page_permission('works'))
                     <li class="
                     @if(request()->is('admin-home/works/*')) active @endif
