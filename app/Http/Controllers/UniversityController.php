@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\University;
+use App\Course;
 
 class UniversityController extends Controller
 {
@@ -59,6 +60,16 @@ class UniversityController extends Controller
         ]);
         University::find($request->university_id)->update($request->all());
         return redirect()->back()->with(['msg' => 'University Update Success...','type'=>'success']);
+    }
+
+    public function delete($id)
+    {
+        $row = University::find($id);
+        $row->delete();     // associated model also deleted from University Model
+         return redirect()->back()->with([
+            'msg' => 'University Delete Success...',
+            'type' => 'danger'
+        ]);
     }
 
 

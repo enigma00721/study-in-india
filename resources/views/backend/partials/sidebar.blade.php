@@ -84,15 +84,7 @@
                             </ul>
                         </li>
                     @endif
-                    @if(check_page_permission('all_payment_logs'))
-                        <li class="{{active_menu('admin-home/payment-logs')}}">
-                            <a href="{{route('admin.payment.logs')}}"
-                               aria-expanded="true">
-                                <i class="ti-file"></i>
-                                <span>{{__('All Payment Logs')}}</span>
-                            </a>
-                        </li>
-                    @endif
+                   
                     @if(check_page_permission('pages'))
                         <li
                                 class="
@@ -149,12 +141,13 @@
                         </li>
                     @endif
                     @if(check_page_permission('blogs'))
-                    <li
-                    class="
-                    {{active_menu('admin-home/university')}}
-                            @if(request()->is('admin-home/university/*')) active @endif
-                                    "
-                    >
+                        <li
+                        class="
+                        {{active_menu('admin-home/university')}}
+                                @if(request()->is('admin-home/university/*')) active @endif
+                                @if(request()->is('admin-home/course*')) active @endif
+                                        "
+                        >
                         <a href="javascript:void(0)" aria-expanded="true"><i class="ti-write"></i>
                             <span>{{__('University Manage')}}</span></a>
                         <ul class="collapse">
@@ -162,11 +155,24 @@
                                         href="{{route('admin.university')}}">{{__('All Universities')}}</a></li>
                             <li class="{{active_menu('admin-home/university/create')}}"><a
                                         href="{{route('admin.university.create')}}">Add New University</a></li>
-                            {{-- <li class="{{active_menu('admin-home/jobs/page-settings')}}"><a
-                                        href="{{route('admin.jobs.page.settings')}}">{{__('University Page Settings')}}</a></li> --}}
+                            <li class="{{active_menu('admin-home/course')}}"><a
+                                        href="{{route('admin.course')}}">{{__('All Courses')}}</a></li>
                         </ul>
                     </li>
                     @endif
+                    @if(check_page_permission('services'))
+                    <li class="{{active_menu('admin-home/discipline')}}">
+                        <a href="{{route('admin.discipline')}}" aria-expanded="true"><i class="ti-control-forward"></i>
+                            <span>{{__('Discipline')}}</span></a>
+                    </li>
+                    @endif
+                   @if(check_page_permission('services'))
+                    <li class="{{active_menu('admin-home/level')}}">
+                        <a href="{{route('admin.level')}}" aria-expanded="true"><i class="ti-control-forward"></i>
+                            <span>{{__('Level')}}</span></a>
+                    </li>
+                    @endif
+                    
                     @if(check_page_permission('events_manage'))
                     <li class="
                     {{active_menu('admin-home/events')}}
@@ -315,18 +321,7 @@
                     @endif
 
                     
-                   @if(check_page_permission('services'))
-                    <li class="{{active_menu('admin-home/discipline')}}">
-                        <a href="{{route('admin.discipline')}}" aria-expanded="true"><i class="ti-control-forward"></i>
-                            <span>{{__('Discipline')}}</span></a>
-                    </li>
-                    @endif
-                   @if(check_page_permission('services'))
-                    <li class="{{active_menu('admin-home/level')}}">
-                        <a href="{{route('admin.level')}}" aria-expanded="true"><i class="ti-control-forward"></i>
-                            <span>{{__('Level')}}</span></a>
-                    </li>
-                    @endif
+                   
 
 
                     @if(check_page_permission('works'))

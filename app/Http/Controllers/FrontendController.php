@@ -46,6 +46,10 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Symfony\Component\Process\Process;
+use App\University;
+use App\Discipline;
+use App\Level;
+use App\Course;
 
 class FrontendController extends Controller
 {
@@ -72,6 +76,7 @@ class FrontendController extends Controller
         $all_blog = Blog::orderBy('id', 'desc')->where('lang',$lang)->take(9)->get();
         $all_faq = Faq::where('lang', $lang)->orderBy('id', 'desc')->take(get_static_option('home_page_01_faq_area_items'))->get();
 
+        // dd($all_blog);
         return view('frontend.frontend-home')->with([
             'all_header_slider' => $all_header_slider,
             'all_counterup' => $all_counterup,
@@ -84,6 +89,21 @@ class FrontendController extends Controller
             'all_work' => $all_work,
             'all_faq' => $all_faq,
             'all_work_category' => $all_work_category
+        ]);
+    }
+
+    public function Universities()
+    {
+        $all_jobs = Jobs::where(['status' => 'publish','lang' => get_user_lang()])->orderBy('id','desc')->paginate(get_static_option('site_job_post_items'));
+        $all_job_category = JobsCategory::where(['status' => 'publish','lang' => get_user_lang()])->get();
+        $universities =  University::where('status','publish')->get();
+        // dd($universities);
+        $disciplines = Discipline::all();
+        $courses = Course::all();
+        $levels = Level::all();
+        return view('frontend.pages.university.index',compact('universities','disciplines','courses','levels'))->with([
+            'all_jobs' => $all_jobs,
+            'all_job_category' => $all_job_category,
         ]);
     }
 

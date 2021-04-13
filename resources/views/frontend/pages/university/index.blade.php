@@ -22,37 +22,66 @@
         .jumbotron{
             background: #F4F7FC;
         }
+         .search-university .form-control-2{
+             height: 56px;
+            margin-top: 50px; 
+            margin-bottom: 21px;
+            width: 100%;
+         }
+        .search-university .form-control{
+            height: 56px;
+            margin-top: 50px; 
+            margin-bottom: 21px;
+            width: 100%;
+            /* height: calc(1.5em + .75rem + 2px); */
+            padding: .375rem .75rem;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #495057;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            border-radius: .25rem;
+            transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+        }
     </style>
 @endsection
 @section('content')
-    <section class="jumbotron mt-10">
+    <section class="jumbotron mt-10 search-university">
         <div class="container">
             <h1 class="title">Explore Universities of Inida</h1>
             <div class="row">
-                <div class="col-md-3">
-                    <select name="course" id="" class="form-control">
-                        <option readonly>Discipline</option>
-                        <option value="1">1</option>
-                        <option value="1">1</option>
-                    </select>
-                </div>
-                <div class="col-md-3">
-                    <select name="course" id="" class="form-control">
-                        <option readonly>Course</option>
-                        <option value="1">1</option>
-                        <option value="1">1</option>
-                    </select>
-                </div>
-                <div class="col-md-3">
-                    <select name="course" id="" class="form-control">
-                        <option readonly>Level</option>
-                        <option value="1">1</option>
-                        <option value="1">1</option>
-                    </select>
-                </div>
-                <div class="col-md-3">
-                    <input type="submit" value="Search" class="form-control btn btn-primary">
-                </div>
+                {{-- <form action="{{route('universities')}}" method="get" class="form-inline"> --}}
+                    <div class="col-md-3">
+                        <select name="course" id="" class="form-control">
+                            <option readonly>Discipline</option>
+                            @foreach ($disciplines as $data)
+                                <option value="{{$data->id}}">{{$data->title}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select name="course" id="" class="form-control">
+                            <option readonly>Course</option>
+                            @foreach ($courses as $data)
+                                <option value="{{$data->id}}">{{$data->title}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select name="level" id="" class="form-control">
+                            <option readonly>Level</option>
+                            @foreach ($levels as $data)
+                                <option value="{{$data->id}}">{{$data->title}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-3 btn-wrapper">
+                        <input type="submit" value="Search" class="form-control-2 boxed-btn white border-none">
+                    </div>
+                {{-- </form> --}}
             </div>
         </div>
     </section>
@@ -118,6 +147,24 @@
 
                 </div>
                 <div class="col-lg-8">
+                    @foreach($universities as $data)
+                        <div class="row single-job-list-item">
+                            <div class="col-md-4 ">
+                                <img src="http://127.0.0.1:8000/assets/uploads/media-uploader/grid-091587061194.jpg" alt="">
+                            </div>
+                            <div class="col-lg-8">
+                                    {{-- <span class="job_type"><i class="far fa-clock"></i> {{str_replace('_',' ',$data->employment_status)}}</span> --}}
+                                    <a href="{{route('frontend.jobs.single',['id' => $data->id,'any' => Str::slug($data->name)])}}"><h3 class="title"> {{$data->name}} </h3></a>
+                                    <span class="company_name"><strong>{{__('Address:')}}</strong> {{$data->location}}</span>
+                                    <span class="company_name"><strong>{{__('Courses:')}}</strong> 50</span>
+                                    <span class="deadline"><strong>{{__('Available Seat:')}}</strong> 200</span>
+                                    <ul class="jobs-meta">
+                                        <li><i class="fas fa-briefcase"></i> Learn More</li>
+                                        <li><i class="fas fa-wallet"></i> Apply Now</li>
+                                    </ul>
+                            </div>
+                        </div>
+                    @endforeach
                     @foreach($all_jobs as $data)
                         <div class="row single-job-list-item">
                             <div class="col-md-4 ">

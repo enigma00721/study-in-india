@@ -246,11 +246,13 @@
             <div id="marquee">
                     <marquee behaviour="scroll" style="padding-top: 20px;">
                         <ul>
-                            <li> This example will take only 50% width</li>
-                            <li> This example will take only 10% width</li>
+                            @foreach($all_blog as $blog)
+                                <li> {{$blog->title}} </li>
+                            @endforeach
+                            {{-- <li> This example will take only 10% width</li>
                             <li> This example will take only 20% width</li>
                             <li> This example will take only 40% width</li>
-                            <li> This example will take only 80% width</li>
+                            <li> This example will take only 80% width</li> --}}
                         </ul>
                 </marquee>
             </div>

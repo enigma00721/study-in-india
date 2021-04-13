@@ -61,8 +61,8 @@
                                                 <tr>
                                                     <td>{{$data->id}}</td>
                                                     <td>{{$data->name}}</td>
-                                                    <td>{{$data->description}}</td>
-                                                    <td>{{$data->facilities}}</td>
+                                                    <td>{{ \Illuminate\Support\Str::limit($data->description ?? '',100,' ......') }}</td>
+                                                    <td>{{ \Illuminate\Support\Str::limit($data->facilities ?? '',100,' ......') }}</td>
                                                     <td>{{$data->location}}</td>
                                                     <td>
                                                         @php
@@ -79,10 +79,22 @@
                                                         @endif
                                                     </td>
                                                     <td>{{date_format($data->created_at,'d - M - Y')}}</td>
-                                                    <td>
+                                                    <td style="display: flex">
+
+                                                        <form action='{{route('admin.university.delete',$data->id)}}' method="POST" >
+                                                            @csrf
+                                                            <button type="submit" class="btn btn-sm btn-danger mb-3 mr-1  delete-confirm" >
+                                                                <i class="fas fa-trash" aria-hidden="true"></i>
+                                                            </button>
+                                                        </form>
                                                        
-                                                        <a class="btn btn-lg btn-primary btn-sm mb-3 mr-1" target="_blank" href="{{route('admin.university.edit',$data->id)}}">
-                                                            <i class="ti-eye"></i>
+                                                        <a class="btn btn-lg btn-primary btn-sm mb-3 mr-1"  href="{{route('admin.university.edit',$data->id)}}">
+                                                            <i class="ti-pencil"></i>
+                                                        </a>
+                                                        <a class="btn btn-lg btn-primary btn-sm mb-3 mr-1"
+                                                             data-toggle="tooltip" data-placement="left" title="Add Course To University!"
+                                                             href="{{route('admin.course.create',$data->id)}}">
+                                                            <i class="fas fa-plus-circle"></i>
                                                         </a>
                                                     </td>
                                                 </tr>
@@ -103,6 +115,9 @@
 @endsection
 
 @section('script')
+{{-- sweet alert --}}
+@include('backend.partials.confirm-delete')
+
     <!-- Start datatable js -->
     <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
     <script src="//cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
@@ -115,6 +130,7 @@
             $('.table-wrap > table').DataTable( {
                 "order": [[ 0, "desc" ]]
             } );
+             $('[data-toggle="tooltip"]').tooltip();   
         } );
     </script>
 @endsection

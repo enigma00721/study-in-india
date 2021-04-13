@@ -201,13 +201,7 @@ Route::prefix('admin-home')->middleware(['order_manage'])->group(function (){
     Route::get('/order-manage/cancel-page','OrderManageController@order_cancel_payment')->name('admin.order.cancel.page');
     Route::post('/order-manage/cancel-page','OrderManageController@update_order_cancel_payment');
 });
-//payment log route
-Route::prefix('admin-home')->middleware(['all_payment_logs'])->group(function (){
-    Route::get('/payment-logs','OrderManageController@all_payment_logs')->name('admin.payment.logs');
-    Route::post('/payment-logs/delete/{id}','OrderManageController@payment_logs_delete')->name('admin.payment.delete');
-    Route::post('/payment-logs/approve/{id}','OrderManageController@payment_logs_approve')->name('admin.payment.approve');
 
-});
 
 /* media upload routes */
 Route::prefix('admin-home')->group(function (){
@@ -652,6 +646,17 @@ Route::prefix('admin-home')->middleware('job_post_manage')->group(function (){
 
 });
 
+Route::get('/universities','FrontendController@universities')->name('universities');
+
+Route::prefix('admin-home')->middleware('job_post_manage')->group(function(){
+    Route::get('/course','CourseController@index')->name('admin.course');
+    Route::get('/course/create/{id}','CourseController@create')->name('admin.course.create');
+    Route::post('/course/store','CourseController@store')->name('admin.course.store');
+        Route::get('/course/edit/{id}','CourseController@edit')->name('admin.course.edit');
+    Route::post('/course/update','CourseController@update')->name('admin.course.update');
+    Route::post('/course/delete/{id}','CourseController@delete')->name('admin.course.delete');
+
+});
 
 
 

@@ -40,6 +40,8 @@
     @endif
     <!-- modernizr css -->
     <script src="{{asset('assets/common/vendor/modernizr-2.8.3.min.js')}}"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 </head>
 
 <body>
@@ -143,7 +145,6 @@
 <script src="{{asset('assets/backend/js/jquery.slimscroll.min.js')}}"></script>
 <script src="{{asset('assets/backend/js/jquery.slicknav.min.js')}}"></script>
 <script src="{{asset('assets/backend/js/fontawesome-iconpicker.min.js')}}"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 @yield('script')
 <script src="{{asset('assets/backend/js/plugins.js')}}"></script>
