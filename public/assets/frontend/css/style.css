@@ -6637,6 +6637,8 @@ object {
     border: none;
 }
 
+/* custom css */
+
 .mt-10 {
     margin-top: 100px !important;
 }
@@ -6648,9 +6650,54 @@ object {
 .why-india-section .form-control {
     height: 60px;
     background-color: #f9f9f9;
+    margin-bottom: 20px;
 }
 
 .why-india-section .btn-wrapper .boxed-btn {
     height: 60px;
     width: 100%;
+}
+
+.border-green {
+    border: 1px solid var(--main-color-one);
+}
+
+/* for main logo */
+.desktop-logo {
+    width: 180px;
+    max-height: 50px;
+    margin-top: -10px;
+}
+
+@media only screen and (max-width: 991px) {
+    .info-bar-area .widget-area {
+        display: none !important;
+    }
+    .info-bar-area .info-items li {
+        margin: auto;
+    }
+    .info-items li:last-child {
+        margin-left: -14px;
+    }
+    .info-bar-area .right-content {
+        margin: auto;
+    }
+    .right-content-area .title {
+        font-size: 27px;
+        line-height: 36px;
+        font-weight: 600;
+        margin-bottom: 11px;
+    }
+    /* for logo */
+    .mobile-logo img {
+        width: 200px;
+        max-height: 50px;
+        margin-top: -10px;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .info-bar-area .widget-area {
+        display: none !important;
+    }
 }

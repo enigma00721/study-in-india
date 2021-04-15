@@ -64,7 +64,8 @@
                     </li>
                     @endif
                   
-                    @if(check_page_permission('order_manage'))
+                    {{-- order page change to form fill by student --}}
+                    {{-- @if(check_page_permission('order_manage'))
                         <li class="@if(request()->is('admin-home/order-manage/*')) active @endif ">
                             <a href="javascript:void(0)" aria-expanded="true"><i class="ti-light-bulb"></i>
                                 <span>{{__('Order Manage')}}</span></a>
@@ -83,7 +84,7 @@
                                             href="{{route('admin.order.cancel.page')}}">{{__('Cancel Order Page')}}</a></li>
                             </ul>
                         </li>
-                    @endif
+                    @endif --}}
                    
                     @if(check_page_permission('pages'))
                         <li
@@ -281,15 +282,6 @@
                             <li class="{{active_menu('admin-home/contact-page/map')}}"><a
                                         href="{{route('admin.contact.page.map')}}">{{__('Google Map Area')}}</a></li>
                         </ul>
-                    </li>
-                    @endif
-                    @if(check_page_permission('order_page_manage'))
-                    <li class="{{active_menu('admin-home/order-page')}}">
-                        <a href="{{route('admin.order.page')}}"
-                           aria-expanded="true">
-                            <i class="ti-dashboard"></i>
-                            <span>{{__('Order Page Manage')}}</span>
-                        </a>
                     </li>
                     @endif
                     @if(check_page_permission('top_bar_settings'))

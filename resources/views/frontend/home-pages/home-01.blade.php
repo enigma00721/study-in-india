@@ -111,7 +111,7 @@
 
 </style>
 @endsection
-<style></style>
+
 
 {{-- <div class="info-bar-area">
     <div class="container">
@@ -249,10 +249,6 @@
                             @foreach($all_blog as $blog)
                                 <li> {{$blog->title}} </li>
                             @endforeach
-                            {{-- <li> This example will take only 10% width</li>
-                            <li> This example will take only 20% width</li>
-                            <li> This example will take only 40% width</li>
-                            <li> This example will take only 80% width</li> --}}
                         </ul>
                 </marquee>
             </div>
@@ -264,7 +260,7 @@
 @if(!empty(get_static_option('home_page_service_section_status')))
     <section class="our-cover-area why-india-section  padding-top-90 padding-bottom-90">
         <div class="container">
-            <div class="row" style="margin-bottom:90px;">
+            <div class="row" style="margin-bottom:70px;">
                  <div class="col-md-3">
                     <select name="course" id="" class="form-control">
                         <option readonly>Discipline</option>
@@ -287,7 +283,7 @@
                     </select>
                 </div>
                 <div class="col-md-3 btn-wrapper">
-                    <input type="submit" value="Search" class=" boxed-btn btn-rounded white border-none">
+                    <input type="submit" value="Search" class=" boxed-btn btn-rounded white border-none border-green">
                 </div>
                 {{-- <div class="col-lg-12">
                     <form action="" class="form-inline">

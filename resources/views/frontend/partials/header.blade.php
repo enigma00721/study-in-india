@@ -57,7 +57,11 @@
     @elseif(request()->is('about') || request()->is('service') || request()->is('work') || request()->is('team') || request()->is('faq') || request()->is('blog') || request()->is('contact') || request()->is('p/*') || request()->is('blog/*') || request()->is('services/*'))
     <title>@yield('site-title') - {{get_static_option('site_'.get_user_lang().'_title')}} </title>
     @else
-    <title>{{get_static_option('site_'.get_user_lang().'_title')}} - {{get_static_option('site_'.get_user_lang().'_tag_line')}}</title>
+    <title>{{get_static_option('site_'.get_user_lang().'_title')}}
+         @if(!empty(get_static_option('site_'.get_user_lang().'_tag_line')))
+          - {{get_static_option('site_'.get_user_lang().'_tag_line')}}
+          @endif
+    </title>
     @endif
 </head>
 <body>

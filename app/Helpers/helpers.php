@@ -166,34 +166,35 @@ function formatBytes($size, $precision = 2)
 
 function licnese_cheker()
 {
-    $data = array(
-        'action' => env('XGENIOUS_API_ACTION'),
-        'purchase_code' => get_static_option('item_purchase_key'),
-        'author' => env('XGENIOUS_API_AUTHOR'),
-        'site_url' => url('/'),
-        'item_unique_key' => env('XGENIOUS_API_KEY'),
-    );
-    //item_license_status
-    $api_url = env('XGENIOUS_API_URL') . '?' . http_build_query($data);
-    $curl = curl_init();
-    curl_setopt($curl, CURLOPT_URL, $api_url);
-    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 1);
-    curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 0);
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
-    $result = curl_exec($curl);
-    curl_close($curl);
-    $result = json_decode($result);
-    update_static_option('item_license_status', true);
-    $type = 'verified' == 'true' ? 'success' : 'danger';
-    $license_info = [
-        "item_license_status" => true,
-        "last_check" => time(),
-        "purchase_code" => get_static_option('item_purchase_key'),
-        "xgenious_app_key" => env('XGENIOUS_API_KEY'),
-        "author" => env('XGENIOUS_API_AUTHOR'),
-        "message" => 'good to go'
-    ];
-    file_put_contents('license.json', json_encode($license_info));
+
+    // $data = array(
+    //     'action' => env('XGENIOUS_API_ACTION'),
+    //     'purchase_code' => get_static_option('item_purchase_key'),
+    //     'author' => env('XGENIOUS_API_AUTHOR'),
+    //     'site_url' => url('/'),
+    //     'item_unique_key' => env('XGENIOUS_API_KEY'),
+    // );
+    // //item_license_status
+    // $api_url = env('XGENIOUS_API_URL') . '?' . http_build_query($data);
+    // $curl = curl_init();
+    // curl_setopt($curl, CURLOPT_URL, $api_url);
+    // curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 1);
+    // curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 0);
+    // curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
+    // $result = curl_exec($curl);
+    // curl_close($curl);
+    // $result = json_decode($result);
+    // update_static_option('item_license_status', true);
+    // $type = 'verified' == 'true' ? 'success' : 'danger';
+    // $license_info = [
+    //     "item_license_status" => true,
+    //     "last_check" => time(),
+    //     "purchase_code" => get_static_option('item_purchase_key'),
+    //     "xgenious_app_key" => env('XGENIOUS_API_KEY'),
+    //     "author" => env('XGENIOUS_API_AUTHOR'),
+    //     "message" => 'good to go'
+    // ];
+    // file_put_contents('license.json', json_encode($license_info));
     // file_put_contents('@core/license.json', json_encode($license_info));
 }
 
@@ -222,7 +223,6 @@ function get_work_category_by_id($id, $output = 'array')
             return $cat_list;
             break;
     }
-
 }
 
 function get_child_menu_count($menu_content, $parent_id)
