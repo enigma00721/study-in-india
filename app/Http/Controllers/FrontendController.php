@@ -109,41 +109,35 @@ return view('frontend.frontend-home')->with([
 
 public function universities(Request $request)
 {
-    $disciplines = Discipline::all();
-    $all_courses = Course::with('university')->get();
-    $levels = Level::all();
-    // dd($all_courses);
+$disciplines = Discipline::all();
+$all_courses = Course::with('university')->get();
+$levels = Level::all();
+// dd($all_courses);
 
 return view('frontend.pages.university.index', compact('disciplines', 'all_courses', 'levels'));
 }
 
 public function searchUniversity(Request $request)
 {
-    
-    $disciplines = Discipline::all();
-    $all_courses = Course::select(['id', 'title'])->get();
-    $levels = Level::all();
+$disciplines = Discipline::all();
+$all_courses = Course::select(['id', 'title'])->get();
+$levels = Level::all();
 
-    $searchCourses = Course::with('university')
-        ->when(request()->filled('discipline'), function ($query) {
-            return $query->where('discipline_id', request()->query('discipline'));
-        })
-        ->when(request()->filled('level') && request()->filled('level') != 'all' , function ($query) {
-            return $query->whereLevelId(request('level'));
-        })
-        ->when(request()->filled('course'), function ($query) {
-            return $query->where('title', 'like', '%' . request()->get('course') . '%');
-    });
-        
-    $searchCourses = $searchCourses->paginate();
-    // dd($searchCourses);
+$searchCourses = Course::with('university')
+->when(request()->filled('discipline'), function ($query) {
+return $query->where('discipline_id', request()->query('discipline'));
+})
+->when(request()->filled('level'), function ($query) {
+return $query->whereLevelId(request('level'));
+})
+->when(request()->filled('course'), function ($query) {
+return $query->where('title', 'like', '%' . request()->get('course') . '%');
+});
 
-    return view('frontend.pages.university.index', compact([
-        'searchCourses',
-        'disciplines',
-        'levels',
-        'all_courses'
-    ]));
+$searchCourses = $searchCourses->paginate();
+// dd($searchCourses);
+
+return view('frontend.pages.university.index', compact(['searchCourses', 'disciplines', 'levels', 'all_courses']));
 }
 
 public function searchUniversityCategory($id, $level)
@@ -166,10 +160,13 @@ return view('frontend.pages.online-apply', compact('levels', 'disciplines'));
 
 public function onlineApplySubmit(Request $request)
 {
-    // dd($request->all());
-    $row = OnlineApply::create($request->all());
-    if($row)
-        return redirect()->back()->with(['msg' => 'Form Submitted Succesfully!','type' => 'success']);
+// dd($request->all());
+$row = OnlineApply::create($request->all());
+if ($row) {
+return redirect()
+->back()
+->with(['msg' => 'Form Submitted Succesfully!', 'type' => 'success']);
+}
 }
 
 public function maintain_page()
@@ -737,127 +734,6 @@ for ($i = 0; $i < count($all_by_cat); $i++) { array_push($all_works, $all_by_cat
     return redirect()
     ->back()
     ->with(['msg' => 'Something went wrong, Please try again later !!', 'type' => 'danger']);
-    }
-
-    // public function send_order_message(Request $request)
-    // {
-    //     $all_quote_form_fields = json_decode(get_static_option('order_page_form_fields'));
-    //     $required_fields = [];
-    //     $fileds_name = [];
-    //     $attachment_list = [];
-    //     foreach ($all_quote_form_fields->field_type as $key => $value) {
-    //     if (is_object($all_quote_form_fields->field_required) && !empty($all_quote_form_fields->field_required->$key) &&
-    //     $value != 'file') {
-    //     $sanitize_rule = $value == 'email' ? 'email' : 'string';
-    //     $required_fields[$all_quote_form_fields->field_name[$key]] = 'required|' . $sanitize_rule;
-    //     } elseif (is_object($all_quote_form_fields->field_required) && $value == 'file') {
-    //     $file_required = isset($all_quote_form_fields->field_required->$key) ? 'required|' : '';
-    //     $file_mimes_type = isset($all_quote_form_fields->mimes_type->$key) ? $all_quote_form_fields->mimes_type->$key : '';
-    //     $required_fields[$all_quote_form_fields->field_name[$key]] = $file_required . $file_mimes_type . '|max:6054';
-    //     } elseif (is_array($all_quote_form_fields->field_required) && $value == 'file') {
-    //     $file_required = isset($all_quote_form_fields->field_required->$key) ? 'required|' : '';
-    //     $file_mimes_type = isset($all_quote_form_fields->mimes_type->$key) ? $all_quote_form_fields->mimes_type->$key : '';
-    //     $required_fields[$all_quote_form_fields->field_name[$key]] = $file_required . $file_mimes_type . '|max:6054';
-    //     } elseif (is_array($all_quote_form_fields->field_required) && !empty($all_quote_form_fields->field_required[$key])
-    //     && $value != 'file') {
-    //     $sanitize_rule = $value == 'email' ? 'email' : 'string';
-    //     $required_fields[$all_quote_form_fields->field_name[$key]] = 'required|' . $sanitize_rule;
-    //     }
-    //     }
-    //     $this->validate($request, $required_fields);
-    //     if (!empty(get_static_option('site_payment_gateway'))) {
-    //     $this->validate(
-    //     $request,
-    //     [
-    //     'selected_payment_gateway' => 'required|string',
-    //     ],
-    //     [
-    //     'selected_payment_gateway.required' => 'select one payment gateway to place order',
-    //     ],
-    //     );
-    //     }
-    //     $package_detials = PricePlan::find($request->package);
-    //     $all_field_serialize_data = $request->all();
-    //     unset($all_field_serialize_data['_token']);
-    //     unset($all_field_serialize_data['captcha_token']);
-    //     foreach ($all_field_serialize_data as $field_name => $field_value) {
-    //     if ($request->hasFile($field_name)) {
-    //     unset($all_field_serialize_data[$field_name]);
-    //     }
-    //     }
-    //     $order_id = Order::create([
-    //     'custom_fields' => serialize($all_field_serialize_data),
-    //     'status' => 'pending',
-    //     'package_name' => $package_detials->title,
-    //     'package_price' => $package_detials->price,
-    //     'package_id' => $package_detials->id,
-    //     ])->id;
-
-    //     foreach ($all_quote_form_fields->field_type as $key => $value) {
-    //     if ($value != 'file') {
-    //     $singule_field_name = $all_quote_form_fields->field_name[$key];
-    //     $checkbox_value = $value == 'checkbox' && !empty($request->$singule_field_name) ? 'Yes' : 'No';
-    //     $fileds_name[$singule_field_name] = $value != 'checkbox' ? $request->$singule_field_name : $checkbox_value;
-    //     } elseif ($value == 'file') {
-    //     $singule_field_name = $all_quote_form_fields->field_name[$key];
-    //     if ($request->hasFile($singule_field_name)) {
-    //     $filed_instance = $request->file($singule_field_name);
-    //     $file_extenstion = $filed_instance->getClientOriginalExtension();
-    //     $attachment_name = 'attachment-' . $order_id . '-' . $singule_field_name . '.' . $file_extenstion;
-    //     $filed_instance->move('assets/uploads/attachment/', $attachment_name);
-
-    //     $attachment_list[$singule_field_name] = 'assets/uploads/attachment/' . $attachment_name;
-    //     }
-    //     }
-    //     }
-    //     Order::find($order_id)->update(['attachment' => serialize($attachment_list)]);
-
-    //     //for development purpose
-    //     if (!empty(get_static_option('site_payment_gateway'))) {
-    //     $succ_msg = get_static_option('order_mail_' . get_user_lang() . '_subject');
-    //     $success_message = !empty($succ_msg) ? $succ_msg : 'Thanks for your order. we will get back to you very soon.';
-
-    //     Mail::to(get_static_option('order_page_form_mail'))->send(new PlaceOrder($fileds_name, $attachment_list,
-    //     $package_detials));
-
-    //     return redirect()->route('frontend.order.confirm', $order_id);
-    //     }
-    //     //for development purpose
-
-    //     $google_captcha_result = google_captcha_check($request->captcha_token);
-    //     if ($google_captcha_result['success']) {
-    //     $succ_msg = get_static_option('order_mail_' . get_user_lang() . '_subject');
-    //     $success_message = !empty($succ_msg) ? $succ_msg : 'Thanks for your order. we will get back to you very soon.';
-
-    //     Mail::to(get_static_option('order_page_form_mail'))->send(new PlaceOrder($fileds_name, $attachment_list,
-    //     $package_detials));
-
-    //     //have to set condition for redirect in payment page with payment information
-    //     if (!empty(get_static_option('site_payment_gateway'))) {
-    //     return redirect()->route('frontend.payment.' . $request->selected_payment_gateway);
-    //     }
-    //     return redirect()
-    //     ->back()
-    //     ->with(['msg' => $success_message, 'type' => 'success']);
-    //     } else {
-    //     return redirect()
-    //     ->back()
-    //     ->with(['msg' => 'Something goes wrong, Please try again later !!', 'type' => 'danger']);
-    //     }
-    // }
-
-    public function subscribe_newsletter(Request $request)
-    {
-    $this->validate($request, [
-    'email' => 'required|string|email|max:191|unique:newsletters',
-    ]);
-    Newsletter::create($request->all());
-    return redirect()
-    ->back()
-    ->with([
-    'msg' => 'Thanks for Subscribe Our Newsletter',
-    'type' => 'success',
-    ]);
     }
 
     public function category_wise_works_page($id)
