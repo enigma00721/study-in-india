@@ -124,13 +124,13 @@ $all_courses = Course::select(['id', 'title'])->get();
 $levels = Level::all();
 
 $searchCourses = Course::with('university')
-->when(request()->filled('discipline'), function ($query) {
+->when(request()->filled('discipline') && request()->query('discipline') != 'all', function ($query) {
 return $query->where('discipline_id', request()->query('discipline'));
 })
-->when(request()->filled('level'), function ($query) {
+->when(request()->filled('level') && request()->query('level') != 'all', function ($query) {
 return $query->whereLevelId(request('level'));
 })
-->when(request()->filled('course'), function ($query) {
+->when(request()->filled('course') && request()->query('course') != 'all', function ($query) {
 return $query->where('title', 'like', '%' . request()->get('course') . '%');
 });
 
