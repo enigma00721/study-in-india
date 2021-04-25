@@ -44,7 +44,7 @@ Route::group(['middleware' => ['setlang','globalVariable']],function (){
     Route::post('/contact-message','FrontendController@send_contact_message')->name('frontend.contact.message');
     Route::post('/subscribe-newsletter','FrontendController@subscribe_newsletter')->name('frontend.subscribe.newsletter');
     // Route::post('/request-quote','FrontendController@send_quote_message')->name('frontend.quote.message');
-    Route::post('/place-order','FrontendController@send_order_message')->name('frontend.order.message');
+    // Route::post('/place-order','FrontendController@send_order_message')->name('frontend.order.message');
     Route::post('/request-call-back','FrontendController@send_call_back_message')->name('frontend.call.back.message');
 
 

@@ -739,112 +739,112 @@ for ($i = 0; $i < count($all_by_cat); $i++) { array_push($all_works, $all_by_cat
     ->with(['msg' => 'Something went wrong, Please try again later !!', 'type' => 'danger']);
     }
 
-    public function send_order_message(Request $request)
-    {
-    $all_quote_form_fields = json_decode(get_static_option('order_page_form_fields'));
-    $required_fields = [];
-    $fileds_name = [];
-    $attachment_list = [];
-    foreach ($all_quote_form_fields->field_type as $key => $value) {
-    if (is_object($all_quote_form_fields->field_required) && !empty($all_quote_form_fields->field_required->$key) &&
-    $value != 'file') {
-    $sanitize_rule = $value == 'email' ? 'email' : 'string';
-    $required_fields[$all_quote_form_fields->field_name[$key]] = 'required|' . $sanitize_rule;
-    } elseif (is_object($all_quote_form_fields->field_required) && $value == 'file') {
-    $file_required = isset($all_quote_form_fields->field_required->$key) ? 'required|' : '';
-    $file_mimes_type = isset($all_quote_form_fields->mimes_type->$key) ? $all_quote_form_fields->mimes_type->$key : '';
-    $required_fields[$all_quote_form_fields->field_name[$key]] = $file_required . $file_mimes_type . '|max:6054';
-    } elseif (is_array($all_quote_form_fields->field_required) && $value == 'file') {
-    $file_required = isset($all_quote_form_fields->field_required->$key) ? 'required|' : '';
-    $file_mimes_type = isset($all_quote_form_fields->mimes_type->$key) ? $all_quote_form_fields->mimes_type->$key : '';
-    $required_fields[$all_quote_form_fields->field_name[$key]] = $file_required . $file_mimes_type . '|max:6054';
-    } elseif (is_array($all_quote_form_fields->field_required) && !empty($all_quote_form_fields->field_required[$key])
-    && $value != 'file') {
-    $sanitize_rule = $value == 'email' ? 'email' : 'string';
-    $required_fields[$all_quote_form_fields->field_name[$key]] = 'required|' . $sanitize_rule;
-    }
-    }
-    $this->validate($request, $required_fields);
-    if (!empty(get_static_option('site_payment_gateway'))) {
-    $this->validate(
-    $request,
-    [
-    'selected_payment_gateway' => 'required|string',
-    ],
-    [
-    'selected_payment_gateway.required' => 'select one payment gateway to place order',
-    ],
-    );
-    }
-    $package_detials = PricePlan::find($request->package);
-    $all_field_serialize_data = $request->all();
-    unset($all_field_serialize_data['_token']);
-    unset($all_field_serialize_data['captcha_token']);
-    foreach ($all_field_serialize_data as $field_name => $field_value) {
-    if ($request->hasFile($field_name)) {
-    unset($all_field_serialize_data[$field_name]);
-    }
-    }
-    $order_id = Order::create([
-    'custom_fields' => serialize($all_field_serialize_data),
-    'status' => 'pending',
-    'package_name' => $package_detials->title,
-    'package_price' => $package_detials->price,
-    'package_id' => $package_detials->id,
-    ])->id;
+    // public function send_order_message(Request $request)
+    // {
+    //     $all_quote_form_fields = json_decode(get_static_option('order_page_form_fields'));
+    //     $required_fields = [];
+    //     $fileds_name = [];
+    //     $attachment_list = [];
+    //     foreach ($all_quote_form_fields->field_type as $key => $value) {
+    //     if (is_object($all_quote_form_fields->field_required) && !empty($all_quote_form_fields->field_required->$key) &&
+    //     $value != 'file') {
+    //     $sanitize_rule = $value == 'email' ? 'email' : 'string';
+    //     $required_fields[$all_quote_form_fields->field_name[$key]] = 'required|' . $sanitize_rule;
+    //     } elseif (is_object($all_quote_form_fields->field_required) && $value == 'file') {
+    //     $file_required = isset($all_quote_form_fields->field_required->$key) ? 'required|' : '';
+    //     $file_mimes_type = isset($all_quote_form_fields->mimes_type->$key) ? $all_quote_form_fields->mimes_type->$key : '';
+    //     $required_fields[$all_quote_form_fields->field_name[$key]] = $file_required . $file_mimes_type . '|max:6054';
+    //     } elseif (is_array($all_quote_form_fields->field_required) && $value == 'file') {
+    //     $file_required = isset($all_quote_form_fields->field_required->$key) ? 'required|' : '';
+    //     $file_mimes_type = isset($all_quote_form_fields->mimes_type->$key) ? $all_quote_form_fields->mimes_type->$key : '';
+    //     $required_fields[$all_quote_form_fields->field_name[$key]] = $file_required . $file_mimes_type . '|max:6054';
+    //     } elseif (is_array($all_quote_form_fields->field_required) && !empty($all_quote_form_fields->field_required[$key])
+    //     && $value != 'file') {
+    //     $sanitize_rule = $value == 'email' ? 'email' : 'string';
+    //     $required_fields[$all_quote_form_fields->field_name[$key]] = 'required|' . $sanitize_rule;
+    //     }
+    //     }
+    //     $this->validate($request, $required_fields);
+    //     if (!empty(get_static_option('site_payment_gateway'))) {
+    //     $this->validate(
+    //     $request,
+    //     [
+    //     'selected_payment_gateway' => 'required|string',
+    //     ],
+    //     [
+    //     'selected_payment_gateway.required' => 'select one payment gateway to place order',
+    //     ],
+    //     );
+    //     }
+    //     $package_detials = PricePlan::find($request->package);
+    //     $all_field_serialize_data = $request->all();
+    //     unset($all_field_serialize_data['_token']);
+    //     unset($all_field_serialize_data['captcha_token']);
+    //     foreach ($all_field_serialize_data as $field_name => $field_value) {
+    //     if ($request->hasFile($field_name)) {
+    //     unset($all_field_serialize_data[$field_name]);
+    //     }
+    //     }
+    //     $order_id = Order::create([
+    //     'custom_fields' => serialize($all_field_serialize_data),
+    //     'status' => 'pending',
+    //     'package_name' => $package_detials->title,
+    //     'package_price' => $package_detials->price,
+    //     'package_id' => $package_detials->id,
+    //     ])->id;
 
-    foreach ($all_quote_form_fields->field_type as $key => $value) {
-    if ($value != 'file') {
-    $singule_field_name = $all_quote_form_fields->field_name[$key];
-    $checkbox_value = $value == 'checkbox' && !empty($request->$singule_field_name) ? 'Yes' : 'No';
-    $fileds_name[$singule_field_name] = $value != 'checkbox' ? $request->$singule_field_name : $checkbox_value;
-    } elseif ($value == 'file') {
-    $singule_field_name = $all_quote_form_fields->field_name[$key];
-    if ($request->hasFile($singule_field_name)) {
-    $filed_instance = $request->file($singule_field_name);
-    $file_extenstion = $filed_instance->getClientOriginalExtension();
-    $attachment_name = 'attachment-' . $order_id . '-' . $singule_field_name . '.' . $file_extenstion;
-    $filed_instance->move('assets/uploads/attachment/', $attachment_name);
+    //     foreach ($all_quote_form_fields->field_type as $key => $value) {
+    //     if ($value != 'file') {
+    //     $singule_field_name = $all_quote_form_fields->field_name[$key];
+    //     $checkbox_value = $value == 'checkbox' && !empty($request->$singule_field_name) ? 'Yes' : 'No';
+    //     $fileds_name[$singule_field_name] = $value != 'checkbox' ? $request->$singule_field_name : $checkbox_value;
+    //     } elseif ($value == 'file') {
+    //     $singule_field_name = $all_quote_form_fields->field_name[$key];
+    //     if ($request->hasFile($singule_field_name)) {
+    //     $filed_instance = $request->file($singule_field_name);
+    //     $file_extenstion = $filed_instance->getClientOriginalExtension();
+    //     $attachment_name = 'attachment-' . $order_id . '-' . $singule_field_name . '.' . $file_extenstion;
+    //     $filed_instance->move('assets/uploads/attachment/', $attachment_name);
 
-    $attachment_list[$singule_field_name] = 'assets/uploads/attachment/' . $attachment_name;
-    }
-    }
-    }
-    Order::find($order_id)->update(['attachment' => serialize($attachment_list)]);
+    //     $attachment_list[$singule_field_name] = 'assets/uploads/attachment/' . $attachment_name;
+    //     }
+    //     }
+    //     }
+    //     Order::find($order_id)->update(['attachment' => serialize($attachment_list)]);
 
-    //for development purpose
-    if (!empty(get_static_option('site_payment_gateway'))) {
-    $succ_msg = get_static_option('order_mail_' . get_user_lang() . '_subject');
-    $success_message = !empty($succ_msg) ? $succ_msg : 'Thanks for your order. we will get back to you very soon.';
+    //     //for development purpose
+    //     if (!empty(get_static_option('site_payment_gateway'))) {
+    //     $succ_msg = get_static_option('order_mail_' . get_user_lang() . '_subject');
+    //     $success_message = !empty($succ_msg) ? $succ_msg : 'Thanks for your order. we will get back to you very soon.';
 
-    Mail::to(get_static_option('order_page_form_mail'))->send(new PlaceOrder($fileds_name, $attachment_list,
-    $package_detials));
+    //     Mail::to(get_static_option('order_page_form_mail'))->send(new PlaceOrder($fileds_name, $attachment_list,
+    //     $package_detials));
 
-    return redirect()->route('frontend.order.confirm', $order_id);
-    }
-    //for development purpose
+    //     return redirect()->route('frontend.order.confirm', $order_id);
+    //     }
+    //     //for development purpose
 
-    $google_captcha_result = google_captcha_check($request->captcha_token);
-    if ($google_captcha_result['success']) {
-    $succ_msg = get_static_option('order_mail_' . get_user_lang() . '_subject');
-    $success_message = !empty($succ_msg) ? $succ_msg : 'Thanks for your order. we will get back to you very soon.';
+    //     $google_captcha_result = google_captcha_check($request->captcha_token);
+    //     if ($google_captcha_result['success']) {
+    //     $succ_msg = get_static_option('order_mail_' . get_user_lang() . '_subject');
+    //     $success_message = !empty($succ_msg) ? $succ_msg : 'Thanks for your order. we will get back to you very soon.';
 
-    Mail::to(get_static_option('order_page_form_mail'))->send(new PlaceOrder($fileds_name, $attachment_list,
-    $package_detials));
+    //     Mail::to(get_static_option('order_page_form_mail'))->send(new PlaceOrder($fileds_name, $attachment_list,
+    //     $package_detials));
 
-    //have to set condition for redirect in payment page with payment information
-    if (!empty(get_static_option('site_payment_gateway'))) {
-    return redirect()->route('frontend.payment.' . $request->selected_payment_gateway);
-    }
-    return redirect()
-    ->back()
-    ->with(['msg' => $success_message, 'type' => 'success']);
-    } else {
-    return redirect()
-    ->back()
-    ->with(['msg' => 'Something goes wrong, Please try again later !!', 'type' => 'danger']);
-    }
-    }
+    //     //have to set condition for redirect in payment page with payment information
+    //     if (!empty(get_static_option('site_payment_gateway'))) {
+    //     return redirect()->route('frontend.payment.' . $request->selected_payment_gateway);
+    //     }
+    //     return redirect()
+    //     ->back()
+    //     ->with(['msg' => $success_message, 'type' => 'success']);
+    //     } else {
+    //     return redirect()
+    //     ->back()
+    //     ->with(['msg' => 'Something goes wrong, Please try again later !!', 'type' => 'danger']);
+    //     }
+    // }
 
     public function subscribe_newsletter(Request $request)
     {
