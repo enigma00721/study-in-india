@@ -85,23 +85,15 @@
                                                 </td>
                                                 <td>{{$data->name}}</td>
                                                 <td>{{$data->description}}</td>
-                                                <td>
-                                                    <a tabindex="0" class="btn btn-lg btn-danger btn-sm mb-3 mr-1"
-                                                       role="button"
-                                                       data-toggle="popover"
-                                                       data-trigger="focus"
-                                                       data-html="true"
-                                                       title=""
-                                                       data-content="
-                                               <h6>Are you sure to delete this testimonial item?</h6>
-                                               <form method='post' action='{{route('admin.testimonial.delete',$data->id)}}'>
-                                               <input type='hidden' name='_token' value='{{csrf_token()}}'>
-                                               <br>
-                                                <input type='submit' class='btn btn-danger btn-sm' value='Yes,Delete'>
-                                                </form>
-                                                ">
-                                                        <i class="ti-trash"></i>
-                                                    </a>
+                                                <td style="display: flex;">
+                                                    <form action='{{route('admin.testimonial.delete',$data->id)}}' method="POST">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-sm btn-danger mb-3 mr-1  delete-confirm" >
+                                                            <i class="fas fa-trash" aria-hidden="true"></i>
+                                                        </button>
+                                                    </form>
+                                                   
+                                                   
                                                     <a href="#"
                                                        data-toggle="modal"
                                                        data-target="#testimonial_item_edit_modal"
@@ -276,4 +268,5 @@
     </script>
     <script src="{{asset('assets/backend/js/dropzone.js')}}"></script>
     @include('backend.partials.media-upload.media-js')
+    @include('backend.partials.confirm-delete')
 @endsection

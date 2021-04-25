@@ -99,7 +99,7 @@
                                             <option @if($event->status == 'draft') selected @endif value="draft">{{__('Draft')}}</option>
                                         </select>
                                     </div>
-                                    <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">{{__('Add New Event')}}</button>
+                                    <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">{{__('Update Event')}}</button>
                                 </div>
                             </div>
                         </form>

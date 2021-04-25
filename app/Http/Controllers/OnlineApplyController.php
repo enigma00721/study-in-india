@@ -9,14 +9,22 @@ use App\Mail\QuoteReply;
 use App\Order;
 use App\PaymentLogs;
 use App\Quote;
+use App\OnlineApply;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
-class OrderManageController extends Controller
+class OnlineApplyController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth:admin');
+    }
+
+    public function index()
+    {
+        $all_orders = OnlineApply::all();
+        return view('backend.online-apply.index',compact('all_orders'));
+
     }
 
     public function all_orders(){

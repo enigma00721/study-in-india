@@ -47,9 +47,11 @@ class BrandController extends Controller
         return redirect()->back()->with(['msg' => 'Brands Updated...','type' => 'success']);
     }
 
-    public function delete($id){
-
-        Brand::find($id)->delete();
+    public function delete($id)
+    {
+        $row = Brand::find($id);
+        // dd($row);
+        $row->delete();
         return redirect()->back()->with(['msg' => 'Delete Success...','type' => 'danger']);
     }
 }

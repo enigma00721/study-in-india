@@ -93,7 +93,7 @@
                         </form>
                     </div>  
                     
-                    <div class="right-content">
+                    <div class="right-content" style="display:flex;">
                         <ul class="info-items">
                             @foreach($all_support_item as $data)
                                 <li>

@@ -767,11 +767,11 @@ object {
     z-index: 0;
 }
 
-.single-work-item .content .cats a + a:before {
-    position: static;
-    content: ",";
+/* .single-work-item .content .cats a + a:before {
+    /* position: static; */
+    /* content: "|"; */
     padding-right: 5px;
-}
+} */
 
 .post-pagination-wrapper {
     margin-top: 13px;
@@ -6667,6 +6667,15 @@ object {
     width: 180px;
     max-height: 50px;
     margin-top: -10px;
+}
+
+.form-control{
+   border: 1px solid rgba(0, 0, 0, 0.2); 
+}
+.form-control:focus {
+   border: 1px solid rgba(0, 0, 0, 0.2); 
+    border-color: none;
+    box-shadow: none;
 }
 
 @media only screen and (max-width: 991px) {

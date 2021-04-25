@@ -19,7 +19,7 @@
     </style>
 @endsection
 @section('site-title')
-    {{__('All orders')}}
+    {{__('Online Applied')}}
 @endsection
 @section('content')
     <div class="col-lg-12 col-ml-12 padding-bottom-30">
@@ -40,16 +40,16 @@
                                             </ul>
                                         </div>
                                     @endif
-                                    <h4 class="header-title">{{__('All Orders')}}</h4>
+                                    <h4 class="header-title">{{__('Online Applied')}}</h4>
                                     <div class="data-tables datatable-primary table-responsive">
                                         <table id="all_user_table" >
                                             <thead class="text-capitalize">
                                             <tr>
                                                 <th>{{__('ID')}}</th>
-                                                <th>{{__('Package Name')}}</th>
-                                                <th>{{__('Package Price')}}</th>
-                                                <th>{{__('Payment Status')}}</th>
-                                                <th>{{__('Order Status')}}</th>
+                                                <th>{{__('Name')}}</th>
+                                                <th>{{__('Mobile')}}</th>
+                                                <th>{{__('Email')}}</th>
+                                                <th>{{__('Address')}}</th>
                                                 <th>{{__('Date')}}</th>
                                                 <th>{{__('Action')}}</th>
                                             </tr>
@@ -58,16 +58,12 @@
                                             @foreach($all_orders as $data)
                                                 <tr>
                                                     <td>{{$data->id}}</td>
-                                                    <td>{{$data->package_name}}</td>
-                                                    <td>{{$data->package_price}}</td>
-                                                    <td>
-                                                        @if($data->payment_status == 'pending')
-                                                            <span class="alert alert-warning text-capitalize">{{$data->payment_status}}</span>
-                                                        @else
-                                                            <span class="alert alert-success text-capitalize">{{$data->payment_status}}</span>
-                                                        @endif
-                                                    </td>
-                                                    <td>
+                                                    <td>{{$data->name}}</td>
+                                                    <td>{{$data->mobile_number}}</td>
+                                                    <td>{{$data->email}}</td>
+                                                    <td>{{$data->address}}</td>
+                                                   
+                                                    {{-- <td>
                                                         @if($data->status == 'pending')
                                                         <span class="alert alert-warning text-capitalize">{{$data->status}}</span>
                                                         @elseif($data->status == 'canceled')
@@ -77,7 +73,7 @@
                                                         @else
                                                             <span class="alert alert-success text-capitalize">{{$data->status}}</span>
                                                         @endif
-                                                    </td>
+                                                    </td> --}}
                                                         @php
                                                             $all_custom_fields = [];
                                                             $all_custom_fields_un = unserialize($data->custom_fields);
@@ -85,6 +81,7 @@
                                                         @endphp
                                                     <td>{{date_format($data->created_at,'d M Y')}}</td>
                                                     <td>
+                                                        {{-- delete --}}
                                                         <a tabindex="0" class="btn btn-lg btn-danger btn-sm mb-3 mr-1" role="button" data-toggle="popover" data-trigger="focus" data-html="true" title="" data-content="
                                                        <h6>Are you sure to delete this order?</h6>
                                                        <form method='post' action='{{route('admin.order.manage.delete',$data->id)}}'>
@@ -95,6 +92,7 @@
                                                         " data-original-title="">
                                                             <i class="ti-trash"></i>
                                                         </a>
+                                                        {{-- send mail button --}}
                                                         <a href="#"
                                                            data-toggle="modal"
                                                            data-target="#user_edit_modal"
@@ -103,20 +101,19 @@
                                                             <i class="ti-email"></i>
                                                         </a>
                                                         <a href="#"
-                                                           data-toggle="modal"
-                                                           data-target="#view_order_details_modal"
-                                                           data-status="{{$data->status}}"
-                                                           data-paystatus="{{$data->payment_status}}"
-                                                           data-packageid="{{$data->package_id}}"
-                                                           data-packageprice="{{$data->package_price}}"
-                                                           data-packagename="{{$data->package_name}}"
-                                                           data-customfield="{{$all_custom_fields}}"
+                                                        data-toggle="modal"
+                                                        data-target="#view_all_details_modal"
+                                                           data-status="{{$data->name}}"
+                                                           data-packageid="{{$data->email}}"
+                                                           data-address="{{$data->address}}"
+                                                           data-packagename="{{$data->mobile_number}}"
                                                            data-date="{{date_format($data->created_at,'d M Y')}}"
                                                            data-attachment="{{json_encode(unserialize($data->attachment))}}"
                                                            class="btn btn-lg btn-primary btn-sm mb-3 mr-1 view_order_details_btn"
-                                                        >
-                                                            <i class="ti-eye"></i>
-                                                        </a>
+                                                           >
+                                                           <i class="ti-eye"></i>
+
+
                                                         <a href="#"
                                                            data-id="{{$data->id}}"
                                                            data-status="{{$data->status}}"
@@ -141,18 +138,23 @@
             </div>
         </div>
     </div>
-
-    <div class="modal fade" id="view_order_details_modal" tabindex="-1" role="dialog"  aria-hidden="true">
+    
+    <div class="modal fade" id="view_all_details_modal" tabindex="-1" role="dialog"  aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                <div class="view-order-details-info">
-                   <h4 class="title">{{__('View Order Details Information')}}</h4>
+                   <h4 class="title">{{__('View All Information')}}</h4>
                    <div class="view-order-top-wrap">
                        <div class="status-wrap">
                            Order Status: <span class="order-status-span"></span>
                        </div>
                        <div class="data-wrap">
                            Order Date: <span class="order-date-span"></span>
+                       </div>
+                   </div>
+                   <div class="">
+                       <div class="address-wrap">
+                            Address:: <span class="order-address-span"></span>
                        </div>
                    </div>
                    <div class="table-responsive">
@@ -259,11 +261,13 @@
                 e.preventDefault();
                 var el = $(this);
                 var allData = el.data();
-                var parent = $('#view_order_details_modal');
+                console.log(allData);
+                var parent = $('#view_all_details_modal');
                 var statusClass = allData.status == 'pending' ? 'alert alert-warning' : 'alert alert-success';
 
                 parent.find('.order-status-span').text(allData.status).addClass(statusClass);
                 parent.find('.order-date-span').text(allData.date);
+                parent.find('.order-address-span').text(allData.address);
                 parent.find('.order-all-custom-fields').html('');
                 $.each(allData.customfield,function (index,value) {
                     if(index == 'package'){

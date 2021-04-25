@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateWorksTable extends Migration
+class CreateNewsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,15 @@ class CreateWorksTable extends Migration
      */
     public function up()
     {
-        Schema::create('works', function (Blueprint $table) {
+        Schema::create('news', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->text('title');
-            $table->string('categories_id');
-            $table->longText('description');
-            $table->string('start_date')->nullable();
+            $table->longText('content');
+            $table->unsignedInteger('blog_categories_id');
+            $table->string('tags');
             $table->string('image')->nullable();
-            $table->string('end_date')->nullable();
-            $table->text('location')->nullable();
-            $table->string('clients')->nullable();
+            $table->text('excerpt')->nullable();
+            $table->unsignedInteger('user_id');
             $table->timestamps();
         });
     }
@@ -34,6 +33,6 @@ class CreateWorksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('works');
+        Schema::dropIfExists('news');
     }
 }

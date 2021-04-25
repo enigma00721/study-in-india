@@ -1,6 +1,5 @@
 @php  $static_page_list = ['About','Service','FAQ','Team','Works','Price Plan','Blog','Contact','Career With Us','Events','Knowledgebase']; @endphp
 
-{{-- @extends('frontend.frontend-page-master') --}}
 @extends('frontend.frontend-master')
 @section('site-title')
     {{get_static_option('career_with_us_page_'.get_user_lang().'_name')}}
@@ -21,173 +20,143 @@
         }
         .jumbotron{
             background: #F4F7FC;
+            margin-bottom: 0;
+        }
+        .jumbotron .title{
+            font-size: 2.2rem;
         }
          .search-university .form-control-2{
-             height: 56px;
-            margin-top: 50px; 
-            margin-bottom: 21px;
-            width: 100%;
-         }
-        .search-university .form-control{
             height: 56px;
-            margin-top: 50px; 
-            margin-bottom: 21px;
-            width: 100%;
-            /* height: calc(1.5em + .75rem + 2px); */
-            padding: .375rem .75rem;
+         }
+        .search-university .custom-select{
+            height: 56px;
             font-size: 1rem;
             font-weight: 400;
             line-height: 1.5;
             color: #495057;
-            background-color: #fff;
-            background-clip: padding-box;
             border: 1px solid #ced4da;
-            border-radius: .25rem;
-            transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-}
+        }
         }
     </style>
 @endsection
 @section('content')
-    <section class="jumbotron mt-10 search-university">
+    <section class="jumbotron mt-xl-10 mt-md-5 search-university">
         <div class="container">
-            <h1 class="title">Explore Universities of Inida</h1>
+            <h2 class="title mb-sm-5 mb-md-0">Explore Universities of India</h2>
+            <form action="{{route('university.search')}}" method="get" class="py-md-4">
             <div class="row">
-                {{-- <form action="{{route('universities')}}" method="get" class="form-inline"> --}}
-                    <div class="col-md-3">
-                        <select name="course" id="" class="form-control">
-                            <option readonly>Discipline</option>
+                    <div class="col-md-3 form-group">
+                        <select name="discipline" id="" class="custom-select">
+                            <option readonly="readonly" disabled="disabled">Discipline</option>
                             @foreach ($disciplines as $data)
-                                <option value="{{$data->id}}">{{$data->title}}</option>
+                                <option value="{{$data->id}}" @if($data->id == request()->query('discipline')) selected @endif>{{$data->title}}</option>
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-3">
-                        <select name="course" id="" class="form-control">
-                            <option readonly>Course</option>
-                            @foreach ($courses as $data)
-                                <option value="{{$data->id}}">{{$data->title}}</option>
+                    <div class="col-md-3 form-group">
+                        <select name="course" id="" class="custom-select">
+                            <option readonly disabled>Course</option>
+                            @foreach ($all_courses as $data)
+                                <option value="{{$data->title}}" @if($data->title == request()->query('course')) selected @endif>{{$data->title}}</option>
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-3">
-                        <select name="level" id="" class="form-control">
-                            <option readonly>Level</option>
+                    <div class="col-md-3 form-group">
+                        <select name="level" id="" class=" custom-select">
+                            <option readonly disabled>Level</option>
                             @foreach ($levels as $data)
-                                <option value="{{$data->id}}">{{$data->title}}</option>
+                                <option value="{{$data->id}}" @if($data->id == request()->query('level')) selected @endif>{{$data->title}}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="col-md-3 btn-wrapper">
-                        <input type="submit" value="Search" class="form-control-2 boxed-btn white border-none">
+                        <input type="submit" value="Search" class="form-control-2 btn-block boxed-btn  border-none">
                     </div>
-                {{-- </form> --}}
-            </div>
+                </div>
+            </form>
         </div>
     </section>
-    <section class="blog-content-area padding-120">
+    <section class="blog-content-area padding-100">
         <div class="container">
             <div class="row">
 
                 <div class="col-lg-4">
                     <div class="product-widget-area">
+
                         <div class="widget widget_nav_menu">
-                            <h4 class="widget-title">Category</h4>
-                            <ul class="product_category_list">
-                                <li><a data-catid="1" href="https://xgenious.com/laravel/dizzcox/product-category/1/green-tree">Green Tree</a></li>
-                                <li><a data-catid="2" href="https://xgenious.com/laravel/dizzcox/product-category/2/stand-chair">Stand Chair</a></li>
-                                <li><a data-catid="3" href="https://xgenious.com/laravel/dizzcox/product-category/3/office-chair">Office Chair</a></li>
-                                <li><a data-catid="4" href="https://xgenious.com/laravel/dizzcox/product-category/4/black-tree">Black Tree</a></li>
-                                <li><a data-catid="5" href="https://xgenious.com/laravel/dizzcox/product-category/5/arm-chair">Arm Chair</a></li>
-                                <li><a data-catid="6" href="https://xgenious.com/laravel/dizzcox/product-category/6/stand-tree">Stand Tree</a></li>
+                            <h2 class="widget-title">Category</h2>
+                            <ul>
+                                @foreach($levels as $level)
+                                    <li><a href="{{route('university.search.category' , ['id'=> $level->id , 'level' => strtolower($level->title)])}}">{{ucfirst($level->title)}}</a></li>
+                                @endforeach
                             </ul>
                         </div>
-                        <div class="widget widget_price_filter">
+                        
+                        {{-- <div class="widget widget_price_filter">
                             <h4 class="widget-title">Price Filter</h4>
                             <div id="slider-range" class="ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"><div class="ui-slider-range ui-corner-all ui-widget-header" style="left: 0%; width: 100%;"></div><span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 0%;"></span><span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 100%;"></span></div>
                             <p><span class="min_filter_price">$0</span> <span class="max_filter_price">$199</span></p>
                             <button type="button" class="boxed-btn style-01 btn btn-primary" id="submit_price_filter_btn">Apply Filter</button>
-                        </div>
-                        <div class="widget widget_rating_filter">
-                            <h4 class="widget-title">Rating Filter</h4>
-                            <ul class="ratings_filter_list">
-                                <li>
-                                    <div class="single-rating-filter-wrap">
-                                        <input type="radio" id="rating_bal_all" checked="" name="ratings_val" value="">
-                                        <label class="filter-text" for="rating_bal_all">Show All</label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="single-rating-filter-wrap">
-                                        <input type="radio" id="rating_bal_04" name="ratings_val" value="4">
-                                        <label class="filter-text" for="rating_bal_04">Upto 4 star</label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="single-rating-filter-wrap">
-                                        <input type="radio" id="rating_bal_03" name="ratings_val" value="3">
-                                        <label class="filter-text" for="rating_bal_03">Upto 3 star</label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="single-rating-filter-wrap">
-                                        <input type="radio" name="ratings_val" id="rating_bal_02" value="2">
-                                        <label for="rating_bal_02" class="filter-text">Upto 2 star</label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="single-rating-filter-wrap">
-                                        <input type="radio" name="ratings_val" id="rating_bal_01" value="1">
-                                        <label class="filter-text" for="rating_bal_01">Upto 1star</label>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
+                        </div> --}}
+                       
                     </div>
 
                 </div>
                 <div class="col-lg-8">
-                    @foreach($universities as $data)
-                        <div class="row single-job-list-item">
-                            <div class="col-md-4 ">
-                                <img src="http://127.0.0.1:8000/assets/uploads/media-uploader/grid-091587061194.jpg" alt="">
+                  
+                    {{-- After Search --}}
+                    @if(isset($searchCourses))
+                        @if(count($searchCourses)>0)
+                            @foreach($searchCourses as $data)
+                                <div class="row single-job-list-item">
+                                    <div class="col-md-4 ">
+                                        <img src="http://127.0.0.1:8000/assets/uploads/media-uploader/grid-091587061194.jpg" alt="">
+                                    </div>
+                                    <div class="col-lg-8">
+                                            {{-- <span class="job_type"><i class="far fa-clock"></i> {{str_replace('_',' ',$data->employment_status)}}</span> --}}
+                                            {{-- <a href="{{route('frontend.jobs.single',['id' => $data->id,'any' => Str::slug($data->name)])}}"><h3 class="title"> {{$data->title}} </h3></a> --}}
+                                            <a href="#"><h3 class="title"> {{$data->university->name}} </h3></a>
+                                            <span class="company_name"><strong>{{__('Course:')}}</strong> {{$data->title}}</span>
+                                            <span class="company_name"><strong>{{__('Address:')}}</strong> {{$data->university->location}}</span>
+                                            <span class="deadline"><strong>{{__('Available Seat:')}}</strong> 200</span>
+                                            <ul class="jobs-meta">
+                                                <li><i class="fas fa-briefcase"></i> Learn More</li>
+                                                <li><i class="fas fa-wallet"></i><a href="{{route('online.apply')}}">Apply Now</a></li>
+                                            </ul>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @else
+                            <h4 class="title">No Records Found</h4>
+                        @endif
+                    @else 
+                        {{-- No Search --}}
+                        @foreach($all_courses as $data)
+                            <div class="row single-job-list-item">
+                                <div class="col-md-4 ">
+                                    <img src="http://127.0.0.1:8000/assets/uploads/media-uploader/grid-091587061194.jpg" alt="">
+                                </div>
+                                <div class="col-lg-8">
+                                        <a href="#"><h3 class="title"> {{$data->title}} </h3></a>
+                                        <span class="company_name"><strong>{{__('Address:')}}</strong> {{$data->location}}</span>
+                                        <span class="company_name"><strong>{{__('Courses:')}}</strong> 50</span>
+                                        <span class="deadline"><strong>{{__('Available Seat:')}}</strong> 200</span>
+                                        <ul class="jobs-meta">
+                                            <li><i class="fas fa-briefcase"></i> Learn More</li>
+                                            <li><i class="fas fa-wallet"></i><a href="{{route('online.apply')}}">Apply Now</a></li>
+                                        </ul>
+                                </div>
                             </div>
-                            <div class="col-lg-8">
-                                    {{-- <span class="job_type"><i class="far fa-clock"></i> {{str_replace('_',' ',$data->employment_status)}}</span> --}}
-                                    <a href="{{route('frontend.jobs.single',['id' => $data->id,'any' => Str::slug($data->name)])}}"><h3 class="title"> {{$data->name}} </h3></a>
-                                    <span class="company_name"><strong>{{__('Address:')}}</strong> {{$data->location}}</span>
-                                    <span class="company_name"><strong>{{__('Courses:')}}</strong> 50</span>
-                                    <span class="deadline"><strong>{{__('Available Seat:')}}</strong> 200</span>
-                                    <ul class="jobs-meta">
-                                        <li><i class="fas fa-briefcase"></i> Learn More</li>
-                                        <li><i class="fas fa-wallet"></i> Apply Now</li>
-                                    </ul>
-                            </div>
-                        </div>
-                    @endforeach
-                    @foreach($all_jobs as $data)
-                        <div class="row single-job-list-item">
-                            <div class="col-md-4 ">
-                                <img src="http://127.0.0.1:8000/assets/uploads/media-uploader/grid-091587061194.jpg" alt="">
-                            </div>
-                            <div class="col-lg-8">
-                                    {{-- <span class="job_type"><i class="far fa-clock"></i> {{str_replace('_',' ',$data->employment_status)}}</span> --}}
-                                    <a href="{{route('frontend.jobs.single',['id' => $data->id,'any' => Str::slug($data->title)])}}"><h3 class="title">College Name</h3></a>
-                                    <span class="company_name"><strong>{{__('Address:')}}</strong> {{$data->company_name}}</span>
-                                    <span class="company_name"><strong>{{__('Courses:')}}</strong> 50</span>
-                                    <span class="deadline"><strong>{{__('Available Seat:')}}</strong> 200</span>
-                                    <ul class="jobs-meta">
-                                        <li><i class="fas fa-briefcase"></i> Learn More</li>
-                                        <li><i class="fas fa-wallet"></i> Apply Now</li>
-                                    </ul>
-                            </div>
-                        </div>
-                    @endforeach
+                        @endforeach
+                    @endif
+                    
+                    @isset($searchCourses)
                     <div class="col-lg-12 text-center">
                         <nav class="pagination-wrapper " aria-label="Page navigation ">
-                            {{$all_jobs->links()}}
+                            {{$searchCourses->links()}}
                         </nav>
                     </div>
+                    @endisset
                 </div>
               
             </div>

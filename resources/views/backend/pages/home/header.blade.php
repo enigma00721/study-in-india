@@ -1,8 +1,13 @@
 @extends('backend.admin-master')
+
 @section('site-title')
     {{__('Header Slider')}}
 @endsection
+
 @section('style')
+    {{-- <link rel="stylesheet" href="{{asset('assets/backend/css/summernote-bs4.css')}}"> --}}
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
     <link rel="stylesheet" href="{{asset('assets/backend/css/dropzone.css')}}">
     <link rel="stylesheet" href="{{asset('assets/backend/css/media-uploader.css')}}">
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
@@ -17,6 +22,11 @@
             width: 60px;
             display: inline-block;
         }
+        .note-editable ul{
+            list-style: disc !important;
+            list-style-position: inside !important;
+        }
+
     </style>
 @endsection
 @section('content')
@@ -61,7 +71,6 @@
                                        <th>{{__('Image')}}</th>
                                        <th>{{__('Title')}}</th>
                                        <th>{{__('Description')}}</th>
-                                       <th>{{__('Language')}}</th>
                                        <th>{{__('Action')}}</th>
                                        </thead>
                                        <tbody>
@@ -87,24 +96,15 @@
                                                </td>
                                                <td>{{$data->title}}</td>
                                                <td>{{$data->description}}</td>
-                                               <td>{{get_language_by_slug($data->lang)}}</td>
                                                <td>
-                                                   <a tabindex="0" class="btn btn-lg btn-danger btn-sm mb-3 mr-1"
-                                                      role="button"
-                                                      data-toggle="popover"
-                                                      data-trigger="focus"
-                                                      data-html="true"
-                                                      title=""
-                                                      data-content="
-                                               <h6>Are you sure to delete this header slider item?</h6>
-                                               <form method='post' action='{{route('admin.header.delete',$data->id)}}'>
-                                               <input type='hidden' name='_token' value='{{csrf_token()}}'>
-                                               <br>
-                                                <input type='submit' class='btn btn-danger btn-sm' value='Yes,Delete'>
-                                                </form>
-                                                ">
-                                                       <i class="ti-trash"></i>
-                                                   </a>
+
+                                                   <form action='{{route('admin.header.delete',$data->id)}}' method="POST">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-sm btn-danger mb-3 mr-1  delete-confirm" >
+                                                            <i class="fas fa-trash" aria-hidden="true"></i>
+                                                        </button>
+                                                    </form>
+                                                  
                                                    <a href="#"
                                                       data-toggle="modal"
                                                       data-target="#header_slider_item_edit_modal"
@@ -153,9 +153,14 @@
                                 <label for="title">{{__('Title')}}</label>
                                 <input type="text" class="form-control"  id="title"  name="title" placeholder="{{__('Title')}}">
                             </div>
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label for="description">{{__('Description')}}</label>
                                 <textarea class="form-control max-height-150"  id="description"  name="description" placeholder="{{__('Description')}}" cols="30" rows="10"></textarea>
+                            </div> --}}
+                            <div class="form-group">
+                                <label>{{__('Description')}}</label>
+                                <input type="hidden" name="description">
+                                <div class="summernote"></div>
                             </div>
                             <div class="form-group">
                                 <label for="btn_01_status">{{__('Button Show/Hide')}}</label>
@@ -215,10 +220,16 @@
                             <label for="edit_title">{{__('Title')}}</label>
                             <input type="text" class="form-control"  id="edit_title"  name="title" placeholder="{{__('Title')}}">
                         </div>
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="edit_description">{{__('Description')}}</label>
                             <textarea class="form-control max-height-150"  id="edit_description"  name="description" placeholder="{{__('Description')}}" cols="30" rows="10"></textarea>
+                        </div> --}}
+                        <div class="form-group">
+                            <label for="edit_description">{{__('Description')}}</label>
+                            <input type="hidden" name="description" id="edit_description" >
+                            <div class="summernote" id="summernote_edit"></div>
                         </div>
+
                         <div class="form-group">
                             <label for="edit_btn_01_status">{{__('Button Show/Hide')}}</label>
                             <label class="switch">
@@ -257,6 +268,8 @@
 @endsection
 @section('script')
     <script src="{{asset('assets/backend/js/dropzone.js')}}"></script>
+    <script src="{{asset('assets/backend/js/summernote-bs4.js')}}"></script>
+
     @include('backend.partials.media-upload.media-js')
     <script>
         $(document).ready(function () {
@@ -272,6 +285,8 @@
                 form.find('#header_slider_id').val(id);
                 form.find('#edit_title').val(el.data('title'));
                 form.find('#edit_description').val(el.data('description'));
+                $('#summernote_edit').summernote('code', el.data('description'));
+
                 form.find('#edit_btn_01_text').val(el.data('btn_01_text'));
                 form.find('#edit_btn_01_url').val(el.data('btn_01_url'));
                 form.find('#edit_language option[value='+el.data("lang")+']').attr('selected',true);//lang
@@ -301,7 +316,35 @@
                 "order": [[ 0, "desc" ]]
             } );
 
-
+             $('.summernote').summernote({
+                height: 400,   //set editable area's height
+                codemirror: { // codemirror options
+                    theme: 'monokai'
+                },
+                callbacks: {
+                    onChange: function(contents, $editable) {
+                        $(this).prev('input').val(contents);
+                    }
+                }
+            });
         } );
+    </script>
+
+    <script>
+        $('.delete-confirm').on('click', function (event) {
+        event.preventDefault();
+        var form = event.target.form; // storing the form
+        //   console.log(form);
+        swal({
+            title: 'Are you sure?',
+            text: 'This record will be permanantly deleted!',
+            icon: 'warning',
+            buttons: ["Cancel", "Yes!"],
+        }).then(function(value) {
+            if (value) {
+                form.submit(); 
+            }
+        });
+    });
     </script>
 @endsection

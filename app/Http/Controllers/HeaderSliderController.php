@@ -53,9 +53,12 @@ class HeaderSliderController extends Controller
         return redirect()->back()->with(['msg' => 'Header Slider Updated...','type' => 'success']);
     }
 
-    public function delete($id){
-
+    public function delete($id)
+    {
         HeaderSlider::find($id)->delete();
-        return redirect()->back()->with(['msg' => 'Delete Success...','type' => 'danger']);
+        return redirect()->back()->with([
+            'msg' => 'Header Slider Post Delete Success...',
+            'type' => 'danger'
+        ]);
     }
 }

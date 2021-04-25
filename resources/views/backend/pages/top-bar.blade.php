@@ -87,15 +87,7 @@
                     <div class="card-body">
                         <h4 class="header-title">{{__('Support Info Items')}}</h4>
                         <div class="right-cotnent margin-bottom-40"><a class="btn btn-primary" data-target="#add_support_info" data-toggle="modal" href="#">{{__('Add New Support Info')}}</a></div>
-                        <ul class="nav nav-tabs" role="tablist">
-                            @php $a=0; @endphp
-                            @foreach($all_support_info as $key => $support_item)
-                                <li class="nav-item">
-                                    <a class="nav-link @if($a == 0) active @endif"  data-toggle="tab" href="#slider_tab_{{$key}}" role="tab" aria-controls="home" aria-selected="true">{{get_language_by_slug($key)}}</a>
-                                </li>
-                                @php $a++; @endphp
-                            @endforeach
-                        </ul>
+                       
                         <div class="tab-content margin-top-40" >
                             @php $b=0; @endphp
                             @foreach($all_support_info as $key => $support_item)
@@ -115,23 +107,14 @@
                                                 <td>{{$data->title}}</td>
                                                 <td><i class="{{$data->icon}}"></i></td>
                                                 <td>{{$data->details}}</td>
-                                                <td>
-                                                    <a tabindex="0" class="btn btn-lg btn-danger btn-sm mb-3 mr-1"
-                                                       role="button"
-                                                       data-toggle="popover"
-                                                       data-trigger="focus"
-                                                       data-html="true"
-                                                       title=""
-                                                       data-content="
-                                               <h6>Are you sure to delete this support info item?</h6>
-                                               <form method='post' action='{{route('admin.delete.support.info',$data->id)}}'>
-                                               <input type='hidden' name='_token' value='{{csrf_token()}}'>
-                                               <br>
-                                                <input type='submit' class='btn btn-danger btn-sm' value='Yes,Delete'>
-                                                </form>
-                                                ">
-                                                        <i class="ti-trash"></i>
-                                                    </a>
+                                                <td style="display: flex;">
+                                                    <form action='{{route('admin.delete.support.info',$data->id)}}' method="POST">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-sm btn-danger mb-3 mr-1  delete-confirm" >
+                                                            <i class="fas fa-trash" aria-hidden="true"></i>
+                                                        </button>
+                                                    </form>
+                                                    
                                                     <a href="#"
                                                        data-toggle="modal"
                                                        data-target="#support_info_item_edit_modal"
@@ -174,23 +157,14 @@
                                     <td>{{$data->id}}</td>
                                     <td><i class="{{$data->icon}}"></i></td>
                                     <td>{{$data->url}}</td>
-                                    <td>
-                                        <a tabindex="0" class="btn btn-lg btn-danger btn-sm mb-3 mr-1"
-                                           role="button"
-                                           data-toggle="popover"
-                                           data-trigger="focus"
-                                           data-html="true"
-                                           title=""
-                                           data-content="
-                                               <h6>Are you sure to delete this social item?</h6>
-                                               <form method='post' action='{{route('admin.delete.social.item',$data->id)}}'>
-                                               <input type='hidden' name='_token' value='{{csrf_token()}}'>
-                                               <br>
-                                                <input type='submit' class='btn btn-danger btn-sm' value='Yes,Delete'>
-                                                </form>
-                                                ">
-                                            <i class="ti-trash"></i>
-                                        </a>
+                                    <td style="display: flex;">
+                                        
+                                        <form action='{{route('admin.delete.social.item',$data->id)}}' method="POST">
+                                            @csrf
+                                            <button type="submit" class="btn btn-sm btn-danger mb-3 mr-1  delete-confirm" >
+                                                <i class="fas fa-trash" aria-hidden="true"></i>
+                                            </button>
+                                        </form>
                                         <a href="#"
                                            data-toggle="modal"
                                            data-target="#social_item_edit_modal"
@@ -399,5 +373,22 @@
                 });
             });
         });
+    </script>
+    <script>
+          $('.delete-confirm').on('click', function (event) {
+          event.preventDefault();
+          var form = event.target.form; // storing the form
+        //   console.log(form);
+          swal({
+              title: 'Are you sure?',
+              text: 'This record will be permanantly deleted!',
+              icon: 'warning',
+              buttons: ["Cancel", "Yes!"],
+          }).then(function(value) {
+              if (value) {
+                  form.submit(); 
+              }
+          });
+      });
     </script>
 @endsection

@@ -65,26 +65,13 @@
                     @endif
                   
                     {{-- order page change to form fill by student --}}
-                    {{-- @if(check_page_permission('order_manage'))
-                        <li class="@if(request()->is('admin-home/order-manage/*')) active @endif ">
-                            <a href="javascript:void(0)" aria-expanded="true"><i class="ti-light-bulb"></i>
-                                <span>{{__('Order Manage')}}</span></a>
-                            <ul class="collapse">
-                                <li class="{{active_menu('admin-home/order-manage/all')}}"><a
-                                            href="{{route('admin.order.manage.all')}}">{{__('All Order')}}</a></li>
-                                <li class="{{active_menu('admin-home/order-manage/pending')}}"><a
-                                            href="{{route('admin.order.manage.pending')}}">{{__('Pending Order')}}</a></li>
-                                <li class="{{active_menu('admin-home/order-manage/in-progress')}}"><a
-                                            href="{{route('admin.order.manage.in.progress')}}">{{__('In Progress Order')}}</a></li>
-                                <li class="{{active_menu('admin-home/order-manage/completed')}}"><a
-                                            href="{{route('admin.order.manage.completed')}}">{{__('Completed Order')}}</a></li>
-                                <li class="{{active_menu('admin-home/order-manage/success-page')}}"><a
-                                            href="{{route('admin.order.success.page')}}">{{__('Success Order Page')}}</a></li>
-                                <li class="{{active_menu('admin-home/order-manage/cancel-page')}}"><a
-                                            href="{{route('admin.order.cancel.page')}}">{{__('Cancel Order Page')}}</a></li>
-                            </ul>
+                    @if(check_page_permission('order_manage'))
+                    
+                        <li class="@if(request()->is('admin-home/online-apply/*')) active @endif ">
+                            <a href="{{route('admin.online.apply')}}" aria-expanded="true"><i class="ti-light-bulb"></i>
+                                <span>{{__('Online Apply')}}</span></a>
                         </li>
-                    @endif --}}
+                    @endif
                    
                     @if(check_page_permission('pages'))
                         <li
@@ -126,21 +113,49 @@
                         {{active_menu('admin-home/blog')}}
                                 {{active_menu('admin-home/blog-category')}}
                                 {{active_menu('admin-home/new-blog')}}
+                                {{active_menu('admin-home/all/news')}}
+                                {{active_menu('admin-home/add/news')}}
+                                @if(request()->is('admin-home/edit/news/*')) active @endif
                                 @if(request()->is('admin-home/blog-edit/*')) active @endif
                                         "
                         >
                             <a href="javascript:void(0)" aria-expanded="true"><i class="ti-write"></i>
-                                <span>{{__('Blogs')}}</span></a>
+                                <span>{{__('Blogs/News')}}</span></a>
                             <ul class="collapse">
                                 <li class="{{active_menu('admin-home/blog')}}"><a
                                             href="{{route('admin.blog')}}">{{__('All Blog')}}</a></li>
+                                <li class="{{active_menu('admin-home/all/news')}}"><a
+                                            href="{{route('admin.news.list')}}">{{__('All News')}}</a></li>
                                 <li class="{{active_menu('admin-home/blog-category')}}"><a
                                             href="{{route('admin.blog.category')}}">{{__('Category')}}</a></li>
                                 <li class="{{active_menu('admin-home/new-blog')}}"><a
-                                            href="{{route('admin.blog.new')}}">{{__('Add New Post')}}</a></li>
+                                            href="{{route('admin.blog.new')}}">{{__('Add New Blog')}}</a></li>
+                                <li class="{{active_menu('admin-home/new-news')}}"><a
+                                            href="{{route('admin.news.new')}}">{{__('Add New News')}}</a></li>
                             </ul>
                         </li>
                     @endif
+                    @if(check_page_permission('events_manage'))
+                        <li class="
+                        {{active_menu('admin-home/events')}}
+                        @if(request()->is('admin-home/events/*')) active @endif
+                        ">
+                            <a href="javascript:void(0)" aria-expanded="true"><i class="ti-write"></i>
+                                <span>{{__('Events Manage')}}</span></a>
+                            <ul class="collapse">
+                                <li class="{{active_menu('admin-home/events')}}"><a
+                                            href="{{route('admin.events.all')}}">{{__('All Events')}}</a></li>
+                                <li class="{{active_menu('admin-home/events/category')}}"><a
+                                            href="{{route('admin.events.category.all')}}">{{__('Category')}}</a></li>
+                                <li class="{{active_menu('admin-home/events/new')}}"><a
+                                            href="{{route('admin.events.new')}}">{{__('Add New Event')}}</a></li>
+                                <li class="{{active_menu('admin-home/events/page-settings')}}"><a
+                                            href="{{route('admin.events.page.settings')}}">{{__('Event Page Settings')}}</a></li>
+                            </ul>
+                        </li>
+                    @endif
+                 
+                    
                     @if(check_page_permission('blogs'))
                         <li
                         class="
@@ -162,10 +177,10 @@
                     </li>
                     @endif
                     @if(check_page_permission('services'))
-                    <li class="{{active_menu('admin-home/discipline')}}">
-                        <a href="{{route('admin.discipline')}}" aria-expanded="true"><i class="ti-control-forward"></i>
-                            <span>{{__('Discipline')}}</span></a>
-                    </li>
+                        <li class="{{active_menu('admin-home/discipline')}}">
+                            <a href="{{route('admin.discipline')}}" aria-expanded="true"><i class="ti-control-forward"></i>
+                                <span>{{__('Discipline')}}</span></a>
+                        </li>
                     @endif
                    @if(check_page_permission('services'))
                     <li class="{{active_menu('admin-home/level')}}">
@@ -174,33 +189,87 @@
                     </li>
                     @endif
                     
-                    @if(check_page_permission('events_manage'))
+                    
+                  
+               
+                    @if(check_page_permission('services'))
                     <li class="
-                    {{active_menu('admin-home/events')}}
-                    @if(request()->is('admin-home/events/*')) active @endif
-                    ">
-                        <a href="javascript:void(0)" aria-expanded="true"><i class="ti-write"></i>
-                            <span>{{__('Events Manage')}}</span></a>
-                        <ul class="collapse">
-                            <li class="{{active_menu('admin-home/events')}}"><a
-                                        href="{{route('admin.events.all')}}">{{__('All Events')}}</a></li>
-                            <li class="{{active_menu('admin-home/events/category')}}"><a
-                                        href="{{route('admin.events.category.all')}}">{{__('Category')}}</a></li>
-                            <li class="{{active_menu('admin-home/events/new')}}"><a
-                                        href="{{route('admin.events.new')}}">{{__('Add New Event')}}</a></li>
-                            <li class="{{active_menu('admin-home/events/page-settings')}}"><a
-                                        href="{{route('admin.events.page.settings')}}">{{__('Event Page Settings')}}</a></li>
-                        </ul>
-                    </li>
-                    @endif
-                 
-                    @if(check_page_permission('home_page_manage'))
-                    <li class="@if(request()->is('admin-home/home-page-01/*')  ) active @endif
-                    {{active_menu('admin-home/header')}}
-                    {{active_menu('admin-home/keyfeatures')}}
+                    @if(request()->is('admin-home/services/*')) active @endif
+                    {{active_menu('admin-home/services')}}
                             ">
                         <a href="javascript:void(0)"
                            aria-expanded="true">
+                            <i class="ti-layout"></i>
+                            <span>{{__('Services')}}</span>
+                        </a>
+                        <ul class="collapse">
+                            <li class="{{active_menu('admin-home/services')}}"><a
+                                        href="{{route('admin.services')}}">{{__('New/All Services')}}</a></li>
+                            <li class="{{active_menu('admin-home/services/category')}}"><a
+                                        href="{{route('admin.service.category')}}">{{__('Category')}}</a></li>
+                        </ul>
+                    </li>
+                    @endif
+
+                    @if(check_page_permission('faq'))
+                    <li class="{{active_menu('admin-home/faq')}}">
+                        <a href="{{route('admin.faq')}}" aria-expanded="true"><i class="ti-control-forward"></i>
+                            <span>{{__('Faq')}}</span></a>
+                    </li>
+                    @endif
+                    @if(check_page_permission('brand_logos'))
+                    <li class="{{active_menu('admin-home/brands')}}">
+                        <a href="{{route('admin.brands')}}" aria-expanded="true"><i class="ti-control-forward"></i>
+                            <span>{{__('Brand Logos')}}</span></a>
+                    </li>
+                    @endif
+                  
+                    @if(check_page_permission('team_members'))
+                    <li class="{{active_menu('admin-home/team-member')}}">
+                        <a href="{{route('admin.team.member')}}" aria-expanded="true"><i class="ti-control-forward"></i>
+                            <span>{{__('Team Members')}}</span></a>
+                    </li>
+                    @endif
+                    @if(check_page_permission('testimonial'))
+                    <li class="{{active_menu('admin-home/testimonial')}}">
+                        <a href="{{route('admin.testimonial')}}" aria-expanded="true"><i class="ti-control-forward"></i>
+                            <span>{{__('Testimonial')}}</span></a>
+                    </li>
+                    @endif
+                    @if(check_page_permission('counterup'))
+                    <li class="{{active_menu('admin-home/counterup')}}">
+                        <a href="{{route('admin.counterup')}}" aria-expanded="true"><i class="ti-exchange-vertical"></i>
+                            <span>{{__('Counterup')}}</span></a>
+                    </li>
+                    @endif
+
+                    @if(!empty(get_static_option('site_maintenance_mode')))
+                        <li class="{{active_menu('admin-home/maintains-page/settings')}}">
+                            <a href="{{route('admin.maintains.page.settings')}}"
+                               aria-expanded="true">
+                                <i class="ti-dashboard"></i>
+                                <span>{{__('Maintain Page Manage')}}</span>
+                            </a>
+                        </li>
+                    @endif
+
+                    @if(check_page_permission('top_bar_settings'))
+                        <li class="{{active_menu('admin-home/topbar')}}">
+                            <a href="{{route('admin.topbar')}}"
+                            aria-expanded="true">
+                                <i class="ti-dashboard"></i>
+                                <span>{{__('Top Bar Settings')}}</span>
+                            </a>
+                        </li>
+                    @endif
+
+                    @if(check_page_permission('home_page_manage'))
+                    <li class="@if(request()->is('admin-home/home-page-01/*')  ) active @endif
+                        {{active_menu('admin-home/header')}}
+                        {{active_menu('admin-home/keyfeatures')}}
+                            ">
+                        <a href="javascript:void(0)"
+                        aria-expanded="true">
                             <i class="ti-home"></i>
                             <span>{{__('Home Page Manage')}}</span>
                         </a>
@@ -248,11 +317,11 @@
                             </li>
                         </ul>
                     </li>
-                    @endif
-                    @if(check_page_permission('about_page_manage'))
+                @endif
+                @if(check_page_permission('about_page_manage'))
                     <li class="@if(request()->is('admin-home/about-page/*')  ) active @endif ">
                         <a href="javascript:void(0)"
-                           aria-expanded="true">
+                        aria-expanded="true">
                             <i class="ti-home"></i>
                             <span>{{__('About Page Manage')}}</span>
                         </a>
@@ -266,11 +335,11 @@
                             </li>
                         </ul>
                     </li>
-                    @endif
-                    @if(check_page_permission('contact_page_manage'))
+                @endif
+                @if(check_page_permission('contact_page_manage'))
                     <li class="@if(request()->is('admin-home/contact-page/*')  ) active @endif">
                         <a href="javascript:void(0)"
-                           aria-expanded="true">
+                        aria-expanded="true">
                             <i class="ti-home"></i>
                             <span>{{__('Contact Page Manage')}}</span>
                         </a>
@@ -283,99 +352,7 @@
                                         href="{{route('admin.contact.page.map')}}">{{__('Google Map Area')}}</a></li>
                         </ul>
                     </li>
-                    @endif
-                    @if(check_page_permission('top_bar_settings'))
-                    <li class="{{active_menu('admin-home/topbar')}}">
-                        <a href="{{route('admin.topbar')}}"
-                           aria-expanded="true">
-                            <i class="ti-dashboard"></i>
-                            <span>{{__('Top Bar Settings')}}</span>
-                        </a>
-                    </li>
-                    @endif
-                    @if(check_page_permission('services'))
-                    <li class="
-                    @if(request()->is('admin-home/services/*')) active @endif
-                    {{active_menu('admin-home/services')}}
-                            ">
-                        <a href="javascript:void(0)"
-                           aria-expanded="true">
-                            <i class="ti-layout"></i>
-                            <span>{{__('Services')}}</span>
-                        </a>
-                        <ul class="collapse">
-                            <li class="{{active_menu('admin-home/services')}}"><a
-                                        href="{{route('admin.services')}}">{{__('New/All Services')}}</a></li>
-                            <li class="{{active_menu('admin-home/services/category')}}"><a
-                                        href="{{route('admin.service.category')}}">{{__('Category')}}</a></li>
-                        </ul>
-                    </li>
-                    @endif
-
-                    
-                   
-
-
-                    @if(check_page_permission('works'))
-                    <li class="
-                    @if(request()->is('admin-home/works/*')) active @endif
-                    {{active_menu('admin-home/works')}}
-                            ">
-                        <a href="javascript:void(0)"
-                           aria-expanded="true">
-                            <i class="ti-layout"></i>
-                            <span>{{__('Works')}}</span>
-                        </a>
-                        <ul class="collapse">
-                            <li class="{{active_menu('admin-home/works')}}"><a
-                                        href="{{route('admin.work')}}">{{__('New/All Works')}}</a></li>
-                            <li class="{{active_menu('admin-home/works/category')}}"><a
-                                        href="{{route('admin.work.category')}}">{{__('Category')}}</a></li>
-                        </ul>
-                    </li>
-                    @endif
-
-                    @if(check_page_permission('faq'))
-                    <li class="{{active_menu('admin-home/faq')}}">
-                        <a href="{{route('admin.faq')}}" aria-expanded="true"><i class="ti-control-forward"></i>
-                            <span>{{__('Faq')}}</span></a>
-                    </li>
-                    @endif
-                    @if(check_page_permission('brand_logos'))
-                    <li class="{{active_menu('admin-home/brands')}}">
-                        <a href="{{route('admin.brands')}}" aria-expanded="true"><i class="ti-control-forward"></i>
-                            <span>{{__('Brand Logos')}}</span></a>
-                    </li>
-                    @endif
-                  
-                    @if(check_page_permission('team_members'))
-                    <li class="{{active_menu('admin-home/team-member')}}">
-                        <a href="{{route('admin.team.member')}}" aria-expanded="true"><i class="ti-control-forward"></i>
-                            <span>{{__('Team Members')}}</span></a>
-                    </li>
-                    @endif
-                    @if(check_page_permission('testimonial'))
-                    <li class="{{active_menu('admin-home/testimonial')}}">
-                        <a href="{{route('admin.testimonial')}}" aria-expanded="true"><i class="ti-control-forward"></i>
-                            <span>{{__('Testimonial')}}</span></a>
-                    </li>
-                    @endif
-                    @if(check_page_permission('counterup'))
-                    <li class="{{active_menu('admin-home/counterup')}}">
-                        <a href="{{route('admin.counterup')}}" aria-expanded="true"><i class="ti-exchange-vertical"></i>
-                            <span>{{__('Counterup')}}</span></a>
-                    </li>
-                    @endif
-
-                    @if(!empty(get_static_option('site_maintenance_mode')))
-                        <li class="{{active_menu('admin-home/maintains-page/settings')}}">
-                            <a href="{{route('admin.maintains.page.settings')}}"
-                               aria-expanded="true">
-                                <i class="ti-dashboard"></i>
-                                <span>{{__('Maintain Page Manage')}}</span>
-                            </a>
-                        </li>
-                    @endif
+                @endif
 
                     @if(check_page_permission('footer_area'))
                     <li class="@if(request()->is('admin-home/footer/*')) active @endif">
@@ -457,13 +434,7 @@
                         </ul>
                     </li>
                     @endif
-                    @if(check_page_permission('languages'))
-                    <li
-                            class="@if(request()->is('admin-home/languages/*') || request()->is('admin-home/languages') ) active @endif">
-                        <a href="{{route('admin.languages')}}" aria-expanded="true"><i class="ti-signal"></i>
-                            <span>{{__('Languages')}}</span></a>
-                    </li>
-                    @endif
+                   
                 </ul>
             </nav>
         </div>

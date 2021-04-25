@@ -98,7 +98,7 @@
                 <div class="col-sm-6 clearfix">
                     <div class="user-profile pull-right">
                         @php
-                        $profile_img = get_attachment_image_by_id(auth()->user()->image,null,true);
+                          $profile_img = get_attachment_image_by_id(auth()->user()->image,null,true);
                         @endphp
                         @if (!empty($profile_img))
                             <img class="avatar user-thumb" src="{{$profile_img['img_url']}}" alt="{{auth()->user()->name}}">

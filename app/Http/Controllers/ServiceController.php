@@ -53,8 +53,8 @@ class ServiceController extends Controller
     }
 
     public function delete($id){
-        Services::find($id)->delete();
-
+        $row = Services::find($id);
+        $row->delete();
         return redirect()->back()->with(['msg' => 'Delete Success...','type' => 'danger']);
     }
 

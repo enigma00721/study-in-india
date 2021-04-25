@@ -58,7 +58,8 @@ class FaqController extends Controller
     }
 
     public function delete($id){
-        Faq::find($id)->delete();
+        $row = Faq::find($id);
+        $row->delete();
         return redirect()->back()->with(['msg' => 'Delete Success...','type' => 'danger']);
     }
 }

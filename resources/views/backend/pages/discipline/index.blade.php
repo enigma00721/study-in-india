@@ -180,7 +180,6 @@
 
 
 @section('script')
-@include('backend.partials.confirm-delete')
 
     <script>
         $(document).ready(function () {
@@ -213,7 +212,7 @@
         } );
     </script>
 
-@include('backend.partials.confirm-delete')
+    @include('backend.partials.confirm-delete')
 @endsection
 
 

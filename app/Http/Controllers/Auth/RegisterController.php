@@ -142,7 +142,9 @@ class RegisterController extends Controller
      */
     public function showRegistrationForm()
     {
-        $all_area = Area::all();
-        return view('frontend.pages.join-donor')->with(['all_area' => $all_area]);
+        return view('auth.admin.register');
+        // $all_area = Area::all();
+        return view('frontend.pages.join-donor');
+        // ->with(['all_area' => $all_area]);
     }
 }

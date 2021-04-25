@@ -41,15 +41,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="header-title">{{__('Team Member Items')}}</h4>
-                        <ul class="nav nav-tabs" id="myTab" role="tablist">
-                            @php $a=0; @endphp
-                            @foreach($all_team_member as $key => $team)
-                                <li class="nav-$all_price_plan">
-                                    <a class="nav-link @if($a == 0) active @endif"  data-toggle="tab" href="#slider_tab_{{$key}}" role="tab" aria-controls="home" aria-selected="true">{{get_language_by_slug($key)}}</a>
-                                </li>
-                                @php $a++; @endphp
-                            @endforeach
-                        </ul>
+                       
                         <div class="tab-content margin-top-40" id="myTabContent">
                             @php $b=0; @endphp
                             @foreach($all_team_member as $key => $team)
@@ -85,23 +77,14 @@
                                                 </td>
                                                 <td>{{$data->name}}</td>
                                                 <td>{{$data->designation}}</td>
-                                                <td>
-                                                    <a tabindex="0" class="btn btn-lg btn-danger btn-sm mb-3 mr-1"
-                                                       role="button"
-                                                       data-toggle="popover"
-                                                       data-trigger="focus"
-                                                       data-html="true"
-                                                       title=""
-                                                       data-content="
-                                               <h6>Are you sure to delete this team member item?</h6>
-                                               <form method='post' action='{{route('admin.team.member.delete',$data->id)}}'>
-                                               <input type='hidden' name='_token' value='{{csrf_token()}}'>
-                                               <br>
-                                                <input type='submit' class='btn btn-danger btn-sm' value='Yes,Delete'>
-                                                </form>
-                                                ">
-                                                        <i class="ti-trash"></i>
-                                                    </a>
+                                                <td style="display: flex;">
+                                                    <form action='{{route('admin.team.member.delete',$data->id)}}' method="POST">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-sm btn-danger mb-3 mr-1  delete-confirm" >
+                                                            <i class="fas fa-trash" aria-hidden="true"></i>
+                                                        </button>
+                                                    </form>
+                                                   
                                                     <a href="#"
                                                        data-toggle="modal"
                                                        data-target="#team_member_item_edit_modal"
@@ -409,4 +392,5 @@
     </script>
     <script src="{{asset('assets/backend/js/dropzone.js')}}"></script>
     @include('backend.partials.media-upload.media-js')
+    @include('backend.partials.confirm-delete')
 @endsection

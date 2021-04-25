@@ -1,6 +1,6 @@
 @extends('backend.admin-master')
 @section('site-title')
-    {{__('Dashboard')}}
+    Dashboard
 @endsection
 @section('content')
 
@@ -63,28 +63,7 @@
                             </div>
                         </div>
                     </div>
-                    {{-- <div class="col-md-4 mt-md-5 mb-3">
-                        <div class="card">
-                            <div class="seo-fact sbg2">
-                                <div class="p-4 d-flex justify-content-between align-items-center">
-                                    <div class="seofct-icon"><i class="ti-share"></i> {{__('Total Price Plan')}}</div>
-                                    <h2>20</h2>
-                                </div>
-                                <canvas id="seolinechart2" height="50"></canvas>
-                            </div>
-                        </div>
-                    </div>  --}}
-                    {{-- <div class="col-md-4 mt-md-5 mb-3">
-                        <div class="card">
-                            <div class="seo-fact sbg3">
-                                <div class="p-4 d-flex justify-content-between align-items-center">
-                                    <div class="seofct-icon"><i class="ti-share"></i> {{__('Total Work Item')}}</div>
-                                    <h2>{{$total_works}}</h2>
-                                </div>
-                                <canvas id="seolinechart2" height="50"></canvas>
-                            </div>
-                        </div>
-                    </div> --}}
+                   
                     <div class="col-md-4 mt-md-5 mb-3">
                         <div class="card">
                             <div class="seo-fact sbg4">

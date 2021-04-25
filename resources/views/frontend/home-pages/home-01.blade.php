@@ -55,17 +55,27 @@
     }
     .right-content-area .title{
         font-size: 30px;
-        line-height: 46px;
+        line-height: 40px;
         font-weight: 700;
         margin-bottom: 15px;
     }
     .overlay {
-        background-color: rgba(0, 0, 0, 0.4);
+        background-color: rgba(0, 0, 0, 0.6);
     }
     .header-inner {
-        /* height: 338px; */
         position: relative;
         overflow: hidden;
+        max-width: 510px;
+        padding:20px;
+    }
+    @media only screen and (max-width: 768px) {
+        .right-content-area{
+            padding:20px !important;
+        }
+    }
+    .header-inner .title{
+        font-size: 1.2rem;
+        width: 100%;
     }
     .header-bg{
         max-height: 70vh;
@@ -107,6 +117,9 @@
             left: 15px;
             top: 40px;
             color: gray;
+    }
+    .single-work-item i{
+        color: var(--main-color-one);
     }
 
 </style>
@@ -222,12 +235,12 @@
         style="background-image: url({{$header_bg_img['img_url'] }})"
         @endif
         >
-            <div class="container">
+            <div class="container-fluid">
                 <div class="row ">
-                    <div class="col-lg-6 ml-auto">
+                    <div class="col-lg-4 ml-auto mr-5">
                         <div class="header-inner overlay right-content-area">
                             <h4 class="title">{{$data->title}}</h4>
-                            <p>{{$data->description}}</p>
+                            <p>{!! $data->description !!}</p>
                             <div class="btn-wrapper  desktop-left padding-top-20">
                                 @if(!empty($data->btn_01_status))
                                     <a href="{{$data->btn_01_url}}" class="boxed-btn btn-rounded white">{{$data->btn_01_text}}</a>
@@ -260,40 +273,38 @@
 @if(!empty(get_static_option('home_page_service_section_status')))
     <section class="our-cover-area why-india-section  padding-top-90 padding-bottom-90">
         <div class="container">
+            <form action="{{route('university.search')}}" method="get">  
             <div class="row" style="margin-bottom:70px;">
-                 <div class="col-md-3">
-                    <select name="course" id="" class="form-control">
-                        <option readonly>Discipline</option>
-                        <option value="1">1</option>
-                        <option value="1">1</option>
-                    </select>
+                    <div class="col-md-3">
+                        <select name="discipline" id="" class="form-control">
+                            <option readonly value="all">Discipline</option>
+                            @foreach ($all_disciplines as $data)
+                                <option value="{{$data->title}}"> {{$data->title}} </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select name="course" id="" class="form-control">
+                            <option readonly value="all">Course</option>
+                            @foreach ($all_courses as $data)
+                                <option value="{{$data->title}}"> {{$data->title}} </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select name="level" id="" class="form-control">
+                            <option readonly value="all">Level</option>
+                            @foreach ($all_levels as $data)
+                                <option value="{{$data->title}}"> {{$data->title}} </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-3 btn-wrapper">
+                        <input type="submit" value="Search" class=" boxed-btn btn-rounded white border-none border-green">
+                    </div>
+                    
                 </div>
-                <div class="col-md-3">
-                    <select name="course" id="" class="form-control">
-                        <option readonly>Course</option>
-                        <option value="1">1</option>
-                        <option value="1">1</option>
-                    </select>
-                </div>
-                <div class="col-md-3">
-                    <select name="course" id="" class="form-control">
-                        <option readonly>Level</option>
-                        <option value="1">1</option>
-                        <option value="1">1</option>
-                    </select>
-                </div>
-                <div class="col-md-3 btn-wrapper">
-                    <input type="submit" value="Search" class=" boxed-btn btn-rounded white border-none border-green">
-                </div>
-                {{-- <div class="col-lg-12">
-                    <form action="" class="form-inline">
-                        <input class="form-control" type="text" placeholder="Discipline" name="discipline">
-                        <input class="form-control" type="text" placeholder="Level" name="level">
-                        <input class="form-control" type="text" placeholder="Course" name="course">
-                        <button type="submit" class="btn btn-lg btn-primary">Search</button>
-                    </form>
-                </div> --}}
-            </div>
+            </form>  
             <div class="mt-5 row justify-content-center">
                 <div class="col-lg-10 col-md-12">
                     <div class="section-title desktop-center margin-bottom-55">
@@ -375,25 +386,26 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="our-work-carousel">
-                    @foreach($all_work as $data)
+                    @foreach($all_news as $single_news)
                         <div class="single-work-item">
                             <div class="thumb">
                                 @php
-                                    $related_work_image = get_attachment_image_by_id($data->image,"grid",false);
+                                    $related_work_image = get_attachment_image_by_id($single_news->image,"grid",false);
                                 @endphp
                                 @if (!empty($related_work_image))
-                                    <img  src="{{$related_work_image['img_url']}}" alt="{{__($data->name)}}">
+                                    <img  src="{{$related_work_image['img_url']}}" alt="{{__($single_news->title)}}">
                                 @endif
                             </div>
                             <div class="content">
-                                <h4 class="title"><a href="{{route('frontend.work.single',['id' => $data->id,'any' => Str::slug($data->title)])}}"> {{$data->title}}</a></h4>
-                                <div class="cats">
-                                    @php
-                                        $all_cat_of_post = get_work_category_by_id($data->id);
-                                    @endphp
-                                    @foreach($all_cat_of_post as $key => $work_cat)
-                                        <a href="{{route('frontend.works.category',['id' => $key,'any'=> Str::slug($work_cat)])}}">{{$work_cat}}</a>
-                                    @endforeach
+                                <h4 class="title mb-4"><a href="{{route('frontend.work.single',['id' => $single_news->id,'any' => Str::slug($single_news->title)])}}"> {{$single_news->title}}</a></h4>
+                                <div class="cats" style="display: flex;justify-content:space-between">
+                                    <a href="#">
+                                        <i class="fab fa-cuttlefish"></i>
+                                        {{$single_news->category->name}}</a>
+                                    <a href="#">
+                                        <i class="fa fa-calendar"></i>
+                                        {{$single_news->created_at}}</a>
+
                                 </div>
                             </div>
                         </div>
@@ -405,58 +417,6 @@
 </section>
 {{-- @endif --}}
 {{-- recent work --}}
-
-
-{{-- pricing plan --}}
-{{-- @if(!empty(get_static_option('home_page_price_plan_section_status')))
-<section class="price-plan-area  padding-top-110 padding-bottom-120">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-6">
-                <div class="section-title desktop-center margin-bottom-55">
-                    <h2 class="title">{{get_static_option('home_page_01_'.get_user_lang().'_price_plan_section_title')}}</h2>
-                    <p>{{get_static_option('home_page_01_'.get_user_lang().'_price_plan_section_description')}}</p>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="price-carousel">
-                    @foreach($all_price_plan as $data)
-                    <div class="pricing-table-15">
-                        <div class="price-header">
-                            <div class="icon"><i class="{{$data->icon}}"></i></div>
-                            <h3 class="title">{{$data->title}}</h3>
-                        </div>
-
-                        <div class="price">
-                            <span class="dollar"></span>{{$data->price}}<span class="month">{{$data->type}}</span>
-                        </div>
-                        <div class="price-body">
-                            <ul>
-                                @php
-                                    $features = explode(';',$data->features);
-                                @endphp
-                                @foreach($features as $item)
-                                <li>{{$item}}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                        <div class="price-footer">
-                            @if(!empty($data->url_status))
-                            <a class="order-btn" href="{{route('frontend.plan.order',$data->id)}}">{{$data->btn_text}}</a>
-                            @else
-                            <a class="order-btn" href="{{$data->btn_url}}">{{$data->btn_text}}</a>
-                            @endif
-                        </div>
-                    </div>
-                    @endforeach
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-@endif --}}
 
 {{-- team section --}}
 {{-- @if(!empty(get_static_option('home_page_team_member_section_status')))
@@ -580,11 +540,11 @@
                             <div class="content">
                                 <h4 class="title"><a href="{{route('frontend.blog.single',['id' => $data->id,'any' => Str::slug($data->title)])}}">{{$data->title}}</a></h4>
                                 <ul class="post-meta">
-                                    <li><a href="#"><i class="fa fa-calendar"></i> {{date_format($data->created_at,'d M y')}}</a></li>
+                                    <li><a href="#"><i class="fa fa-calendar"></i> {{date_format($data->created_at,'d M ')}}</a></li>
                                     <li><a href="#"><i class="fa fa-user"></i> {{$data->user->username}}</a></li>
                                     <li><div class="cats"><i class="fa fa-calendar"></i><a href="{{route('frontend.blog.category',['id' => $data->category->id,'any' => Str::slug($data->category->name)])}}"> {{$data->category->name}}</a></div></li>
                                 </ul>
-                                <p>{{$data->excerpt}}</p>
+                                <p>{!! str_limit($data->excerpt,150,' .....') !!}</p>
                             </div>
                         </div>
                     @endforeach

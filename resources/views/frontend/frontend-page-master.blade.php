@@ -50,7 +50,7 @@
     @if(!empty(get_static_option('site_rtl_enabled')) || get_user_lang_direction() == 'rtl')
         <link rel="stylesheet" href="{{asset('assets/frontend/css/rtl.css')}}">
     @endif
-    @if(request()->is('blog/*') || request()->is('work/*') || request()->is('service/*'))
+    @if(request()->is('blog/*') || request()->is('work/*')  || request()->is('news*') || request()->is('service/*'))
         @yield('og-meta')
         <title>@yield('site-title')</title>
     @elseif(request()->is('about') || request()->is('service') || request()->is('work') || request()->is('team') || request()->is('faq') || request()->is('blog') || request()->is('contact') || request()->is('p/*') || request()->is('blog/*') || request()->is('services/*') ||  request()->is('price-plan'))

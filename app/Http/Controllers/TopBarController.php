@@ -63,7 +63,8 @@ class TopBarController extends Controller
     }
     public function delete_support_info(Request $request,$id){
 
-        SupportInfo::find($id)->delete();
+        $row = SupportInfo::find($id);
+        $row->delete(); 
         return redirect()->back()->with([
             'msg' => 'Support Info Item Deleted..',
             'type' => 'danger'
@@ -99,8 +100,10 @@ class TopBarController extends Controller
             'type' => 'success'
         ]);
     }
-    public function delete_social_item(Request $request,$id){
-        SocialIcons::find($id)->delete();
+    public function delete_social_item(Request $request,$id)
+    {
+        $row = SocialIcons::find($id);
+        $row->delete();
         return redirect()->back()->with([
             'msg' => 'Social Item Deleted...',
             'type' => 'danger'

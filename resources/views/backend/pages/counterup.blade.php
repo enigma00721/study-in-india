@@ -38,15 +38,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="header-title">{{__('Conterup Items')}}</h4>
-                        <ul class="nav nav-tabs" id="myTab" role="tablist">
-                            @php $a=0; @endphp
-                            @foreach($all_counterup as $key => $countu)
-                                <li class="nav-item">
-                                    <a class="nav-link @if($a == 0) active @endif"  data-toggle="tab" href="#slider_tab_{{$key}}" role="tab" aria-controls="home" aria-selected="true">{{get_language_by_slug($key)}}</a>
-                                </li>
-                                @php $a++; @endphp
-                            @endforeach
-                        </ul>
+                       
                         <div class="tab-content margin-top-40" id="myTabContent">
                             @php $b=0; @endphp
                             @foreach($all_counterup as $key => $counterup)
@@ -71,29 +63,14 @@
                                                 <td>{{$data->extra_text}}</td>
                                                 <td style="display: flex;">
                                                    
-                                                    <form id="deleteCounterUp" method='post' action='{{route('admin.counterup.delete',$data->id)}}'>
+                                                 
+                                                   <form action='{{route('admin.counterup.delete',$data->id)}}' method="POST">
                                                         @csrf
-                                                         <a  class="btn btn-sm btn-danger" onclick="document.getElementById('deleteCounterUp').submit()">
-                                                        <i class="ti-trash"></i>
-                                                    </a>
+                                                        <button type="submit" class="btn btn-sm btn-danger mb-3 mr-1  delete-confirm" >
+                                                            <i class="fas fa-trash" aria-hidden="true"></i>
+                                                        </button>
                                                     </form>
-                                                
-                                                    {{-- <a tabindex="0" class="btn btn-lg btn-danger btn-sm mb-3 mr-1"
-                                                       role="button"
-                                                       data-toggle="popover"
-                                                       data-trigger="focus"
-                                                       data-html="true"
-                                                       title=""
-                                                       data-content="
-                                               <h6>Are you sure to delete this counterup item ?</h6>
-                                               <form method='post' action='{{route('admin.counterup.delete',$data->id)}}'>
-                                               <input type='hidden' name='_token' value='{{csrf_token()}}'>
-                                               <br>
-                                                <input type='submit' class='btn btn-danger btn-sm' value='Yes,Delete'>
-                                                </form>
-                                                ">
-                                                        <i class="ti-trash"></i>
-                                                    </a> --}}
+                                                   
                                                     <a href="#"
                                                        data-toggle="modal"
                                                        data-target="#counterup_item_edit_modal"
@@ -273,4 +250,5 @@
 
         } );
     </script>
+    @include('backend.partials.confirm-delete')
 @endsection
