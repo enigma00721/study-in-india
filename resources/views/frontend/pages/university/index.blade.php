@@ -151,12 +151,13 @@
                                         alt="">
                                 </div>
                                 <div class="col-lg-8">
-                                    <a href="#">
-                                        <h3 class="title"> {{ $data->title }} </h3>
+                                    <a href="{{ route('single.university', $data->university->id) }}">
+                                        <h3 class="title"> {{ $data->university->name }} </h3>
                                     </a>
+                                    <span class="company_name"><strong>{{ __('Course:') }}</strong>
+                                        {{ $data->title }}</span>
                                     <span class="company_name"><strong>{{ __('Address:') }}</strong>
-                                        {{ $data->location }}</span>
-                                    <span class="company_name"><strong>{{ __('Courses:') }}</strong> 50</span>
+                                        {{ $data->university->location }}</span>
                                     <span class="deadline"><strong>{{ __('Available Seat:') }}</strong> 200</span>
                                     <ul class="jobs-meta">
                                         <li><i class="fas fa-briefcase"></i> Learn More</li>

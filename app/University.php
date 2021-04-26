@@ -11,7 +11,18 @@ class University extends Model
     protected $table = 'universities';
     protected $fillable = ['name','description','facilities','location','image','status'];
 
-    // relationship
+    
+    // helper methods with relationship operations
+    public function getCourseCount()
+    {
+        return $this->courses()->count();
+    }
+    public function getCoursesSeatsCount()
+    {
+        return $this->hasMany('App\Course')->sum('seats');
+    }
+
+    // relationships
     public function courses()
     {
         return $this->hasMany('App\Course');

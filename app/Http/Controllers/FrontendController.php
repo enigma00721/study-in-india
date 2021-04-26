@@ -169,6 +169,16 @@ return redirect()
 }
 }
 
+public function singleUniversity($id)
+{
+// $course = Course::with('university')->find($id);
+$university = University::with('courses')->find($id);
+// dd($university);
+// dd($university->getCoursesSeatsCount());
+$levels = Level::all();
+return view('frontend.pages.university.single')->with(['university' => $university,'levels'=>$levels]);
+}
+
 public function maintain_page()
 {
 return view('frontend.maintain');

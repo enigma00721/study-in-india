@@ -20,4 +20,8 @@ class Course extends Model
     {
         return $this->belongsTo('App\Level');
     }
+    public function discipline()
+    {
+        return $this->belongsTo('App\Discipline');
+    }
 }
