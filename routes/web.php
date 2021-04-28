@@ -702,7 +702,7 @@ Route::post('/news/update/{id}', 'NewsController@update_news')->name('admin.news
 Route::post('/news/delete/{id}', 'NewsController@delete_news')->name('admin.news.delete');
 });
 
-Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
+// Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 
 // 404 if route/page is not found
 Route::get('/{any}', function ($any) {
