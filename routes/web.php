@@ -348,14 +348,14 @@ Route::post('/footer/important-links/update/{delete}',
 // Route::get('/form-builder/order-form','FormBuilderController@order_form_index')->name('admin.form.builder.order');
 // Route::post('/form-builder/order-form','FormBuilderController@update_order_form');
 //
-Route::get('/form-builder/contact-form',
-'FormBuilderController@contact_form_index')->name('admin.form.builder.contact');
-// Route::post('/form-builder/contact-form','FormBuilderController@update_contact_form');
-//
-Route::get('/form-builder/call-back-form',
-'FormBuilderController@call_back_form_index')->name('admin.form.builder.call.back');
-// Route::post('/form-builder/call-back-form','FormBuilderController@update_call_back_form');
-// });
+// Route::get('/form-builder/contact-form',
+// 'FormBuilderController@contact_form_index')->name('admin.form.builder.contact');
+// // Route::post('/form-builder/contact-form','FormBuilderController@update_contact_form');
+// //
+// Route::get('/form-builder/call-back-form',
+// 'FormBuilderController@call_back_form_index')->name('admin.form.builder.call.back');
+// // Route::post('/form-builder/call-back-form','FormBuilderController@update_call_back_form');
+// // });
 
 //general settings
 Route::prefix('admin-home')
