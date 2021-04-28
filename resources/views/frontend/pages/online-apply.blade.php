@@ -1,9 +1,9 @@
 @extends('frontend.frontend-page-master')
 @section('site-title')
-    Online Apply
+     Apply Online
 @endsection
 @section('page-title')
-    Online Apply
+     Apply Online
 @endsection
 
 @section('style')
@@ -22,6 +22,15 @@
     }
     .form-check-inline{
         min-height: 55px;
+    }
+    input:focus {
+        outline: 1px solid rgb(87, 87, 87) !important;
+    }
+    select:focus {
+        outline: 1px solid rgb(87, 87, 87) !important;
+    }
+    input[type=radio]:focus {
+        outline: none !important;
     }
 </style>
 @endsection

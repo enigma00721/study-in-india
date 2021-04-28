@@ -84,15 +84,7 @@
                             @endif
                         </a>
                     </div>
-                    <div class=" widget-area widget_search">
-                        <form action="" method="get" class="search-form">
-                            <div class="form-group">
-                                <input type="text" name="search" placeholder="Search" class="form-control" id="search_btn">
-                            </div>
-                            <button id="submit_btn" class="submit-btn" type="submit"><i class="fa fa-search"></i></button>
-                        </form>
-                    </div>  
-                    
+                   
                     <div class="right-content" style="display:flex;">
                         <ul class="info-items">
                             @foreach($all_support_item as $data)

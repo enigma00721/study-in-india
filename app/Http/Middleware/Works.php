@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class OrderManage
+class Works
 {
     /**
      * Handle an incoming request.
@@ -21,7 +21,7 @@ class OrderManage
             $role_id = \App\Admin::where('id',$id)->first();
             $user_role = \App\AdminRole::where('id', $role_id->role)->first();
             $all_permission = json_decode($user_role->permission);
-            if (in_array('order_manage', $all_permission)) {
+            if (in_array('works', $all_permission)) {
                 return $next($request);
             }
         }

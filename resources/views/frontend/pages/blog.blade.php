@@ -26,7 +26,7 @@
                                     <div class="content">
                                         <h4 class="title"><a href="{{route('frontend.blog.single',['id' => $data->id,'any' => Str::slug($data->title)])}}">{{$data->title}}</a></h4>
                                         <ul class="post-meta">
-                                            <li><a href="#"><i class="fa fa-calendar"></i> {{date_format($data->created_at,'d M y')}}</a></li>
+                                            <li><a href="#"><i class="fa fa-calendar"></i> {{date_format($data->created_at,'d M Y')}}</a></li>
                                             <li><a href="#"><i class="fa fa-user"></i> {{$data->user->username}}</a></li>
                                             <li><div class="cats"><i class="fa fa-calendar"></i><a href="{{route('frontend.blog.category',['id' => $data->category->id,'any' => Str::slug($data->category->name)])}}"> {{$data->category->name}}</a></div></li>
                                         </ul>

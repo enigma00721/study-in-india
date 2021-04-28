@@ -186,39 +186,39 @@ return view('frontend.maintain');
 
 public function news_page()
 {
-$all_news = News::orderBy('id', 'desc')->paginate(get_static_option('blog_page_item'));
-$all_categories = BlogCategory::where(['status' => 'publish'])
-->orderBy('id', 'desc')
-->get();
-// dd($all_category);
-$all_recent_blogs = Blog::orderBy('id', 'desc')
-->take(get_static_option('blog_page_recent_post_widget_item'))
-->get();
+    $all_news = News::orderBy('id', 'desc')->paginate(get_static_option('blog_page_item'));
+    $all_categories = BlogCategory::where(['status' => 'publish'])
+    ->orderBy('id', 'desc')
+    ->get();
+    // dd($all_category);
+    $all_recent_blogs = Blog::orderBy('id', 'desc')
+    ->take(get_static_option('blog_page_recent_post_widget_item'))
+    ->get();
 
-return view('frontend.pages.news.index', compact('all_news', 'all_categories', 'all_recent_blogs'));
+    return view('frontend.pages.news.index', compact('all_news', 'all_categories', 'all_recent_blogs'));
 }
 public function news_single_page($slug)
 {
-$lang = !empty(session()->get('lang')) ? session()->get('lang') : Language::where('default', 1)->first()->slug;
-$news_post = News::where('slug', $slug)->first();
+    $lang = !empty(session()->get('lang')) ? session()->get('lang') : Language::where('default', 1)->first()->slug;
+    $news_post = News::where('slug', $slug)->first();
 
-$all_recent_blogs = Blog::orderBy('id', 'desc')->paginate(get_static_option('blog_page_recent_post_widget_item'));
-$all_category = BlogCategory::where(['status' => 'publish'])
-->orderBy('id', 'desc')
-->get();
+    $all_recent_blogs = News::orderBy('id', 'desc')->paginate(get_static_option('blog_page_recent_post_widget_item'));
+    $all_category = BlogCategory::where(['status' => 'publish'])
+    ->orderBy('id', 'desc')
+    ->get();
 
-$all_related_blog = Blog::where('blog_categories_id', $news_post->blog_categories_id)
-->orderBy('id', 'desc')
-->take(6)
-->get();
+    $all_related_blog = News::where('blog_categories_id', $news_post->blog_categories_id)
+    ->orderBy('id', 'desc')
+    ->take(6)
+    ->get();
 
-return view('frontend.pages.news.single')->with([
-'blog_post' => $news_post,
-'all_categories' => $all_category,
-'all_recent_blogs' => $all_recent_blogs,
-'all_related_blog' => $all_related_blog,
-]);
-return view('frontend.pages.news.single');
+    return view('frontend.pages.news.single')->with([
+    'blog_post' => $news_post,
+    'all_categories' => $all_category,
+    'all_recent_blogs' => $all_recent_blogs,
+    'all_related_blog' => $all_related_blog,
+    ]);
+    return view('frontend.pages.news.single');
 }
 
 public function blog_page()

@@ -31,7 +31,7 @@
                     </div>
                     <div class="content">
                         <h4 class="title"><a href="{{route('frontend.blog.single',['id' => $data->id, 'any' => Str::slug($data->title,'-')])}}">{{$data->title}}</a></h4>
-                        <span class="time">{{date_format($data->created_at,'d M y')}}</span>
+                        <span class="time">{{$data->getCreatedAtFormat()}}</span>
                     </div>
                 </li>
             @endforeach

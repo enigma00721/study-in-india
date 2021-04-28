@@ -1911,8 +1911,8 @@ object {
 
 .navbar-area .nav-container .navbar-collapse .navbar-nav li {
     display: inline-block;
-    font-size: 16px;
-    font-weight: 500;
+    font-size: 18px;
+    font-weight: 600;
     line-height: 90px;
 }
 
@@ -6677,6 +6677,13 @@ object {
     border-color: none;
     box-shadow: none;
 }
+
+.single-blog-grid-01 .thumb img{
+    max-width: 350px;
+    max-height: 233px;
+    overflow: hidden;
+
+} 
 
 @media only screen and (max-width: 991px) {
     .info-bar-area .widget-area {

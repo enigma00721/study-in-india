@@ -1,6 +1,6 @@
 @extends('frontend.frontend-page-master')
 @section('site-title')
-    {{get_static_option('events_page_'.get_user_lang().'_name')}}
+Events
 @endsection
 @section('page-title')
     {{get_static_option('events_page_'.get_user_lang().'_name')}}

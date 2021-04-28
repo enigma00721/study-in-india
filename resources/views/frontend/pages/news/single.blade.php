@@ -33,7 +33,8 @@
                         </div>
                         <div class="entry-content">
                             <ul class="post-meta">
-                                <li><i class="fa fa-calendar"></i> {{ date_format($blog_post->created_at,'d M Y')}}</li>
+                                {{-- <li><i class="fa fa-calendar"></i> {{ date_format($blog_post->created_at,'Y M D')}}</li> --}}
+                                <li><i class="fa fa-calendar"></i> {{ $blog_post->created_at}}</li>
                                 <li><i class="fa fa-user"></i> {{ $blog_post->user->name}}</li>
                                 <li>
                                     <div class="cats">
@@ -70,28 +71,32 @@
                         <div class="section-title ">
                             <h4 class="title ">{{get_static_option('blog_single_page_'.get_user_lang().'_related_post_title')}}</h4>
                             <div class="related-news-carousel margin-top-50">
+                                @if(count($all_related_blog) > 0)
                                 @foreach($all_related_blog as $data)
                                     @if($data->id === $blog_post->id) @continue @endif
-                                    <div class="single-blog-grid-01">
-                                        <div class="thumb">
-                                            @php
-                                                $blog_image = get_attachment_image_by_id($data->image,"grid",false);
-                                            @endphp
-                                            @if (!empty($blog_image))
-                                                <img src="{{$blog_image['img_url']}}" alt="{{__($data->name)}}">
-                                            @endif
+                                        <div class="single-blog-grid-01">
+                                            <div class="thumb">
+                                                @php
+                                                    $blog_image = get_attachment_image_by_id($data->image,"grid",false);
+                                                @endphp
+                                                @if (!empty($blog_image))
+                                                    <img src="{{$blog_image['img_url']}}" alt="{{__($data->name)}}">
+                                                @endif
+                                            </div>
+                                            <div class="content">
+                                                <h4 class="title"><a href="{{route('frontend.blog.single',['id' => $data->id,'any' => Str::slug($data->title)])}}">{{$data->title}}</a></h4>
+                                                <ul class="post-meta">
+                                                    <li><a href="#"><i class="fa fa-calendar"></i> {{$data->created_at}}</a></li>
+                                                    <li><div class="cats"><i class="fa fa-calendar"></i><a href="{{route('frontend.news.single',['slug' => Str::slug($data->category->name)])}}"> {{$data->category->name}}</a></div></li>
+                                                </ul>
+                                                <p>{{$data->excerpt}}</p>
+                                            </div>
                                         </div>
-                                        <div class="content">
-                                            <h4 class="title"><a href="{{route('frontend.blog.single',['id' => $data->id,'any' => Str::slug($data->title)])}}">{{$data->title}}</a></h4>
-                                            <ul class="post-meta">
-                                                <li><a href="#"><i class="fa fa-calendar"></i> {{date_format($data->created_at,'d M y')}}</a></li>
-                                                <li><a href="#"><i class="fa fa-user"></i> {{$data->user->username}}</a></li>
-                                                <li><div class="cats"><i class="fa fa-calendar"></i><a href="{{route('frontend.blog.category',['id' => $data->category->id,'any' => Str::slug($data->category->name)])}}"> {{$data->category->name}}</a></div></li>
-                                            </ul>
-                                            <p>{{$data->excerpt}}</p>
-                                        </div>
-                                    </div>
-                                @endforeach
+                                    @endforeach
+                                @else 
+                                    <h2>No Related News Found</h2>
+                                @endif
+
                             </div>
                         </div>
                     </div>
@@ -100,7 +105,32 @@
                     </div>
                 </div>
                 <div class="col-lg-4">
-                   @include('frontend.partials.sidebar')
+                   <div class="widget-area">
+                        <div class="widget widget_recent_posts">
+                            <h4 class="widget-title">{{get_static_option('blog_page_'.get_user_lang().'_recent_post_widget_title')}}</h4>
+                            <ul class="recent_post_item">
+                                @foreach($all_recent_blogs as $data)
+                                    <li class="single-recent-post-item">
+                                        <div class="thumb">
+                                            @php
+                                                $blog_image = get_attachment_image_by_id($data->image,"thumb",false);
+                                            @endphp
+                                            @if (!empty($blog_image))
+                                                <img src="{{$blog_image['img_url']}}" alt="{{__($data->name)}}">
+                                            @endif
+                                        </div>
+                                        <div class="content">
+                                            <h4 class="title">
+                                                <a href="{{route('frontend.news.single',['slug' => Str::slug($data->title,'-')])}}">{{$data->title}}</a>
+                                            </h4>
+                                            <span class="time">{{$data->created_at}}</span>
+                                        </div>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>

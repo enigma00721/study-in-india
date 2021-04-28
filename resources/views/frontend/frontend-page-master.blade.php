@@ -15,13 +15,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
     @yield('page-meta-data')
+
     @php
         $site_favicon = get_attachment_image_by_id(get_static_option('site_favicon'),"full",false);
     @endphp
+
     @if (!empty($site_favicon))
         <link rel="icon" href="{{$site_favicon['img_url']}}" type="image/png">
     @endif
+
     <!-- load fonts dynamically -->
     {!! load_google_fonts() !!}
 <!-- all stylesheets -->
@@ -35,6 +39,7 @@
     <link rel="stylesheet" href="{{asset('assets/frontend/css/responsive.css')}}">
     <link rel="stylesheet" href="{{asset('assets/frontend/css/dynamic-style.css')}}">
     <link rel="stylesheet" href="{{asset('assets/frontend/css/jquery.ihavecookies.css')}}">
+
     <style>
         :root {
             --main-color-one: {{get_static_option('site_color')}};
@@ -46,18 +51,22 @@
             --body-font:"{{get_static_option('body_font_family')}}",sans-serif;
         }
     </style>
+
     @yield('style')
+
     @if(!empty(get_static_option('site_rtl_enabled')) || get_user_lang_direction() == 'rtl')
         <link rel="stylesheet" href="{{asset('assets/frontend/css/rtl.css')}}">
     @endif
+    
     @if(request()->is('blog/*') || request()->is('work/*')  || request()->is('news*') || request()->is('service/*'))
         @yield('og-meta')
         <title>@yield('site-title')</title>
-    @elseif(request()->is('about') || request()->is('service') || request()->is('work') || request()->is('team') || request()->is('faq') || request()->is('blog') || request()->is('contact') || request()->is('p/*') || request()->is('blog/*') || request()->is('services/*') ||  request()->is('price-plan'))
+    @elseif(request()->is('about') || request()->is('service') || request()->is('work') || request()->is('team') || request()->is('faq') || request()->is('blog') || request()->is('contact') || request()->is('p/*') || request()->is('blog/*') || request()->is('services/*') ||  request()->is('events*'))
         <title>@yield('site-title') - {{get_static_option('site_'.get_user_lang().'_title')}} </title>
-    @else
-        <title>{{get_static_option('site_'.get_user_lang().'_title')}} - {{get_static_option('site_'.get_user_lang().'_tag_line')}}</title>
-    @endif
+    @else 
+        <title>{{get_static_option('site_'.get_user_lang().'_title')}} - @yield('site-title') </title>
+        
+    @endif 
 </head>
 <body>
 
@@ -79,15 +88,7 @@
                             @endif
                         </a>
                     </div>
-                    <div class=" widget-area widget_search">
-                        <form action="" method="get" class="search-form">
-                            <div class="form-group">
-                                <input type="text" name="search" placeholder="Search" class="form-control" id="search_btn">
-                            </div>
-                            <button id="submit_btn" class="submit-btn" type="submit"><i class="fa fa-search"></i></button>
-                        </form>
-                    </div>  
-                    
+                                     
                     <div class="right-content">
                         <ul class="info-items">
                             @if(isset($all_support_item))

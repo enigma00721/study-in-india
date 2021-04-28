@@ -46,15 +46,6 @@
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group">
-                                        <label for="home_page_service_section_status"><strong>{{__('Service Section Show/Hide')}}</strong></label>
-                                        <label class="switch">
-                                            <input type="checkbox" name="home_page_service_section_status"  @if(!empty(get_static_option('home_page_service_section_status'))) checked @endif id="home_page_service_section_status">
-                                            <span class="slider"></span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="form-group">
                                         <label for="home_page_counterup_section_status"><strong>{{__('Counterup Section Show/Hide')}}</strong></label>
                                         <label class="switch">
                                             <input type="checkbox" name="home_page_counterup_section_status"  @if(!empty(get_static_option('home_page_counterup_section_status'))) checked @endif id="home_page_counterup_section_status">
@@ -80,15 +71,7 @@
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
-                                    <div class="form-group">
-                                        <label for="home_page_latest_news_section_status"><strong>{{__('Latest News Section Show/Hide')}}</strong></label>
-                                        <label class="switch">
-                                            <input type="checkbox" name="home_page_latest_news_section_status"  @if(!empty(get_static_option('home_page_latest_news_section_status'))) checked @endif id="home_page_latest_news_section_status">
-                                            <span class="slider"></span>
-                                        </label>
-                                    </div>
-                                </div>
+                              
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label for="home_page_brand_logo_section_status"><strong>{{__('Brand Logo Section Show/Hide')}}</strong></label>
@@ -107,33 +90,7 @@
                                         </label>
                                     </div>
                                 </div>
-                                    <div class="col-lg-4">
-                                        <div class="form-group">
-                                            <label for="home_page_price_plan_section_status"><strong>{{__('Price Plan Section Show/Hide')}}</strong></label>
-                                            <label class="switch">
-                                                <input type="checkbox" name="home_page_price_plan_section_status"  @if(!empty(get_static_option('home_page_price_plan_section_status'))) checked @endif id="home_page_price_plan_section_status">
-                                                <span class="slider"></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="form-group">
-                                            <label for="home_page_team_member_section_status"><strong>{{__('Team Member Section Show/Hide')}}</strong></label>
-                                            <label class="switch">
-                                                <input type="checkbox" name="home_page_team_member_section_status"  @if(!empty(get_static_option('home_page_team_member_section_status'))) checked @endif id="home_page_team_member_section_status">
-                                                <span class="slider"></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                <div class="col-lg-4">
-                                    <div class="form-group">
-                                        <label for="home_page_call_to_action_section_status"><strong>{{__('Call To Action Section Show/Hide')}}</strong></label>
-                                        <label class="switch">
-                                            <input type="checkbox" name="home_page_call_to_action_section_status"  @if(!empty(get_static_option('home_page_call_to_action_section_status'))) checked @endif id="home_page_call_to_action_section_status">
-                                            <span class="slider"></span>
-                                        </label>
-                                    </div>
-                                </div>
+                             
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label for="home_page_newsletter_section_status"><strong>{{__('Newsletter Section Show/Hide')}}</strong></label>
@@ -143,17 +100,7 @@
                                         </label>
                                     </div>
                                 </div>
-                                @if(get_static_option('home_page_variant') == '03')
-                                <div class="col-lg-4">
-                                    <div class="form-group">
-                                        <label for="home_page_faq_section_status"><strong>{{__('Faq Section Show/Hide')}}</strong></label>
-                                        <label class="switch">
-                                            <input type="checkbox" name="home_page_faq_section_status"  @if(!empty(get_static_option('home_page_faq_section_status'))) checked @endif id="home_page_faq_section_status">
-                                            <span class="slider"></span>
-                                        </label>
-                                    </div>
-                                </div>
-                                @endif
+                               
                             </div>
 
                             <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">{{__('Update Settings')}}</button>

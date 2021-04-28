@@ -284,30 +284,12 @@
                             </li>
                             <li class="{{active_menu('admin-home/home-page-01/about-us')}}"><a
                                         href="{{route('admin.homeone.about.us')}}">{{__('About Us Area')}}</a></li>
-                            <li class="{{active_menu('admin-home/home-page-01/service-area')}}"><a
-                                        href="{{route('admin.homeone.service.area')}}">{{__('Service Area')}}</a></li>
-                            <li class="{{active_menu('admin-home/home-page-01/cta-area')}}"><a
-                                        href="{{route('admin.homeone.cta.area')}}">{{__('Call To Action Area')}}</a>
-                            </li>
 
-                            <li class="{{active_menu('admin-home/home-page-01/recent-work')}}"><a
-                                        href="{{route('admin.homeone.recent.work')}}">{{__('Recent Work Area')}}</a>
-                            </li>
                             <li class="{{active_menu('admin-home/home-page-01/testimonial')}}"><a
                                         href="{{route('admin.homeone.testimonial')}}">{{__('Testimonial Area')}}</a>
                             </li>
-                            @if(get_static_option('home_page_variant') == '03')
-                                <li class="{{active_menu('admin-home/home-page-01/faq-area')}}"><a
-                                            href="{{route('admin.homeone.faq.area')}}">{{__('FAQ Area')}}</a></li>
-                            @endif
-                            <li class="{{active_menu('admin-home/home-page-01/latest-news')}}"><a
-                                        href="{{route('admin.homeone.latest.news')}}">{{__('Latest News Area')}}</a>
-                            </li>
-                            <li class="{{active_menu('admin-home/home-page-01/team-member')}}"><a
-                                        href="{{route('admin.homeone.team.member')}}">{{__('Tean Member Area')}}</a>
-                            </li>
-                            <li class="{{active_menu('admin-home/home-page-01/price-plan')}}"><a
-                                        href="{{route('admin.homeone.price.plan')}}">{{__('Price Plan Area')}}</a></li>
+                           
+                         
                             <li class="{{active_menu('admin-home/home-page-01/counterup')}}"><a
                                         href="{{route('admin.homeone.counterup')}}">{{__('Counterup Area')}}</a></li>
                             <li class="{{active_menu('admin-home/home-page-01/newsletter')}}"><a

@@ -77,7 +77,8 @@ Route::get('/' . $work_page_slug . '/category/{id}/{any}',
 'FrontendController@category_wise_works_page')->name('frontend.works.category');
 Route::get('/' . $service_page_slug . '/{id}/{any}',
 'FrontendController@services_single_page')->name('frontend.services.single');
-Route::get('/' . $work_page_slug . '/{id}/{any}', 'FrontendController@work_single_page')->name('frontend.work.single');
+// Route::get('/' . $work_page_slug . '/{id}/{any}', 'FrontendController@work_single_page')->name('frontend.work.single');
+// Route::get('/' . $work_page_slug . '/{id}/{any}', 'FrontendController@news_single_page')->name('frontend.news.single');
 Route::get('/' . $team_page_slug, 'FrontendController@team_page')->name('frontend.team');
 Route::get('/' . $price_plan_page_slug, 'FrontendController@price_plan_page')->name('frontend.price.plan');
 Route::get('/' . $contact_page_slug, 'FrontendController@contact_page')->name('frontend.contact');
@@ -164,28 +165,28 @@ Route::prefix('admin-home')
 Route::get('/apply-online', 'OnlineApplyController@index')->name('admin.online.apply');
 });
 //order manage route
-Route::prefix('admin-home')
-->middleware(['order_manage'])
-->group(function () {
-Route::get('/order-manage/all', 'OrderManageController@all_orders')->name('admin.order.manage.all');
-Route::get('/order-manage/pending', 'OrderManageController@pending_orders')->name('admin.order.manage.pending');
-Route::get('/order-manage/completed', 'OrderManageController@completed_orders')->name('admin.order.manage.completed');
-Route::get('/order-manage/in-progress',
-'OrderManageController@in_progress_orders')->name('admin.order.manage.in.progress');
+// Route::prefix('admin-home')
+// ->middleware(['order_manage'])
+// ->group(function () {
+// Route::get('/order-manage/all', 'OrderManageController@all_orders')->name('admin.order.manage.all');
+// Route::get('/order-manage/pending', 'OrderManageController@pending_orders')->name('admin.order.manage.pending');
+// Route::get('/order-manage/completed', 'OrderManageController@completed_orders')->name('admin.order.manage.completed');
+// Route::get('/order-manage/in-progress',
+// 'OrderManageController@in_progress_orders')->name('admin.order.manage.in.progress');
 
-Route::post('/order-manage/change-status',
-'OrderManageController@change_status')->name('admin.order.manage.change.status');
-Route::post('/order-manage/send-mail', 'OrderManageController@send_mail')->name('admin.order.manage.send.mail');
-Route::post('/order-manage/delete/{id}', 'OrderManageController@order_delete')->name('admin.order.manage.delete');
+// Route::post('/order-manage/change-status',
+// 'OrderManageController@change_status')->name('admin.order.manage.change.status');
+// Route::post('/order-manage/send-mail', 'OrderManageController@send_mail')->name('admin.order.manage.send.mail');
+// Route::post('/order-manage/delete/{id}', 'OrderManageController@order_delete')->name('admin.order.manage.delete');
 
-//thank you page
-Route::get('/order-manage/success-page',
-'OrderManageController@order_success_payment')->name('admin.order.success.page');
-Route::post('/order-manage/success-page', 'OrderManageController@update_order_success_payment');
-//cancel page
-Route::get('/order-manage/cancel-page', 'OrderManageController@order_cancel_payment')->name('admin.order.cancel.page');
-Route::post('/order-manage/cancel-page', 'OrderManageController@update_order_cancel_payment');
-});
+// //thank you page
+// Route::get('/order-manage/success-page',
+// 'OrderManageController@order_success_payment')->name('admin.order.success.page');
+// Route::post('/order-manage/success-page', 'OrderManageController@update_order_success_payment');
+// //cancel page
+// Route::get('/order-manage/cancel-page', 'OrderManageController@order_cancel_payment')->name('admin.order.cancel.page');
+// Route::post('/order-manage/cancel-page', 'OrderManageController@update_order_cancel_payment');
+// });
 
 /* media upload routes */
 Route::prefix('admin-home')->group(function () {
@@ -442,29 +443,14 @@ Route::prefix('admin-home')
 //home page one
 Route::get('/home-page-01/counterup', 'HomePageController@home_01_counterup')->name('admin.homeone.counterup');
 Route::post('/home-page-01/counterup', 'HomePageController@home_01_update_counterup');
-Route::get('/home-page-01/latest-news', 'HomePageController@home_01_latest_news')->name('admin.homeone.latest.news');
-Route::post('/home-page-01/latest-news', 'HomePageController@home_01_update_latest_news');
 Route::get('/home-page-01/testimonial', 'HomePageController@home_01_testimonial')->name('admin.homeone.testimonial');
 Route::post('/home-page-01/testimonial', 'HomePageController@home_01_update_testimonial');
-Route::get('/home-page-01/service-area', 'HomePageController@home_01_service_area')->name('admin.homeone.service.area');
-Route::post('/home-page-01/service-area', 'HomePageController@home_01_update_service_area');
-Route::get('/home-page-01/recent-work', 'HomePageController@home_01_recent_work')->name('admin.homeone.recent.work');
-Route::post('/home-page-01/recent-work', 'HomePageController@home_01_update_recent_work');
 Route::get('/home-page-01/about-us', 'HomePageController@home_01_about_us')->name('admin.homeone.about.us');
 Route::post('/home-page-01/about-us', 'HomePageController@home_01_update_about_us');
 Route::get('/home-page-01/newsletter', 'HomePageController@home_01_newsletter')->name('admin.homeone.newsletter');
 Route::post('/home-page-01/newsletter', 'HomePageController@home_01_update_newsletter');
-Route::get('/home-page-01/cta-area', 'HomePageController@home_01_cta_area')->name('admin.homeone.cta.area');
-Route::post('/home-page-01/cta-area', 'HomePageController@home_01_update_cta_area');
-Route::get('/home-page-01/section-manage',
-'HomePageController@home_01_section_manage')->name('admin.homeone.section.manage');
+Route::get('/home-page-01/section-manage','HomePageController@home_01_section_manage')->name('admin.homeone.section.manage');
 Route::post('/home-page-01/section-manage', 'HomePageController@home_01_update_section_manage');
-Route::get('/home-page-01/price-plan', 'HomePageController@home_01_price_plan')->name('admin.homeone.price.plan');
-Route::post('/home-page-01/price-plan', 'HomePageController@home_01_update_price_plan');
-Route::get('/home-page-01/team-member', 'HomePageController@home_01_team_member')->name('admin.homeone.team.member');
-Route::post('/home-page-01/team-member', 'HomePageController@home_01_update_team_member');
-Route::get('/home-page-01/faq-area', 'HomePageController@home_01_faq_area')->name('admin.homeone.faq.area');
-Route::post('/home-page-01/faq-area', 'HomePageController@home_01_update_faq_area');
 //key features
 Route::get('/keyfeatures', 'KeyFeaturesController@index')->name('admin.keyfeatures');
 Route::post('/keyfeatures', 'KeyFeaturesController@store');
@@ -479,23 +465,14 @@ Route::post('/header', 'HeaderSliderController@store');
 Route::post('/update-header', 'HeaderSliderController@update')->name('admin.header.update');
 Route::post('/delete-header/{id}', 'HeaderSliderController@delete')->name('admin.header.delete');
 });
+
 //home variant
 // Route::prefix('admin-home')->middleware(['home_variant'])->group(function (){
 // //home page variant select
 // Route::get('/home-variant',"AdminDashboardController@home_variant")->name('admin.home.variant');
 // Route::post('/home-variant',"AdminDashboardController@update_home_variant");
 // });
-//languages
-// Route::prefix('admin-home')->middleware(['languages'])->group(function (){
-// //language
-// Route::get('/languages','LanguageController@index')->name('admin.languages');
-// Route::get('/languages/words/edit/{id}','LanguageController@edit_words')->name('admin.languages.words.edit');
-// Route::post('/languages/words/update/{id}','LanguageController@update_words')->name('admin.languages.words.update');
-// Route::post('/languages/new','LanguageController@store')->name('admin.languages.new');
-// Route::post('/languages/update','LanguageController@update')->name('admin.languages.update');
-// Route::post('/languages/delete/{id}','LanguageController@delete')->name('admin.languages.delete');
-// Route::post('/languages/default/{id}','LanguageController@make_default')->name('admin.languages.default');
-// });
+
 //menu manage
 Route::prefix('admin-home')
 ->middleware(['menus_manage'])
