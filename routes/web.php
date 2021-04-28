@@ -504,13 +504,13 @@ Route::post('/newsletter/all', 'NewsletterController@send_mail_all');
 Route::post('/newsletter/new', 'NewsletterController@add_new_sub')->name('admin.newsletter.new.add');
 });
 //order page
-Route::prefix('admin-home')
-->middleware(['order_page_manage'])
-->group(function () {
-//order
-Route::get('/order-page', 'OrderPageController@index')->name('admin.order.page');
-Route::post('/order-page', 'OrderPageController@udpate');
-});
+// Route::prefix('admin-home')
+// ->middleware(['order_page_manage'])
+// ->group(function () {
+// //order
+// Route::get('/order-page', 'OrderPageController@index')->name('admin.order.page');
+// Route::post('/order-page', 'OrderPageController@udpate');
+// });
 //pages
 Route::prefix('admin-home')
 ->middleware(['pages'])
@@ -535,10 +535,6 @@ Route::post('/page-delete/{id}', 'PagesController@delete_page')->name('admin.pag
 // Route::prefix('admin-home')->middleware(['price_plan_page_manage'])->group(function (){
 // // price plan page
 //
-Route::get('/price-plan-page/settings',
-'PricePlanPageController@price_plan_page_settings')->name('admin.price.plan.page.settings');
-// Route::post('/price-plan-page/settings','PricePlanPageController@update_price_plan_page_settings');
-// });
 
 //quote page manage
 // Route::prefix('admin-home')->middleware(['quote_page_manage'])->group(function (){
@@ -617,10 +613,6 @@ Route::post('/topbar/top-button', 'TopBarController@update_top_button')->name('a
 // Route::prefix('admin-home')->middleware(['work_single_page_manage'])->group(function (){
 // // work single page
 //
-Route::get('/work-single-page/settings',
-'WorkSinglePageController@work_single_page_settings')->name('admin.work.single.page.settings');
-// Route::post('/work-single-page/settings','WorkSinglePageController@update_work_single_page_settings');
-// });
 
 Route::prefix('admin-home')->group(function () {
 Route::get('/', 'AdminDashboardController@adminIndex')->name('admin.home');
