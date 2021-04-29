@@ -643,7 +643,7 @@ Route::post('/password-change', 'AdminDashboardController@admin_password_chagne'
 // Route::post('/works/category','UniversityController@category_store');
 // Route::post('/update-works-category','UniversityController@category_update')->name('admin.work.category.update');
 //
-Route::post('/delete-works-category/{id}', 'UniversityController@category_delete')->name('admin.work.category.delete');
+// Route::post('/delete-works-category/{id}', 'UniversityController@category_delete')->name('admin.work.category.delete');
 // });
 
 // discipline
@@ -668,7 +668,7 @@ Route::post('/level/delete/{id}', 'LevelController@delete')->name('admin.level.d
 
 // job post routes
 Route::prefix('admin-home')
-->middleware('job_post_manage')
+->middleware('pages')
 ->group(function () {
 Route::get('/university', 'UniversityController@index')->name('admin.university');
 Route::get('/university/create', 'UniversityController@create')->name('admin.university.create');
@@ -683,7 +683,7 @@ Route::post('/university/delete/{id}', 'UniversityController@delete')->name('adm
 });
 
 Route::prefix('admin-home')
-->middleware('job_post_manage')
+->middleware('pages')
 ->group(function () {
 Route::get('/course', 'CourseController@index')->name('admin.course');
 Route::get('/course/create/{id}', 'CourseController@create')->name('admin.course.create');
@@ -702,7 +702,7 @@ Route::post('/news/update/{id}', 'NewsController@update_news')->name('admin.news
 Route::post('/news/delete/{id}', 'NewsController@delete_news')->name('admin.news.delete');
 });
 
-// Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
+Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 
 // 404 if route/page is not found
 Route::get('/{any}', function ($any) {

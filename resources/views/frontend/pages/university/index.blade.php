@@ -2,11 +2,9 @@
 
 @extends('frontend.frontend-master')
 @section('site-title')
-    {{ get_static_option('career_with_us_page_' . get_user_lang() . '_name') }}
+    {{__('University')}}
 @endsection
-@section('page-title')
-    {{ get_static_option('career_with_us_page_' . get_user_lang() . '_name') }}
-@endsection
+
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/frontend/css/jqueryui.css') }}">
     <style>

@@ -84,7 +84,7 @@
                                                         {{-- delete --}}
                                                         <a tabindex="0" class="btn btn-lg btn-danger btn-sm mb-3 mr-1" role="button" data-toggle="popover" data-trigger="focus" data-html="true" title="" data-content="
                                                        <h6>Are you sure to delete this order?</h6>
-                                                       <form method='post' action='{{route('admin.order.manage.delete',$data->id)}}'>
+                                                       <form method='post' action='#'>
                                                        <input type='hidden' name='_token' value='{{csrf_token()}}'>
                                                        <br>
                                                         <input type='submit' class='btn btn-danger btn-sm' value='Yes,Delete'>
@@ -173,7 +173,7 @@
                     <button type="button" class="close" data-dismiss="modal"><span>×</span></button>
                 </div>
 
-                <form action="{{route('admin.order.manage.send.mail')}}" method="post" enctype="multipart/form-data">
+                <form action="#" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         @csrf
@@ -221,7 +221,7 @@
                         </ul>
                     </div>
                 @endif
-                <form action="{{route('admin.order.manage.change.status')}}" method="post" enctype="multipart/form-data">
+                <form action="#" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <input type="hidden" name="order_id" id="order_id">

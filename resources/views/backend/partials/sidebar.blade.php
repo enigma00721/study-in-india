@@ -65,7 +65,7 @@
                     @endif
                   
                     {{-- order page change to form fill by student --}}
-                    @if(check_page_permission('order_manage'))
+                    @if(check_page_permission('pages'))
                     
                         <li class="@if(request()->is('admin-home/online-apply/*')) active @endif ">
                             <a href="{{route('admin.online.apply')}}" aria-expanded="true"><i class="ti-light-bulb"></i>
@@ -156,7 +156,7 @@
                     @endif
                  
                     
-                    @if(check_page_permission('blogs'))
+                    @if(check_page_permission('pages'))
                         <li
                         class="
                         {{active_menu('admin-home/university')}}
