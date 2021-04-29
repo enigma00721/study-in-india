@@ -489,7 +489,8 @@ return view('frontend.frontend-home-demo')->with([
 
 public function send_contact_message(Request $request)
 {
-dd($request->all());
+
+// dd($request->all());
 
 $all_quote_form_fields = json_decode(get_static_option('contact_page_form_fields'));
 $required_fields = [];
@@ -534,19 +535,20 @@ $attachment_list[$singule_field_name] = 'assets/uploads/attachment/' . $attachme
 }
 
 $google_captcha_result = google_captcha_check($request->captcha_token);
+// dd($google_captcha_result);
 
-if ($google_captcha_result['success']) {
-$succ_msg = get_static_option('contact_mail_' . get_user_lang() . '_subject');
-$success_message = !empty($succ_msg) ? $succ_msg : 'Thanks for your contact!!';
-Mail::to(get_static_option('site_global_email'))->send(new ContactMessage($fileds_name, $attachment_list));
-return redirect()
-->back()
-->with(['msg' => $success_message, 'type' => 'success']);
-} else {
-return redirect()
-->back()
-->with(['msg' => 'Something goes wrong, Please try again later !!', 'type' => 'danger']);
-}
+    if ($google_captcha_result['success']) {
+        $succ_msg = get_static_option('contact_mail_' . get_user_lang() . '_subject');
+        $success_message = !empty($succ_msg) ? $succ_msg : 'Thanks for your contact!!';
+        Mail::to(get_static_option('site_global_email'))->send(new ContactMessage($fileds_name, $attachment_list));
+        return redirect()
+            ->back()
+            ->with(['msg' => $success_message, 'type' => 'success']);
+    } else {
+        return redirect()
+            ->back()
+            ->with(['msg' => 'Something goes wrong, Please try again later !!', 'type' => 'danger']);
+    }
 }
 
 public function services_single_page($id, $any)
@@ -928,7 +930,8 @@ for ($i = 0; $i < count($all_by_cat); $i++) { array_push($all_works, $all_by_cat
     {
     $all_events = Events::where(['status' => 'publish', 'lang' => get_user_lang()])
     ->where('title', 'LIKE', '%' . $request->search . '%')
-    ->paginate(get_static_option('site_events_post_items'));
+    ->paginate(6);
+    // dd($all_events);
     $all_events_category = EventsCategory::where(['status' => 'publish', 'lang' => get_user_lang()])->get();
     $search_term = $request->search;
 

@@ -5,6 +5,7 @@
 @section('page-title')
     {{get_static_option('blog_page_'.get_user_lang().'_title')}}
 @endsection
+
 @section('content')
 
     <section class="blog-content-area padding-120">

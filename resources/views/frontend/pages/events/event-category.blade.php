@@ -11,31 +11,35 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="row">
-                        @foreach($all_events as $data)
-                            <div class="single-events-list-item">
-                                @php
-                                    $event_image = get_attachment_image_by_id($data->image,"grid",false);
-                                @endphp
-                                @if (!empty($event_image))
-                                    <div class="thumb">
-                                        <img src="{{$event_image['img_url']}}" alt="{{$data->title}}">
-                                    </div>
-                                @endif
-                                <div class="content-area">
-                                    <div class="top-part">
-                                        <div class="time-wrap">
-                                            <span class="date">{{date('d',strtotime($data->date))}}</span>
-                                            <span class="month">{{date('M',strtotime($data->date))}}</span>
+                        @if(count($all_events) > 0)
+                            @foreach($all_events as $data)
+                                <div class="single-events-list-item">
+                                    @php
+                                        $event_image = get_attachment_image_by_id($data->image,"grid",false);
+                                    @endphp
+                                    @if (!empty($event_image))
+                                        <div class="thumb">
+                                            <img src="{{$event_image['img_url']}}" alt="{{$data->title}}">
                                         </div>
-                                        <div class="title-wrap">
-                                            <a href="{{route('frontend.events.single',['id' => $data->id,'any' => Str::slug($data->title)])}}"><h4 class="title">{{$data->title}}</h4></a>
-                                            <span class="location"><i class="fas fa-map-marker-alt"></i> {{$data->location}}</span>
+                                    @endif
+                                    <div class="content-area">
+                                        <div class="top-part">
+                                            <div class="time-wrap">
+                                                <span class="date">{{date('d',strtotime($data->date))}}</span>
+                                                <span class="month">{{date('M',strtotime($data->date))}}</span>
+                                            </div>
+                                            <div class="title-wrap">
+                                                <a href="{{route('frontend.events.single',['id' => $data->id,'any' => Str::slug($data->title)])}}"><h4 class="title">{{$data->title}}</h4></a>
+                                                <span class="location"><i class="fas fa-map-marker-alt"></i> {{$data->location}}</span>
+                                            </div>
                                         </div>
+                                        <p>{{Str::words(strip_tags($data->content),20)}}</p>
                                     </div>
-                                    <p>{{Str::words(strip_tags($data->content),20)}}</p>
                                 </div>
-                            </div>
-                        @endforeach
+                            @endforeach
+                        @else 
+                            <div class="col-md-12 alert alert-warning d-block">No Events Found</div>
+                        @endif
                     </div>
                     <div class="col-lg-12">
                         <nav class="pagination-wrapper text-center" aria-label="Page navigation ">

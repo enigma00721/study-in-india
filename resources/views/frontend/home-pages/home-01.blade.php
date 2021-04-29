@@ -79,7 +79,7 @@
         }
 
         .our-cover-area .form-control {
-            border-radius: 20px;
+            /* border-radius: 20px; */
         }
 
         .our-cover-area .btn {
@@ -142,7 +142,7 @@
     </div>
 </div>
 
-{{-- why india section --}}
+{{-- why india section and university search section --}}
 @if (!empty(get_static_option('home_page_service_section_status')))
     <section class="our-cover-area why-india-section  padding-top-90 padding-bottom-90">
         <div class="container">
@@ -174,7 +174,7 @@
                     </div>
                     <div class="col-md-3 btn-wrapper">
                         <input type="submit" value="Search"
-                            class=" boxed-btn btn-rounded white border-none border-green">
+                            class=" boxed-btn white border-none border-green">
                     </div>
 
                 </div>
@@ -238,7 +238,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-6">
                 <div class="section-title desktop-center margin-bottom-55">
-                    <h2 class="title">Recent News Edited</h2>
+                    <h2 class="title">Recent News</h2>
                 </div>
             </div>
         </div>

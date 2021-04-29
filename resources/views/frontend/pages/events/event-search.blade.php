@@ -11,7 +11,7 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="row">
-                        @if(count($all_events) > 1)
+                        @if(count($all_events) > 0)
                             @foreach($all_events as $data)
                                 <div class="single-events-list-item">
                                     @php

@@ -58,7 +58,7 @@ class TeamMemberController extends Controller
         ]);
         TeamMember::find($request->id)->update($request->all());
 
-        return redirect()->back()->with(['msg' => 'Key Feature Updated...', 'type' => 'success']);
+        return redirect()->back()->with(['msg' => 'Team Member Updated...', 'type' => 'success']);
     }
 
     public function delete($id)
