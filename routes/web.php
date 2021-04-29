@@ -630,6 +630,21 @@ Route::get('/password-change', 'AdminDashboardController@admin_password')->name(
 Route::post('/password-change', 'AdminDashboardController@admin_password_chagne');
 });
 
+//universities
+// Route::prefix('admin-home')->middleware(['works'])->group(function (){
+// //works
+// Route::get('/universities','UniversityController@index')->name('admin.universities');
+// Route::post('/works','UniversityController@store');
+// Route::post('/update-works','UniversityController@update')->name('admin.work.update');
+// Route::post('/delete-works/{id}','UniversityController@delete')->name('admin.work.delete');
+// Route::post('/works-cat-by-slug','UniversityController@category_by_slug')->name('admin.work.category.by.slug');
+
+// Route::get('/works/category','UniversityController@category_index')->name('admin.work.category');
+// Route::post('/works/category','UniversityController@category_store');
+// Route::post('/update-works-category','UniversityController@category_update')->name('admin.work.category.update');
+//
+// Route::post('/delete-works-category/{id}', 'UniversityController@category_delete')->name('admin.work.category.delete');
+// });
 
 // discipline
 Route::prefix('admin-home')
@@ -662,7 +677,10 @@ Route::get('/university/edit/{id}', 'UniversityController@edit')->name('admin.un
 Route::post('/university/update', 'UniversityController@update')->name('admin.university.update');
 Route::post('/university/delete/{id}', 'UniversityController@delete')->name('admin.university.delete');
 
-
+//job page settings
+// Route::get('/jobs/page-settings','UniversityController@page_settings')->name('admin.jobs.page.settings');
+// Route::post('/jobs/page-settings','UniversityController@update_page_settings');
+});
 
 Route::prefix('admin-home')
 ->middleware('pages')
