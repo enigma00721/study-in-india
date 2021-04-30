@@ -38,6 +38,10 @@
             color: #495057;
             border: 1px solid #ced4da;
         }
+        .single-job-list-item .thumb img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
     </style>
@@ -90,8 +94,8 @@
                             <h2 class="widget-title">Category</h2>
                             <ul>
                                 @foreach ($levels as $level)
-                                    <li><a
-                                            href="{{ route('university.search.category', ['id' => $level->id, 'level' => strtolower($level->title)]) }}">{{ ucfirst($level->title) }}</a>
+                                    <li>
+                                        <a href="{{ route('university.search.category', ['id' => $level->id, 'level' => strtolower($level->title)]) }}">{{ ucfirst($level->title) }}</a>
                                     </li>
                                 @endforeach
                             </ul>
@@ -110,18 +114,23 @@
                 <div class="col-lg-8">
 
                     {{-- After Search --}}
-                    @if (isset($searchCourses))
+                    @if(isset($searchCourses))
                         @if (count($searchCourses) > 0)
                             @foreach ($searchCourses as $data)
                                 <div class="row single-job-list-item">
-                                    <div class="col-md-4 ">
-                                        <img src="http://127.0.0.1:8000/assets/uploads/media-uploader/grid-091587061194.jpg"
-                                            alt="">
+                                    <div class="col-md-4 thumb">
+                                        @php
+                                            $university_image = get_attachment_image_by_id($data->university->image, 'grid', false);
+                                        @endphp
+                                        @if (!empty($university_image))
+                                            <img src="{{ $university_image['img_url'] }}"
+                                                alt="{{ __($data->university->title) }}">
+                                        @endif
                                     </div>
                                     <div class="col-lg-8">
                                         {{-- <span class="job_type"><i class="far fa-clock"></i> {{str_replace('_',' ',$data->employment_status)}}</span> --}}
                                         {{-- <a href="{{route('frontend.jobs.single',['id' => $data->id,'any' => Str::slug($data->name)])}}"><h3 class="title"> {{$data->title}} </h3></a> --}}
-                                        <a href="#">
+                                        <a href="{{route('single.university',['id'=>$data->university->id,'slug'=>Str::slug($data->university->name)])}}">
                                             <h3 class="title"> {{ $data->university->name }} </h3>
                                         </a>
                                         <span class="company_name"><strong>{{ __('Course:') }}</strong>
@@ -130,8 +139,8 @@
                                             {{ $data->university->location }}</span>
                                         <span class="deadline"><strong>{{ __('Available Seat:') }}</strong> 200</span>
                                         <ul class="jobs-meta">
-                                            <li><i class="fas fa-briefcase"></i> Learn More</li>
-                                            <li><i class="fas fa-wallet"></i><a href="{{ route('online.apply') }}">Apply
+                                            <li><i class="fas fa-briefcase"></i> <a href="{{ route('single.university', ['id'=>$data->university->id,'slug'=>Str::slug($data->university->name)]) }}">Learn More</a></li>
+                                            <li><i class="fas fa-wallet"></i><a href="{{ route('online.apply',$data->id) }}">Apply
                                                     Now</a></li>
                                         </ul>
                                     </div>
@@ -144,12 +153,17 @@
                         {{-- No Search --}}
                         @foreach ($all_courses as $data)
                             <div class="row single-job-list-item">
-                                <div class="col-md-4 ">
-                                    <img src="http://127.0.0.1:8000/assets/uploads/media-uploader/grid-091587061194.jpg"
-                                        alt="">
+                                <div class="col-md-4 thumb">
+                                         @php
+                                            $university_image = get_attachment_image_by_id($data->university->image, 'grid', false);
+                                        @endphp
+                                        @if (!empty($university_image))
+                                            <img src="{{ $university_image['img_url'] }}"
+                                                alt="{{ __($data->university->title) }}">
+                                        @endif
                                 </div>
                                 <div class="col-lg-8">
-                                    <a href="{{ route('single.university', $data->university->id) }}">
+                                    <a href="{{ route('single.university', ['id'=>$data->university->id,'slug'=>Str::slug($data->university->name)]) }}">
                                         <h3 class="title"> {{ $data->university->name }} </h3>
                                     </a>
                                     <span class="company_name"><strong>{{ __('Course:') }}</strong>
@@ -158,8 +172,8 @@
                                         {{ $data->university->location }}</span>
                                     <span class="deadline"><strong>{{ __('Available Seat:') }}</strong> 200</span>
                                     <ul class="jobs-meta">
-                                        <li><i class="fas fa-briefcase"></i> Learn More</li>
-                                        <li><i class="fas fa-wallet"></i><a href="{{ route('online.apply') }}">Apply
+                                        <li><i class="fas fa-briefcase"></i> <a href="{{ route('single.university', ['id'=>$data->university->id,'slug'=>Str::slug($data->university->name)]) }}">Learn More</a> </li>
+                                        <li><i class="fas fa-wallet"></i><a href="{{ route('online.apply',$data->id) }}">Apply
                                                 Now</a></li>
                                     </ul>
                                 </div>
@@ -181,7 +195,7 @@
     </section>
 @endsection
 
-@section('scripts')
+{{-- @section('scripts')
     <script src="{{ asset('assets/frontend/js/jqueryui.js') }}"></script>
     <script>
         (function() {
@@ -273,4 +287,4 @@
         })(jQuery);
 
     </script>
-@endsection
+@endsection --}}

@@ -7,7 +7,6 @@
 @section('style')
     {{-- <link rel="stylesheet" href="{{asset('assets/backend/css/summernote-bs4.css')}}"> --}}
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
     <link rel="stylesheet" href="{{ asset('assets/backend/css/dropzone.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/backend/css/media-uploader.css') }}">
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
@@ -123,7 +122,7 @@
                                                                 data-description="{{ $data->description }}"
                                                                 data-btn_01_status="{{ $data->btn_01_status }}"
                                                                 data-btn_01_text="{{ $data->btn_01_text }}"
-                                                                data-btn_01_url="{{ $data->btn_01_url }}">
+                                                                data-btn_01_url="{{ $data->getBtnUrlAttribute() }}">
                                                                 <i class="ti-pencil"></i>
                                                             </a>
                                                         </td>
@@ -145,7 +144,7 @@
                         <h4 class="header-title">{{ __('New Header Slider') }}</h4>
                         <form action="{{ route('admin.header') }}" method="post" enctype="multipart/form-data">
                             @csrf
-                            <div class="form-group">
+                            <div class="form-group" style="display: none;">
                                 <label for="language">
                                     <h6><strong>{{ __('Languages') }}</strong></h6>
                                 </label>
@@ -173,7 +172,7 @@
                             <div class="form-group">
                                 <label for="btn_01_status">{{ __('Button Show/Hide') }}</label>
                                 <label class="switch">
-                                    <input type="checkbox" name="btn_01_status" id="btn_01_status">
+                                    <input type="checkbox" name="btn_01_status" id="btn_01_status" checked="checked">
                                     <span class="slider"></span>
                                 </label>
                             </div>
@@ -183,9 +182,10 @@
                                     placeholder="{{ __('Button Text') }}">
                             </div>
                             <div class="form-group">
-                                <label for="btn_01_url">{{ __('Button URL') }}</label>
-                                <input type="text" class="form-control" id="btn_01_url" name="btn_01_url"
-                                    placeholder="{{ __('Button URL') }}">
+                                <label for="btn_01_url">{{ __('University ID') }}</label>
+                                <input type="number" class="form-control" id="btn_01_url" name="btn_01_url"
+                                    placeholder="{{ __('University ID') }}">
+                                <small>{{ __('should be valid to generate url/slug') }}</small>
                             </div>
 
                             <div class="form-group">
@@ -221,7 +221,7 @@
                     <div class="modal-body">
                         @csrf
                         <input type="hidden" name="id" id="header_slider_id" value="">
-                        <div class="form-group">
+                        <div class="form-group" style="display:none;">
                             <label for="edit_language">
                                 <h6><strong>{{ __('Languages') }}</strong></h6>
                             </label>
@@ -237,10 +237,7 @@
                             <input type="text" class="form-control" id="edit_title" name="title"
                                 placeholder="{{ __('Title') }}">
                         </div>
-                        {{-- <div class="form-group">
-                            <label for="edit_description">{{__('Description')}}</label>
-                            <textarea class="form-control max-height-150"  id="edit_description"  name="description" placeholder="{{__('Description')}}" cols="30" rows="10"></textarea>
-                        </div> --}}
+                      
                         <div class="form-group">
                             <label for="edit_description">{{ __('Description') }}</label>
                             <input type="hidden" name="description" id="edit_description">
@@ -260,9 +257,11 @@
                                 placeholder="{{ __('Button Text') }}">
                         </div>
                         <div class="form-group">
-                            <label for="edit_btn_01_url">{{ __('Button URL') }}</label>
-                            <input type="text" class="form-control" id="edit_btn_01_url" name="btn_01_url"
-                                placeholder="{{ __('Button URL') }}">
+                            <label for="edit_btn_01_url">{{ __('University ID') }}</label>
+                            <input type="number" class="form-control" id="edit_btn_01_url" name="btn_01_url"
+                                placeholder="{{ __('University ID') }}">
+                            <small>{{ __('should be valid to generate url/slug') }}</small>
+
                         </div>
                         <div class="form-group">
                             <div class="media-upload-btn-wrapper">
@@ -290,6 +289,8 @@
 @endsection
 @section('script')
     <script src="{{ asset('assets/backend/js/dropzone.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+
     {{-- <script src="{{asset('assets/backend/js/summernote-bs4.js')}}"></script> --}}
 
     @include('backend.partials.media-upload.media-js')

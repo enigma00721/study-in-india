@@ -276,7 +276,7 @@
                         <ul class="collapse">
                             <li class="{{active_menu('admin-home/header')}}">
                                 <a href="{{route('admin.header')}}">
-                                    {{__('Header Area')}}
+                                    {{__('Header Slider')}}
                                 </a>
                             </li>
                             <li class="{{active_menu('admin-home/keyfeatures')}}">

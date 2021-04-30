@@ -6281,8 +6281,8 @@ object {
     border-radius: 25px;
     padding: 5px 15px;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
-    font-weight: 500;
-    font-size: 14px;
+    font-weight: 600;
+    font-size: 16px;
 }
 
 .single-job-list-item .jobs-meta li + li {

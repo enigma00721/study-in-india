@@ -110,9 +110,13 @@ return view('frontend.frontend-home')->with([
 public function universities(Request $request)
 {
 $disciplines = Discipline::all();
-$all_courses = Course::with('university')->get();
+$all_courses = Course::with('university')->paginate(6);
 $levels = Level::all();
 // dd($all_courses);
+    // $img = get_attachment_image_by_id($all_courses->university->image, 'grid', false);
+    // dd($img);
+    // <img src="{{ $related_work_image['img_url'] }}"
+    //     alt="{{ __($data->university->title) }}">
 
 return view('frontend.pages.university.index', compact('disciplines', 'all_courses', 'levels'));
 }
@@ -151,8 +155,11 @@ $searchCourses = Course::where('level_id', $id)->paginate(5);
 return view('frontend.pages.university.index', compact('searchCourses', 'disciplines', 'levels', 'all_courses'));
 }
 
-public function onlineApply()
+public function onlineApply($id)
 {
+$forCourse = Course::find($id);
+// $forCourse = Course::findOrFail($id);
+dd($forCourse);
 $levels = Level::all();
 $disciplines = Discipline::all();
 return view('frontend.pages.online-apply', compact('levels', 'disciplines'));
@@ -169,10 +176,10 @@ return redirect()
 }
 }
 
-public function singleUniversity($id)
+public function singleUniversity($id,$slug)
 {
-// $course = Course::with('university')->find($id);
 $university = University::with('courses')->find($id);
+// $university = University::with('courses')->findOrFail($id);
 // dd($university);
 // dd($university->getCoursesSeatsCount());
 $levels = Level::all();
@@ -201,7 +208,6 @@ public function news_single_page($slug)
 {
     $lang = !empty(session()->get('lang')) ? session()->get('lang') : Language::where('default', 1)->first()->slug;
     $news_post = News::where('slug', $slug)->first();
-
     $all_recent_blogs = News::orderBy('id', 'desc')->paginate(get_static_option('blog_page_recent_post_widget_item'));
     $all_category = BlogCategory::where(['status' => 'publish'])
     ->orderBy('id', 'desc')

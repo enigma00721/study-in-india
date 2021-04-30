@@ -24,9 +24,7 @@
                 <div class="col-lg-8">
                     <div class="blog-details-item">
                         <div class="thumb">
-                            @php
-
-                            @endphp
+                           
                             @if (!empty($blog_image))
                                 <img src="{{$blog_image['img_url']}}" alt="{{__($blog_post->title)}}">
                             @endif

@@ -23,11 +23,10 @@ Route::get('/plan-order/{id}', 'FrontendController@plan_order')->name('frontend.
 
 Route::get('/universities', 'FrontendController@universities')->name('universities');
 Route::get('/university/search', 'FrontendController@searchUniversity')->name('university.search');
-Route::get('university/{id}/{level}',
-'FrontendController@searchUniversityCategory')->name('university.search.category');
-Route::get('university/{id}', 'FrontendController@singleUniversity')->name('single.university');
+Route::get('{id}/{slug}/university', 'FrontendController@singleUniversity')->name('single.university');
+Route::get('university/{id}/{level}','FrontendController@searchUniversityCategory')->name('university.search.category');
 
-Route::get('/online/apply', 'FrontendController@onlineApply')->name('online.apply');
+Route::get('/online/apply/{id}', 'FrontendController@onlineApply')->name('online.apply');
 Route::post('/online/apply', 'FrontendController@onlineApplySubmit')->name('online.apply.submit');
 
 //payment status route
@@ -340,22 +339,6 @@ Route::post('/footer/important-links/update/{delete}',
 'FooterController@delete_important_links_widget')->name('admin.footer.important.link.delete');
 });
 
-//form builder
-// Route::prefix('admin-home')->middleware(['form_builder'])->group(function (){
-// //form builder routes
-// // Route::get('/form-builder/quote-form','FormBuilderController@quote_form_index')->name('admin.form.builder.quote');
-// // Route::post('/form-builder/quote-form','FormBuilderController@update_quote_form');
-// Route::get('/form-builder/order-form','FormBuilderController@order_form_index')->name('admin.form.builder.order');
-// Route::post('/form-builder/order-form','FormBuilderController@update_order_form');
-//
-// Route::get('/form-builder/contact-form',
-// 'FormBuilderController@contact_form_index')->name('admin.form.builder.contact');
-// // Route::post('/form-builder/contact-form','FormBuilderController@update_contact_form');
-// //
-// Route::get('/form-builder/call-back-form',
-// 'FormBuilderController@call_back_form_index')->name('admin.form.builder.call.back');
-// // Route::post('/form-builder/call-back-form','FormBuilderController@update_call_back_form');
-// // });
 
 //general settings
 Route::prefix('admin-home')
@@ -466,12 +449,6 @@ Route::post('/update-header', 'HeaderSliderController@update')->name('admin.head
 Route::post('/delete-header/{id}', 'HeaderSliderController@delete')->name('admin.header.delete');
 });
 
-//home variant
-// Route::prefix('admin-home')->middleware(['home_variant'])->group(function (){
-// //home page variant select
-// Route::get('/home-variant',"AdminDashboardController@home_variant")->name('admin.home.variant');
-// Route::post('/home-variant',"AdminDashboardController@update_home_variant");
-// });
 
 //menu manage
 Route::prefix('admin-home')

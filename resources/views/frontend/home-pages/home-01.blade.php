@@ -118,7 +118,7 @@
                             <h4 class="title">{{ $data->title }}</h4>
                             <p>{!! $data->description !!}</p>
                             <div class="btn-wrapper  desktop-left padding-top-20">
-                                @if (!empty($data->btn_01_status))
+                                @if ($data->btn_01_status == 'on')
                                     <a href="{{ $data->btn_01_url }}"
                                         class="boxed-btn btn-rounded white">{{ $data->btn_01_text }}</a>
                                 @endif
@@ -173,8 +173,7 @@
                         </select>
                     </div>
                     <div class="col-md-3 btn-wrapper">
-                        <input type="submit" value="Search"
-                            class=" boxed-btn white border-none border-green">
+                        <input type="submit" value="Search" class=" boxed-btn border-none ">
                     </div>
 
                 </div>
@@ -260,7 +259,10 @@
                                 <h4 class="title mb-4">
                                     <a
                                         href="{{ route('frontend.news.single', ['slug' => Str::slug($single_news->title)]) }}">
-                                        {{ $single_news->title }}
+                                        {{-- {{ $single_news->title }} --}}
+                                        {{-- {{ preg_replace('~(\R{2})\R+~', '$6' , $single_news->title) }} --}}
+                                        {{str_replace(array("\r\n", "\r", "\n"), '',$single_news->title) }}
+                                        
                                     </a>
                                 </h4>
                                 <div class="cats" style="display: flex;justify-content:space-between">
