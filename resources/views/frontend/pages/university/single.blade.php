@@ -1,4 +1,5 @@
-@extends('frontend.frontend-page-master')
+@extends('frontend.frontend-master')
+{{-- @extends('frontend.frontend-page-master') --}}
 @section('site-title')
     About University
 @endsection
@@ -7,69 +8,100 @@
 @endsection
 @section('style')
     <style>
-        /* .tab-content{
+        .list-inline-item{
+            display: inline-grid;
+            line-height: 28px;
+        }
+
+        .single-product-details .title {
+            font-size: 20px;
+            line-height: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+
+        }
+        .single-product-details .title:before{
+            position: static;
+            content: "\f101";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 700;
+            margin-right: 5px;
+            color: var(--main-color-one);
+        }
+
+        .single-product-details .extra-content-wrap .nav-tabs {
+            display: block;
+            border: none;
+            font-size: 0;
+        }
+
+        .single-product-details .extra-content-wrap .nav-tabs .nav-item {
+            border: none;
+            display: inline-block;
+            background-color: #f4f7fc;
+            border-radius: 0;
+            font-size: 16px;
+            font-weight: 500;
+            color: #555;
+            transition: 300ms all;
+            padding: 12px 30px;
+        }
+
+        .single-product-details .extra-content-wrap .nav-tabs .nav-item.active {
+            background-color: var(--main-color-one);
+            color: #fff;
+        }
+
+        .single-product-details .extra-content-wrap .nav-tabs .nav-item:first-child {
+            border-top-left-radius: 5px;
+        }
+
+        .single-product-details .extra-content-wrap .nav-tabs .nav-item:last-child {
+            border-top-right-radius: 5px;
+        }
+
+        .single-product-details .extra-content-wrap .tab-content {
             background-color: #f4f7fc;
             padding: 30px;
         }
-        nav{
-            background-color: #f4f7fc;
-        } */
 
-
-/* product single page styling */
-.single-product-details .title {
-    font-size: 20px;
-    line-height: 20px;
-    font-weight: 700;
-    margin-bottom: 20px;
-}
-
-.single-product-details .extra-content-wrap .nav-tabs {
-    display: block;
-    border: none;
-    font-size: 0;
-}
-
-.single-product-details .extra-content-wrap .nav-tabs .nav-item {
-    border: none;
-    display: inline-block;
-    background-color: #f4f7fc;
-    border-radius: 0;
-    font-size: 18px;
-    font-weight: 600;
-    color: #555;
-    transition: 300ms all;
-    padding: 12px 30px;
-}
-
-.single-product-details .extra-content-wrap .nav-tabs .nav-item.active {
-    background-color: var(--main-color-one);
-    color: #fff;
-}
-
-.single-product-details .extra-content-wrap .nav-tabs .nav-item:first-child {
-    border-top-left-radius: 5px;
-}
-
-.single-product-details .extra-content-wrap .nav-tabs .nav-item:last-child {
-    border-top-right-radius: 5px;
-}
-
-.single-product-details .extra-content-wrap .tab-content {
-    background-color: #f4f7fc;
-    padding: 30px;
-}
-
-.single-product-details .extra-content-wrap {
-    margin-bottom: 100px;
-}
-.course-description p{
-    line-height: 32px;
-    font-size: 16px;
-}
+        .single-product-details .extra-content-wrap {
+            margin-bottom: 100px;
+        }
+        .course-description p{
+            line-height: 32px;
+            font-size: 16px;
+        }
+        .course-description .sub-title{
+            margin-top: 20px;
+            font-size: 16px;
+            color:  var(--paragraph-color);
+        }
     </style>
 @endsection
 @section('content')
+
+    @php
+        $university_image = !empty($university->image) ? get_attachment_image_by_id($university->image,"full",false) : '';
+    @endphp
+    @if (!empty($university_image))
+        <section class="breadcrumb-area breadcrumb-bg navbar-02"  style="background-image: url('{{$university_image['img_url']}}')"> 
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="breadcrumb-inner">
+                            <h1 class="page-title"> {{$university->name}} </h1>
+                            <ul class="page-list">
+                                <li><a href="{{route('homepage')}}">Home</a></li>
+                                <li>   {{$university->name}}  </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    @endif
+    
     <section class="blog-content-area padding-120">
         <div class="container">
             <div class="row">
@@ -106,59 +138,14 @@
                                 </li>
                             @endif
 
-                            {{-- @if (!empty($job->education_requirement))
-                                <li>
-                                    <div class="single-job-meta-block">
-                                        <h4 class="title"> {{ __('Educational Requirement') }}</h4>
-                                        <ul class="job-details-list">
-                                            @php $job_res = explode('|',$job->education_requirement); @endphp
-                                            @foreach ($job_res as $data)
-                                                <li>{{ $data }}</li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                </li>
-                                @endif 
-                            --}}
-                          
                         {{-- <div class="apply-procedure">
                             <p>{{ __('Send Your CV To:') }} <span>{{ $university->fee }}</span></p>
                         </div> --}}
-
-                            @if(!empty($allCourses = $university->courses))
-                            <li>
-                                <div class="single-product-details">
-                                    <h4 class="title">{{ __('All Courses') }}</h4>
-                                   
-
-                                    {{-- <div class="bottom-content"> --}}
-                                        <div class="extra-content-wrap">
-                                            <nav>
-                                                <div class="nav nav-tabs" role="tablist">
-                                                    @foreach($allCourses as $key=>$aCourse)
-                                                        <a class="nav-item nav-link {{ $key == 0 ? 'active' : ''}}" data-toggle="tab" href="#nav-{{$aCourse->id}}" role="tab" aria-selected="true"> {{$aCourse->title}} </a>
-                                                    @endforeach
-                                                </div>
-                                            </nav>
-                                            <div class="tab-content">
-                                                @foreach($allCourses as $key=>$aCourse)
-                                                    <div class="tab-pane fade {{ $key == 0 ? 'active show' : ''}}" id="nav-{{$aCourse->id}}" role="tabpanel">
-                                                        <div class="course-description">
-                                                            <p> {!! $aCourse->description !!} </p>
-                                                        </div>
-                                                    </div>
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                    {{-- </div> --}}
-
-                                </div>
-                            </li>
-                            @endif
                         </ul>
                     </div> {{-- single-job-details end--}}
                 </div>{{-- col-lg-8 end --}}
 
+                {{-- right sidebar --}}
                 <div class="col-lg-4">
                     <div class="widget-area">
                         <div class="widget job_information">
@@ -210,7 +197,7 @@
                                 </li> --}}
                             </ul>
                         </div>
-                        <div class="widget widget_nav_menu">
+                        {{-- <div class="widget widget_nav_menu">
                             <h2 class="widget-title">
                                 Category    
                             </h2>
@@ -221,20 +208,83 @@
                                     </li>
                                 @endforeach
                             </ul>
-                        </div>
-
+                        </div> --}}
                     </div>
+                </div>
+                {{-- right sidebar --}}
+            </div>
 
+            <div class="row mt-5">
+                <div class="col-md-12">
+                    <div class="single-job-details">
+                        <ul class="job-meta-list">
+                            @if(!empty($allCourses = $university->courses))
+                            <li>
+                                <div class="single-product-details">
+                                    <h4 class="title">{{ __('All Courses') }}</h4>
+                                    <div class="extra-content-wrap">
+                                        <nav>
+                                            <div class="nav nav-tabs" role="tablist">
+                                                @foreach($allCourses as $key=>$aCourse)
+                                                    <a class="nav-item nav-link {{ $key == 0 ? 'active' : ''}}" data-toggle="tab" href="#nav-{{$aCourse->id}}" role="tab" aria-selected="true"> {{$aCourse->title}} </a>
+                                                @endforeach
+                                            </div>
+                                        </nav>
+                                        <div class="tab-content">
+                                            @foreach($allCourses as $key=>$aCourse)
+                                                <div class="tab-pane fade {{ $key == 0 ? 'active show' : ''}}" id="nav-{{$aCourse->id}}" role="tabpanel">
+                                                   
+                                                    <div class="course-description">
+                                                        <ul class="list-inline">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <li class="list-inline-item">
+                                                                        <b> Course Duration:  </b>
+                                                                        <span> {{$aCourse->course_duration}} </span>
+                                                                    </li>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <li class="list-inline-item">
+                                                                        <b> Course Fee: </b>
+                                                                        <span> {{$aCourse->fee}} </span>
+                                                                    </li>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <li class="list-inline-item">
+                                                                        <b> Course Discipline:  </b>
+                                                                        <span> {{$aCourse->discipline->title}} </span>
+                                                                    </li>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <li class="list-inline-item">
+                                                                        <b> Number Of Seats: </b> 
+                                                                        <span> {{$aCourse->seats}} </span>
+                                                                    </li>
+                                                                </div>
+                                                            </div>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="course-description">
+                                                        <h4 class="sub-title"><b> Description </b></h4>
+                                                        <p> {!! $aCourse->description !!} </p>
+                                                    </div>
+                                                    <div class="course-description">
+                                                        <h4 class="sub-title"><b> Elligibility </b></h4>
+                                                        <p> {!! $aCourse->elligibility !!} </p>
+                                                    </div>
+                                                    
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            @endif
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 @endsection
 
-@section('scripts')
-    <script>
-        $(document).ready(function(){
-            $('.')
-        })
-    </script>
-@endsection
