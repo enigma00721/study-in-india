@@ -8,7 +8,7 @@
     <title>
         {{get_static_option('site_'.get_user_lang().'_title')}} -
         @if(request()->path() == 'admin-home')
-            {{get_static_option('site_'.get_user_lang().'_tag_line')}}
+            {{__('CMS Dashboard')}}
         @else
             @yield('site-title')
         @endif

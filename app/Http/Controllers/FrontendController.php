@@ -179,7 +179,6 @@ return redirect()
 public function singleUniversity($id,$slug)
 {
 $university = University::with('courses')->find($id);
-// $university = University::with('courses')->findOrFail($id);
 // dd($university);
 // dd($university->getCoursesSeatsCount());
 $levels = Level::all();
