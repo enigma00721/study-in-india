@@ -176,10 +176,10 @@
                                 <li>
                                     <div class="single-job-info">
                                         <div class="icon">
-                                            <i class="far fa-user"></i>
+                                            <i class="fas fa-chair"></i>
                                         </div>
                                         <div class="content">
-                                            <h4 class="title">{{ __('Number Of Seats') }}</h4>
+                                            <h4 class="title">{{ __('Total Seats') }}</h4>
                                             <span class="details">{{ $university->getCoursesSeatsCount() }}</span>
                                         </div>
                                     </div>

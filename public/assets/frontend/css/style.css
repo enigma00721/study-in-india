@@ -6297,10 +6297,10 @@ object {
 }
 
 .single-job-list-item .jobs-meta li:nth-child(1) i {
-    color: #12b6e8;
+    color: var(--main-color-one);
 }
 .single-job-list-item .jobs-meta li:nth-child(2) i {
-    color: #2a41e8;
+    color: var(--main-color-one);
 }
 .single-job-list-item .jobs-meta li:nth-child(3) i {
     color: #dc3139;

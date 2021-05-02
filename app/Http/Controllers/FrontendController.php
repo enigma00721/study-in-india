@@ -159,7 +159,7 @@ public function onlineApply($id)
 {
 $forCourse = Course::find($id);
 // $forCourse = Course::findOrFail($id);
-dd($forCourse);
+// dd($forCourse);
 $levels = Level::all();
 $disciplines = Discipline::all();
 return view('frontend.pages.online-apply', compact('levels', 'disciplines'));
@@ -167,7 +167,7 @@ return view('frontend.pages.online-apply', compact('levels', 'disciplines'));
 
 public function onlineApplySubmit(Request $request)
 {
-// dd($request->all());
+dd($request->all());
 $row = OnlineApply::create($request->all());
 if ($row) {
 return redirect()
