@@ -360,9 +360,6 @@ Route::post('/general-settings/scripts', 'GeneralSettingsController@update_scrip
 Route::get('/general-settings/email-template',
 'GeneralSettingsController@email_template_settings')->name('admin.general.email.template');
 Route::post('/general-settings/email-template', 'GeneralSettingsController@update_email_template_settings');
-Route::get('/general-settings/email-settings',
-'GeneralSettingsController@email_settings')->name('admin.general.email.settings');
-Route::post('/general-settings/email-settings', 'GeneralSettingsController@update_email_settings');
 Route::get('/general-settings/typography-settings',
 'GeneralSettingsController@typography_settings')->name('admin.general.typography.settings');
 Route::post('/general-settings/typography-settings', 'GeneralSettingsController@update_typography_settings');
@@ -430,17 +427,8 @@ Route::get('/home-page-01/testimonial', 'HomePageController@home_01_testimonial'
 Route::post('/home-page-01/testimonial', 'HomePageController@home_01_update_testimonial');
 Route::get('/home-page-01/about-us', 'HomePageController@home_01_about_us')->name('admin.homeone.about.us');
 Route::post('/home-page-01/about-us', 'HomePageController@home_01_update_about_us');
-Route::get('/home-page-01/newsletter', 'HomePageController@home_01_newsletter')->name('admin.homeone.newsletter');
-Route::post('/home-page-01/newsletter', 'HomePageController@home_01_update_newsletter');
 Route::get('/home-page-01/section-manage','HomePageController@home_01_section_manage')->name('admin.homeone.section.manage');
 Route::post('/home-page-01/section-manage', 'HomePageController@home_01_update_section_manage');
-//key features
-Route::get('/keyfeatures', 'KeyFeaturesController@index')->name('admin.keyfeatures');
-Route::post('/keyfeatures', 'KeyFeaturesController@store');
-Route::post('/home-page-01/keyfeatures',
-'KeyFeaturesController@update_section_settings')->name('admin.keyfeature.section');
-Route::post('/update-keyfeatures', 'KeyFeaturesController@update')->name('admin.keyfeatures.update');
-Route::post('/delete-keyfeatures/{id}', 'KeyFeaturesController@delete')->name('admin.keyfeatures.delete');
 
 //header slider
 Route::get('/header', 'HeaderSliderController@index')->name('admin.header');

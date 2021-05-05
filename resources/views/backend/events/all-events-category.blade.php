@@ -70,8 +70,14 @@
                                                             <span class="btn btn-warning btn-sm">{{ucfirst($data->status)}}</span>
                                                         @endif
                                                     </td>
-                                                    <td>
-                                                        <a tabindex="0" class="btn btn-lg btn-danger btn-sm mb-3 mr-1"
+                                                    <td style="display: flex;">
+                                                        <form action="{{route('admin.events.category.delete',$data->id)}}" method="post">
+                                                            @csrf
+                                                            <button type="submit" class="btn btn-sm btn-danger mb-3 mr-1 delete-confirm" >
+                                                                <i class="fas fa-trash" aria-hidden="true"></i>
+                                                            </button>
+                                                        </form>
+                                                        {{-- <a tabindex="0" class="btn btn-lg btn-danger btn-sm mb-3 mr-1"
                                                            role="button"
                                                            data-toggle="popover"
                                                            data-trigger="focus"
@@ -86,7 +92,7 @@
                                                             </form>
                                                             ">
                                                             <i class="ti-trash"></i>
-                                                        </a>
+                                                        </a> --}}
                                                         <a href="#"
                                                            data-toggle="modal"
                                                            data-target="#category_edit_modal"
@@ -215,5 +221,22 @@
                 "order": [[ 0, "desc" ]]
             } );
         } );
+    </script>
+    <script>
+        $('.delete-confirm').on('click', function (event) {
+            event.preventDefault();
+            var form = event.target.form; // storing the form
+            //   console.log(form);
+            swal({
+                title: 'Are you sure?',
+                text: 'This record will be permanantly deleted!',
+                icon: 'warning',
+                buttons: ["Cancel", "Yes!"],
+            }).then(function(value) {
+                if (value) {
+                    form.submit(); 
+                }
+            });
+        });
     </script>
 @endsection

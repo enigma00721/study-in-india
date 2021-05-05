@@ -304,35 +304,7 @@ class GeneralSettingsController extends Controller
         return redirect()->back()->with(['msg' => 'Typography Settings Updated..', 'type' => 'success']);
     }
 
-    public function email_settings()
-    {
-        $all_languages = Language::all();
-        return view('backend.general-settings.email-settings')->with(['all_languages' => $all_languages]);
-    }
-
-    public function update_email_settings(Request $request)
-    {
-        $all_languages = Language::all();
-        foreach ($all_languages as $lang) {
-            $this->validate($request, [
-                'order_mail_' . $lang->slug . '_subject' => 'nullable|string',
-                'quote_mail_' . $lang->slug . '_subject' => 'nullable|string',
-                'contact_mail_' . $lang->slug . '_subject' => 'nullable|string',
-                'request_call_back_mail_' . $lang->slug . '_subject' => 'nullable|string'
-            ]);
-
-            $order_mail = 'order_mail_' . $lang->slug . '_subject';
-            $quote_mail = 'quote_mail_' . $lang->slug . '_subject';
-            $contact_mail = 'contact_mail_' . $lang->slug . '_subject';
-            $request_call_back_mail = 'request_call_back_mail_' . $lang->slug . '_subject';
-
-            update_static_option($order_mail, $request->$order_mail);
-            update_static_option($quote_mail, $request->$quote_mail);
-            update_static_option($contact_mail, $request->$contact_mail);
-            update_static_option($request_call_back_mail, $request->$request_call_back_mail);
-        }
-        return redirect()->back()->with(['msg' => 'Email Settings Updated..', 'type' => 'success']);
-    }
+    
 
     public function page_settings()
     {

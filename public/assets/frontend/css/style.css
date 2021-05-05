@@ -6662,6 +6662,20 @@ object {
     border: 1px solid var(--main-color-one);
 }
 
+
+
+.page-item.active .page-link {
+    background-color: var(--main-color-one);
+    border-color: var(--main-color-one);
+}
+.page-link {
+    color: var(--main-color-one);
+}
+.page-link:hover{
+    color: var(--main-color-one);
+}
+
+
 /* for main logo */
 .desktop-logo {
     width: 180px;

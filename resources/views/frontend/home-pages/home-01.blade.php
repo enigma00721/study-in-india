@@ -143,7 +143,6 @@
 </div>
 
 {{-- why india section and university search section --}}
-@if (!empty(get_static_option('home_page_service_section_status')))
     <section class="our-cover-area why-india-section  padding-top-90 padding-bottom-90">
         <div class="container">
             <form action="{{ route('university.search') }}" method="get">
@@ -198,7 +197,6 @@
         </div>
     </section>
 
-@endif
 
 
 {{-- counter --}}

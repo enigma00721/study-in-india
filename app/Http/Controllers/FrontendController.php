@@ -65,7 +65,6 @@ $lang = !empty(session()->get('lang')) ? session()->get('lang') : Language::wher
 // dd($lang); //english
 $all_header_slider = HeaderSlider::where('lang', $lang)->get();
 $all_counterup = Counterup::where('lang', $lang)->get();
-$all_key_features = KeyFeatures::where('lang', $lang)->get();
 $all_service = Services::where('lang', $lang)
 ->orderBy('id', 'desc')
 ->take(get_static_option('home_page_01_service_area_items'))
@@ -94,7 +93,6 @@ $all_levels = Level::all();
 return view('frontend.frontend-home')->with([
 'all_header_slider' => $all_header_slider,
 'all_counterup' => $all_counterup,
-'all_key_features' => $all_key_features,
 'all_service' => $all_service,
 'all_testimonial' => $all_testimonial,
 'all_blog' => $all_blog,
@@ -497,63 +495,72 @@ public function send_contact_message(Request $request)
 
 // dd($request->all());
 
-$all_quote_form_fields = json_decode(get_static_option('contact_page_form_fields'));
-$required_fields = [];
-$fileds_name = [];
-$attachment_list = [];
-foreach ($all_quote_form_fields->field_type as $key => $value) {
-if (is_object($all_quote_form_fields->field_required) && !empty($all_quote_form_fields->field_required->$key) && $value
-!= 'file') {
-$sanitize_rule = $value == 'email' ? 'email' : 'string';
-$required_fields[$all_quote_form_fields->field_name[$key]] = 'required|' . $sanitize_rule;
-} elseif (is_object($all_quote_form_fields->field_required) && $value == 'file') {
-$file_required = isset($all_quote_form_fields->field_required->$key) ? 'required|' : '';
-$file_mimes_type = isset($all_quote_form_fields->mimes_type->$key) ? $all_quote_form_fields->mimes_type->$key : '';
-$required_fields[$all_quote_form_fields->field_name[$key]] = $file_required . $file_mimes_type . '|max:6054';
-} elseif (is_array($all_quote_form_fields->field_required) && $value == 'file') {
-$file_required = isset($all_quote_form_fields->field_required->$key) ? 'required|' : '';
-$file_mimes_type = isset($all_quote_form_fields->mimes_type->$key) ? $all_quote_form_fields->mimes_type->$key : '';
-$required_fields[$all_quote_form_fields->field_name[$key]] = $file_required . $file_mimes_type . '|max:6054';
-} elseif (is_array($all_quote_form_fields->field_required) && !empty($all_quote_form_fields->field_required[$key]) &&
-$value != 'file') {
-$sanitize_rule = $value == 'email' ? 'email' : 'string';
-$required_fields[$all_quote_form_fields->field_name[$key]] = 'required|' . $sanitize_rule;
-}
-}
-$this->validate($request, $required_fields);
-
-foreach ($all_quote_form_fields->field_type as $key => $value) {
-if ($value != 'file') {
-$singule_field_name = $all_quote_form_fields->field_name[$key];
-$checkbox_value = $value == 'checkbox' && !empty($request->$singule_field_name) ? 'Yes' : 'No';
-$fileds_name[$singule_field_name] = $value != 'checkbox' ? $request->$singule_field_name : $checkbox_value;
-} elseif ($value == 'file') {
-$singule_field_name = $all_quote_form_fields->field_name[$key];
-if ($request->hasFile($singule_field_name)) {
-$filed_instance = $request->file($singule_field_name);
-$file_extenstion = $filed_instance->getClientOriginalExtension();
-$attachment_name = 'attachment-' . $singule_field_name . '.' . $file_extenstion;
-$filed_instance->move('assets/uploads/attachment/', $attachment_name);
-$attachment_list[$singule_field_name] = 'assets/uploads/attachment/' . $attachment_name;
-}
-}
-}
-
-$google_captcha_result = google_captcha_check($request->captcha_token);
-// dd($google_captcha_result);
-
-    if ($google_captcha_result['success']) {
-        $succ_msg = get_static_option('contact_mail_' . get_user_lang() . '_subject');
-        $success_message = !empty($succ_msg) ? $succ_msg : 'Thanks for your contact!!';
-        Mail::to(get_static_option('site_global_email'))->send(new ContactMessage($fileds_name, $attachment_list));
-        return redirect()
-            ->back()
-            ->with(['msg' => $success_message, 'type' => 'success']);
-    } else {
-        return redirect()
-            ->back()
-            ->with(['msg' => 'Something goes wrong, Please try again later !!', 'type' => 'danger']);
+    $all_quote_form_fields = json_decode(get_static_option('contact_page_form_fields'));
+    $required_fields = [];
+    $fileds_name = [];
+    $attachment_list = [];
+    foreach ($all_quote_form_fields->field_type as $key => $value) {
+    if (is_object($all_quote_form_fields->field_required) && !empty($all_quote_form_fields->field_required->$key) && $value
+    != 'file') {
+    $sanitize_rule = $value == 'email' ? 'email' : 'string';
+    $required_fields[$all_quote_form_fields->field_name[$key]] = 'required|' . $sanitize_rule;
+    } elseif (is_object($all_quote_form_fields->field_required) && $value == 'file') {
+    $file_required = isset($all_quote_form_fields->field_required->$key) ? 'required|' : '';
+    $file_mimes_type = isset($all_quote_form_fields->mimes_type->$key) ? $all_quote_form_fields->mimes_type->$key : '';
+    $required_fields[$all_quote_form_fields->field_name[$key]] = $file_required . $file_mimes_type . '|max:6054';
+    } elseif (is_array($all_quote_form_fields->field_required) && $value == 'file') {
+    $file_required = isset($all_quote_form_fields->field_required->$key) ? 'required|' : '';
+    $file_mimes_type = isset($all_quote_form_fields->mimes_type->$key) ? $all_quote_form_fields->mimes_type->$key : '';
+    $required_fields[$all_quote_form_fields->field_name[$key]] = $file_required . $file_mimes_type . '|max:6054';
+    } elseif (is_array($all_quote_form_fields->field_required) && !empty($all_quote_form_fields->field_required[$key]) &&
+    $value != 'file') {
+    $sanitize_rule = $value == 'email' ? 'email' : 'string';
+    $required_fields[$all_quote_form_fields->field_name[$key]] = 'required|' . $sanitize_rule;
     }
+    }
+    $this->validate($request, $required_fields);
+
+    foreach ($all_quote_form_fields->field_type as $key => $value) {
+    if ($value != 'file') {
+    $singule_field_name = $all_quote_form_fields->field_name[$key];
+    $checkbox_value = $value == 'checkbox' && !empty($request->$singule_field_name) ? 'Yes' : 'No';
+    $fileds_name[$singule_field_name] = $value != 'checkbox' ? $request->$singule_field_name : $checkbox_value;
+    } elseif ($value == 'file') {
+    $singule_field_name = $all_quote_form_fields->field_name[$key];
+    if ($request->hasFile($singule_field_name)) {
+    $filed_instance = $request->file($singule_field_name);
+    $file_extenstion = $filed_instance->getClientOriginalExtension();
+    $attachment_name = 'attachment-' . $singule_field_name . '.' . $file_extenstion;
+    $filed_instance->move('assets/uploads/attachment/', $attachment_name);
+    $attachment_list[$singule_field_name] = 'assets/uploads/attachment/' . $attachment_name;
+    }
+    }
+    }
+
+    $succ_msg = get_static_option('contact_mail_' . get_user_lang() . '_subject');
+    $success_message = !empty($succ_msg) ? $succ_msg : 'Thanks for your contact!!';
+
+     Mail::to(get_static_option('site_global_email'))->send(new ContactMessage($fileds_name, $attachment_list));
+            return redirect()
+                ->back()
+                ->with(['msg' => $success_message, 'type' => 'success']);
+
+
+    // $google_captcha_result = google_captcha_check($request->captcha_token);
+    // // dd($google_captcha_result);
+
+    //     if ($google_captcha_result['success']) {
+    //         $succ_msg = get_static_option('contact_mail_' . get_user_lang() . '_subject');
+    //         $success_message = !empty($succ_msg) ? $succ_msg : 'Thanks for your contact!!';
+    //         Mail::to(get_static_option('site_global_email'))->send(new ContactMessage($fileds_name, $attachment_list));
+    //         return redirect()
+    //             ->back()
+    //             ->with(['msg' => $success_message, 'type' => 'success']);
+    //     } else {
+    //         return redirect()
+    //             ->back()
+    //             ->with(['msg' => 'Something goes wrong, Please try again later !!', 'type' => 'danger']);
+    //     }
 }
 
 public function services_single_page($id, $any)
@@ -910,6 +917,7 @@ for ($i = 0; $i < count($all_by_cat); $i++) { array_push($all_works, $all_by_cat
     $all_events = Events::where(['status' => 'publish', 'lang' => get_user_lang()])
     ->orderBy('id', 'desc')
     ->paginate(get_static_option('site_events_post_items'));
+    // dd($all_events);
     $all_event_category = EventsCategory::where(['status' => 'publish', 'lang' => get_user_lang()])->get();
     return view('frontend.pages.events.event')->with([
     'all_events' => $all_events,

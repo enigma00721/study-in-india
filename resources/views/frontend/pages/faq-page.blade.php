@@ -29,7 +29,7 @@
                                         </h5>
                                     </div>
 
-                                    <div id="collapseOne_{{$key}}" class="collapse @if($data->is_open == 'on') show @endif "
+                                    <div id="collapseOne_{{$key}}" class="collapse @if($key == 0) show @endif "
                                          aria-labelledby="headingOne_{{$key}}" data-parent="#accordion_{{$rand_number}}">
                                         <div class="card-body">
                                             {{$data->description}}

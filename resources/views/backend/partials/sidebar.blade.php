@@ -266,7 +266,6 @@
                     @if(check_page_permission('home_page_manage'))
                     <li class="@if(request()->is('admin-home/home-page-01/*')  ) active @endif
                         {{active_menu('admin-home/header')}}
-                        {{active_menu('admin-home/keyfeatures')}}
                             ">
                         <a href="javascript:void(0)"
                         aria-expanded="true">
@@ -279,9 +278,7 @@
                                     {{__('Header Slider')}}
                                 </a>
                             </li>
-                            <li class="{{active_menu('admin-home/keyfeatures')}}">
-                                <a href="{{route('admin.keyfeatures')}}">{{__('Key Features')}}</a>
-                            </li>
+                           
                             <li class="{{active_menu('admin-home/home-page-01/about-us')}}"><a
                                         href="{{route('admin.homeone.about.us')}}">{{__('About Us Area')}}</a></li>
 
@@ -292,8 +289,6 @@
                          
                             <li class="{{active_menu('admin-home/home-page-01/counterup')}}"><a
                                         href="{{route('admin.homeone.counterup')}}">{{__('Counterup Area')}}</a></li>
-                            <li class="{{active_menu('admin-home/home-page-01/newsletter')}}"><a
-                                        href="{{route('admin.homeone.newsletter')}}">{{__('Newsletter Area')}}</a></li>
                             <li class="{{active_menu('admin-home/home-page-01/section-manage')}}"><a
                                         href="{{route('admin.homeone.section.manage')}}">{{__('Section Manage')}}</a>
                             </li>
@@ -381,8 +376,6 @@
                             <li class="{{active_menu('admin-home/general-settings/email-template')}}"><a
                                         href="{{route('admin.general.email.template')}}">{{__('Email Template')}}</a>
                             </li>
-                            <li class="{{active_menu('admin-home/general-settings/email-settings')}}"><a
-                                        href="{{route('admin.general.email.settings')}}">{{__('Email Settings')}}</a>
                             </li>
                             <li class="{{active_menu('admin-home/general-settings/smtp-settings')}}"><a
                                         href="{{route('admin.general.smtp.settings')}}">{{__('SMTP Settings')}}</a>

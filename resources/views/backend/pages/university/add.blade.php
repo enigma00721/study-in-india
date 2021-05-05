@@ -4,13 +4,6 @@
     <link rel="stylesheet" href="{{ asset('assets/backend/css/media-uploader.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 
-    <style>
-        .note-editable ul {
-            list-style: disc !important;
-            list-style-position: inside !important;
-        }
-
-    </style>
 @endsection
 @section('site-title')
     Add New University
@@ -129,18 +122,23 @@
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
     <script>
         $(document).ready(function() {
+            
+                $('.summernote').summernote({
+                    placeholder: 'Hello stand alone ui',
+                    tabsize: 2,
+                    height: 400,
+                    theme:'paper',
+                    toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture', 'video']],
+                    ['view', ['fullscreen', 'codeview', 'help']]
+                    ]
+                });
 
-            $('.summernote').summernote({
-                height: 400, //set editable area's height
-                codemirror: { // codemirror options
-                    theme: 'monokai'
-                },
-                callbacks: {
-                    onChange: function(contents, $editable) {
-                        $(this).prev('input').val(contents);
-                    }
-                }
-            });
         });
 
     </script>

@@ -2835,3 +2835,15 @@ table.dataTable thead td {
 }
 
 /*-------------------- END Offset Sidebar ------------------- */
+
+
+
+/* custom css */
+
+/* summernote */
+ .note-editable ul {
+            list-style: disc !important;
+            list-style-position: inside !important;
+        }
+.note-editable { background-color: white;}
+.note-editable ol{ padding-left: 15px;}

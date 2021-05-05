@@ -32,7 +32,7 @@ class ContactMessage extends Mailable
     public function build()
     {
         $mail =   $this->from(get_static_option('site_global_email'), get_static_option('site_'.get_default_language().'_title'))
-        ->subject('From Contact Mail Nice Okay')
+        ->subject('Study In India - Contact')
         ->view('mail.contact');
 
         if (!empty($this->attachment)){

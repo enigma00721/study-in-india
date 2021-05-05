@@ -157,29 +157,5 @@ class HomePageController extends Controller
    
  
 
-    public function home_01_newsletter()
-    {
-        return view('backend.pages.home.home-01.newsletter');
-    }
-
-    public function home_01_update_newsletter(Request $request){
-        $all_language = Language::all();
-        foreach ($all_language as $lang){
-            $this->validate($request,[
-                'home_page_01_'.$lang->slug.'_newsletter_area_title' => 'nullable|string',
-                'home_page_01_'.$lang->slug.'_newsletter_area_description' => 'nullable|string',
-            ]);
-            $field_name = 'home_page_01_'.$lang->slug.'_newsletter_area_title';
-            $field_name_two = 'home_page_01_'.$lang->slug.'_newsletter_area_description';
-            update_static_option($field_name,$request->$field_name);
-            update_static_option($field_name_two,$request->$field_name_two);
-        }
-
-        return redirect()->back()->with([
-            'msg' => 'Settings Updated ...',
-            'type' => 'success'
-        ]);
-    }
-
     
 }

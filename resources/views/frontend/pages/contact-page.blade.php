@@ -5,6 +5,14 @@
 @section('page-title')
     {{__('Contact')}}
 @endsection
+@section('style')
+<style>
+    #map{
+        border: 3px solid #f4f7fc;
+    }
+</style>
+    
+@endsection
 @section('content')
     <div class="page-content contact-page padding-top-120 padding-bottom-120">
         <div class="container">
@@ -75,7 +83,8 @@
                             $map_marker_image = get_attachment_image_by_id(get_static_option('contact_page_map_marker_image'),null,false);
                             $map_marker_image_url = !empty($map_marker_image['img_url']) ? $map_marker_image['img_url'] : '';
                         @endphp
-                        <div id="map" data-latitude="{{get_static_option('contact_page_map_section_latitude')}}" data-longitude="{{get_static_option('contact_page_map_section_longitude')}}" data-marker="{{$map_marker_image_url}}" class="margin-top-40"></div>
+                        <div id="map" data-latitude="{{get_static_option('contact_page_map_section_latitude')}}" data-longitude="{{get_static_option('contact_page_map_section_longitude')}}" data-marker="{{$map_marker_image_url}}" class="margin-top-40">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -86,12 +95,4 @@
 @section('scripts')
     <script src="https://maps.googleapis.com/maps/api/js?key={{get_static_option('site_google_map_api')}}&callback=initMap" async defer></script>
     <script src="{{asset('assets/frontend/js/goolge-map-activate.js')}}"></script>
-    <script src="https://www.google.com/recaptcha/api.js?render={{get_static_option('site_google_captcha_v3_site_key')}}"></script>
-    <script>
-        grecaptcha.ready(function() {
-            grecaptcha.execute("{{get_static_option('site_google_captcha_v3_site_key')}}", {action: 'homepage'}).then(function(token) {
-                document.getElementById('gcaptcha_token').value = token;
-            });
-        });
-    </script>
 @endsection

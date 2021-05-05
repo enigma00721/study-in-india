@@ -30,7 +30,6 @@ class FaqController extends Controller
             'description' => $request->description,
             'lang' => $request->lang,
             'status' => $request->status,
-            'is_open' => !empty($request->is_open) ? 'on' : '',
         ]);
 
 
@@ -51,7 +50,6 @@ class FaqController extends Controller
             'description' => $request->description,
             'status' => $request->status,
             'lang' => $request->lang,
-            'is_open' => !empty($request->is_open) ? 'on' : '',
         ]);
 
         return redirect()->back()->with(['msg' => 'Faq Updated...','type' => 'success']);

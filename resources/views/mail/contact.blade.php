@@ -56,8 +56,11 @@
                 @php
                     $site_logo = get_attachment_image_by_id(get_static_option('site_white_logo'),"full",false);
                 @endphp
+                {{-- {{  dd($site_logo) }} --}}
                 @if (!empty($site_logo))
-                    <img src="{{$site_logo['img_url']}}" alt="{{get_static_option('site_'.get_user_lang().'_title')}}">
+                    <img src="{{asset('assets/uploads/media-uploader/'.$site_logo['path'])}}" alt="{{get_static_option('site_'.get_user_lang().'_title')}}">
+                    {{-- <img src="{{asset('assets/uploads/media-uploader/site-logo-1980891587151038.png')}}" alt="{{get_static_option('site_'.get_user_lang().'_title')}}"> --}}
+                    {{-- <img src="{{asset($site_logo['img_url'])}}" alt="{{get_static_option('site_'.get_user_lang().'_title')}}"> --}}
                 @endif
             </a>
         </div>

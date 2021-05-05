@@ -110,13 +110,7 @@
                                 <label for="title">{{__('Title')}}</label>
                                 <input type="text" class="form-control"  id="title"  name="title" placeholder="{{__('Title')}}">
                             </div>
-                            <div class="form-group">
-                                <label for="is_open">{{__('Is Open')}}</label>
-                                <label class="switch">
-                                    <input type="checkbox" name="is_open"  id="is_open">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
+                         
                             <div class="form-group">
                                 <label for="description">{{__('Description')}}</label>
                                 <textarea name="description" id="description" cols="30" rows="10" class="form-control max-height-150" placeholder="{{__('Description')}}"></textarea>
