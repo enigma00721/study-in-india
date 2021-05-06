@@ -52,24 +52,7 @@
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
-                                    <div class="form-group">
-                                        <label for="about_page_testimonial_section_status"><strong>{{__('Testimonial Section Show/Hide')}}</strong></label>
-                                        <label class="switch">
-                                            <input type="checkbox" name="about_page_testimonial_section_status"  @if(!empty(get_static_option('about_page_testimonial_section_status'))) checked @endif id="about_page_testimonial_section_status">
-                                            <span class="slider"></span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="form-group">
-                                        <label for="about_page_latest_news_section_status"><strong>{{__('Latest News Section Show/Hide')}}</strong></label>
-                                        <label class="switch">
-                                            <input type="checkbox" name="about_page_latest_news_section_status"  @if(!empty(get_static_option('about_page_latest_news_section_status'))) checked @endif id="about_page_latest_news_section_status">
-                                            <span class="slider"></span>
-                                        </label>
-                                    </div>
-                                </div>
+                                
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label for="about_page_brand_logo_section_status"><strong>{{__('Brand Logo Section Show/Hide')}}</strong></label>

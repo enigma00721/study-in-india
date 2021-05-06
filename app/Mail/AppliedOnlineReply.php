@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class OrderReply extends Mailable
+class AppliedOnlineReply extends Mailable
 {
     use Queueable, SerializesModels;
     public $data;
@@ -29,7 +29,7 @@ class OrderReply extends Mailable
     public function build()
     {
         return $this->from(get_static_option('site_global_email'), get_static_option('site_'.get_default_language().'_title'))
-            ->subject($this->subject)
-            ->view('mail.order-reply');
+            ->subject($this->data['subject'])
+            ->view('mail.applied-online-reply');
     }
 }

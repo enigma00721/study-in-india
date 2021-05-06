@@ -80,17 +80,13 @@ class AboutPageController extends Controller
             'about_page_about_us_section_status' => 'nullable|string',
             'about_page_know_about_section_status' => 'nullable|string',
             'about_page_call_to_action_section_status' => 'nullable|string',
-            'about_page_latest_news_section_status' => 'nullable|string',
             'about_page_brand_logo_section_status' => 'nullable|string',
             'about_page_team_member_section_status' => 'nullable|string',
-            'about_page_testimonial_section_status' => 'nullable|string',
         ]);
 
-        update_static_option('about_page_testimonial_section_status',$request->about_page_testimonial_section_status);
         update_static_option('about_page_about_us_section_status',$request->about_page_about_us_section_status);
         update_static_option('about_page_know_about_section_status',$request->about_page_know_about_section_status);
         update_static_option('about_page_call_to_action_section_status',$request->about_page_call_to_action_section_status);
-        update_static_option('about_page_latest_news_section_status',$request->about_page_latest_news_section_status);
         update_static_option('about_page_brand_logo_section_status',$request->about_page_brand_logo_section_status);
         update_static_option('about_page_team_member_section_status',$request->about_page_team_member_section_status);
 

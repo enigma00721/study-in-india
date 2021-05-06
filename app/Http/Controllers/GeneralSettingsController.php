@@ -46,46 +46,46 @@ class GeneralSettingsController extends Controller
         return redirect()->back()->with(['msg' => 'SMTP Settings Updated...','type' => 'success']);
     }
 
-    public function regenerate_image_settings(){
-        return view('backend.general-settings.regenerate-image');
-    }
+    // public function regenerate_image_settings(){
+    //     return view('backend.general-settings.regenerate-image');
+    // }
 
-    public function update_regenerate_image_settings (Request $request){
-        $all_media_file = MediaUpload::all();
-        foreach ($all_media_file as $img){
+    // public function update_regenerate_image_settings (Request $request){
+    //     $all_media_file = MediaUpload::all();
+    //     foreach ($all_media_file as $img){
 
-            if (!file_exists('assets/uploads/media-uploader/'.$img->path)){
-                continue;
-            }
-            $image = 'assets/uploads/media-uploader/'. $img->path;
-            $image_dimension = getimagesize($image);;
-            $image_width = $image_dimension[0];
-            $image_height = $image_dimension[1];
+    //         if (!file_exists('assets/uploads/media-uploader/'.$img->path)){
+    //             continue;
+    //         }
+    //         $image = 'assets/uploads/media-uploader/'. $img->path;
+    //         $image_dimension = getimagesize($image);;
+    //         $image_width = $image_dimension[0];
+    //         $image_height = $image_dimension[1];
 
-            $image_db = $img->path;
-            $image_grid = 'grid-'.$image_db ;
-            $image_large = 'large-'. $image_db;
-            $image_thumb = 'thumb-'. $image_db;
+    //         $image_db = $img->path;
+    //         $image_grid = 'grid-'.$image_db ;
+    //         $image_large = 'large-'. $image_db;
+    //         $image_thumb = 'thumb-'. $image_db;
 
-            $folder_path = 'assets/uploads/media-uploader/';
-            $resize_grid_image = Image::make($image)->resize(350, null,function ($constraint) {
-                $constraint->aspectRatio();
-            });
-            $resize_large_image = Image::make($image)->resize(740, null,function ($constraint) {
-                $constraint->aspectRatio();
-            });
-            $resize_thumb_image = Image::make($image)->resize(150, 150);
+    //         $folder_path = 'assets/uploads/media-uploader/';
+    //         $resize_grid_image = Image::make($image)->resize(350, null,function ($constraint) {
+    //             $constraint->aspectRatio();
+    //         });
+    //         $resize_large_image = Image::make($image)->resize(740, null,function ($constraint) {
+    //             $constraint->aspectRatio();
+    //         });
+    //         $resize_thumb_image = Image::make($image)->resize(150, 150);
 
-            if ($image_width > 150){
-                $resize_thumb_image->save($folder_path . $image_thumb);
-                $resize_grid_image->save($folder_path . $image_grid);
-                $resize_large_image->save($folder_path . $image_large);
-            }
+    //         if ($image_width > 150){
+    //             $resize_thumb_image->save($folder_path . $image_thumb);
+    //             $resize_grid_image->save($folder_path . $image_grid);
+    //             $resize_large_image->save($folder_path . $image_large);
+    //         }
 
-        }
+    //     }
 
-        return redirect()->back()->with(['msg' => 'Image Regenerate Success...','type' => 'success']);
-    }
+    //     return redirect()->back()->with(['msg' => 'Image Regenerate Success...','type' => 'success']);
+    // }
 
     public function custom_js_settings(){
         $custom_js = '/* Write Custom js Here */';
@@ -161,25 +161,6 @@ class GeneralSettingsController extends Controller
         return redirect()->back()->with(['msg' => 'Cache Cleaned...', 'type' => 'success']);
     }
 
-    public function backup_settings()
-    {
-        $all_backuped_db = glob('backup/*');
-        return view('backend.general-settings.backup')->with(['all_backuped_db' => $all_backuped_db]);
-    }
-
-    public function update_backup_settings(Request $request)
-    {
-
-        $process = new Process(sprintf(
-            'mysqldump -u%s -p%s %s > %s',
-            config('database.connections.mysql.username'),
-            config('database.connections.mysql.password'),
-            config('database.connections.mysql.database'),
-            'backup/' . config('database.connections.mysql.database') . '_' . date('j_F_Y_h:m:s') . '.sql'
-        ));
-        $process->mustRun();
-        return redirect()->back()->with(['msg' => 'Database Backup Completed...', 'type' => 'success']);
-    }
 
     public function delete_backup_settings(Request $request)
     {
@@ -204,51 +185,7 @@ class GeneralSettingsController extends Controller
         return redirect()->back()->with(['msg' => 'Database Restore Completed...', 'type' => 'success']);
     }
 
-    public function license_settings()
-    {
-        return view('backend.general-settings.license-settings');
-    }
-
-    public function update_license_settings(Request $request)
-    {
-        $this->validate($request, [
-            'item_purchase_key' => 'required|string|max:191'
-        ]);
-        update_static_option('item_purchase_key', $request->item_purchase_key);
-
-        $data = array(
-            'action' => env('XGENIOUS_API_ACTION'),
-            'purchase_code' => get_static_option('item_purchase_key'),
-            'author' => env('XGENIOUS_API_AUTHOR'),
-            'site_url' => url('/'),
-            'item_unique_key' => env('XGENIOUS_API_KEY'),
-        );
-        //item_license_status
-        $api_url = env('XGENIOUS_API_URL') . '?' . http_build_query($data);
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $api_url);
-        curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 0);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
-        $result = curl_exec($curl);
-        curl_close($curl);
-        $result = json_decode($result);
-        update_static_option('item_license_status', $result->license_status);
-        $type = 'verified' == $result->license_status ? 'success' : 'danger';
-        $license_info = [
-            "item_license_status" => $result->license_status,
-            "last_check" => time(),
-            "purchase_code" => get_static_option('item_purchase_key'),
-            "xgenious_app_key" => env('XGENIOUS_API_KEY'),
-            "author" => env('XGENIOUS_API_AUTHOR'),
-            "message" => $result->message
-        ];
-        file_put_contents('@core/license.json', json_encode($license_info));
-
-        return redirect()->back()->with(['msg' => $result->message, 'type' => $type]);
-    }
-
+    
     public function custom_css_settings()
     {
         $custom_css = '/* Write Custom Css Here */';
@@ -304,85 +241,6 @@ class GeneralSettingsController extends Controller
         return redirect()->back()->with(['msg' => 'Typography Settings Updated..', 'type' => 'success']);
     }
 
-    
-
-    public function page_settings()
-    {
-        $all_languages = Language::all();
-        return view('backend.general-settings.page-settings')->with(['all_languages' => $all_languages]);
-    }
-
-    public function update_page_settings(Request $request)
-    {
-        $this->validate($request,[
-            'about_page_slug' => 'required|string|max:191',
-            'service_page_slug' => 'required|string|max:191',
-            'works_page_slug' => 'required|string|max:191',
-            'team_page_slug' => 'required|string|max:191',
-            'faq_page_slug' => 'required|string|max:191',
-            'price_plan_page_slug' => 'required|string|max:191',
-            'blog_page_slug' => 'required|string|max:191',
-            'contact_page_slug' => 'required|string|max:191',
-            'career_with_us_page_slug' => 'required|string|max:191',
-            'events_page_slug' => 'required|string|max:191',
-            'knowledgebase_page_slug' => 'required|string|max:191',
-        ]);
-
-        update_static_option('about_page_slug',Str::slug($request->about_page_slug));
-        update_static_option('service_page_slug',Str::slug($request->service_page_slug));
-        update_static_option('works_page_slug',Str::slug($request->works_page_slug));
-        update_static_option('team_page_slug',Str::slug($request->team_page_slug));
-        update_static_option('faq_page_slug',Str::slug($request->faq_page_slug));
-        update_static_option('price_plan_page_slug',Str::slug($request->price_plan_page_slug));
-        update_static_option('blog_page_slug',Str::slug($request->blog_page_slug));
-        update_static_option('contact_page_slug',Str::slug($request->contact_page_slug));
-        update_static_option('career_with_us_page_slug',Str::slug($request->career_with_us_page_slug));
-        update_static_option('events_page_slug',Str::slug($request->events_page_slug));
-        update_static_option('knowledgebase_page_slug',Str::slug($request->knowledgebase_page_slug));
-
-        $all_languages = Language::all();
-        foreach ($all_languages as $lang) {
-            $this->validate($request, [
-                'about_page_' . $lang->slug . '_name' => 'nullable|string',
-                'service_page_' . $lang->slug . '_name' => 'nullable|string',
-                'work_page_' . $lang->slug . '_name' => 'nullable|string',
-                'team_page_' . $lang->slug . '_name' => 'nullable|string',
-                'faq_page_' . $lang->slug . '_name' => 'nullable|string',
-                'blog_page_' . $lang->slug . '_name' => 'nullable|string',
-                'contact_page_' . $lang->slug . '_name' => 'nullable|string',
-                'career_with_us_page_' . $lang->slug . '_name' => 'nullable|string',
-                'events_page_' . $lang->slug . '_name' => 'nullable|string',
-                'knowledgebase_page_' . $lang->slug . '_name' => 'nullable|string',
-            ]);
-
-            $about_name = 'about_page_' . $lang->slug . '_name';
-            $service_page = 'service_page_' . $lang->slug . '_name';
-            $work_page = 'work_page_' . $lang->slug . '_name';
-            $team_page = 'team_page_' . $lang->slug . '_name';
-            $faq_page = 'faq_page_' . $lang->slug . '_name';
-            $price_plan_page = 'price_plan_page_' . $lang->slug . '_name';
-            $blog_page = 'blog_page_' . $lang->slug . '_name';
-            $contact_page = 'contact_page_' . $lang->slug . '_name';
-            $career_with_us_page = 'career_with_us_page_' . $lang->slug . '_name';
-            $events_page = 'events_page_' . $lang->slug . '_name';
-            $knowledgebase_page = 'knowledgebase_page_' . $lang->slug . '_name';
-
-            update_static_option($about_name, $request->$about_name);
-            update_static_option($service_page, $request->$service_page);
-            update_static_option($work_page, $request->$work_page);
-            update_static_option($team_page, $request->$team_page);
-            update_static_option($faq_page, $request->$faq_page);
-            update_static_option($price_plan_page, $request->$price_plan_page);
-            update_static_option($blog_page, $request->$blog_page);
-            update_static_option($contact_page, $request->$contact_page);
-            update_static_option($career_with_us_page, $request->$career_with_us_page);
-            update_static_option($events_page, $request->$events_page);
-            update_static_option($knowledgebase_page, $request->$knowledgebase_page);
-
-        }
-
-        return redirect()->back()->with(['msg' => 'Page Settings Updated..', 'type' => 'success']);
-    }
     public function basic_settings()
     {
         $all_languages = Language::all();

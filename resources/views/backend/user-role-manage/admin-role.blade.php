@@ -38,17 +38,14 @@
                                                    @endforeach
                                                </div>
                                             </td>
-                                            <td>
-                                                <a tabindex="0" class="btn btn-lg btn-danger btn-sm mb-3 mr-1" role="button" data-toggle="popover" data-trigger="focus" data-html="true" title="" data-content="
-                                               <h6>Are you sure to delete this role?</h6>
-                                               <form method='post' action='{{route('admin.user.role.delete',$data->id)}}'>
-                                               <input type='hidden' name='_token' value='{{csrf_token()}}'>
-                                               <br>
-                                                <input type='submit' class='btn btn-danger btn-sm' value='Yes,Delete'>
-                                                </form>
-                                                " data-original-title="">
-                                                    <i class="ti-trash"></i>
-                                                </a>
+                                            <td class="d-flex">
+                                                <form action="{{route('admin.user.role.delete',$data->id)}}" method="post">
+                                                            @csrf
+                                                            <button type="submit" class="btn btn-sm btn-danger mb-3 mr-1 delete-confirm" >
+                                                                <i class="fas fa-trash" aria-hidden="true"></i>
+                                                            </button>
+                                                        </form>
+                                               
                                                 <a href="#"
                                                    data-id="{{$data->id}}"
                                                    data-name="{{$data->name}}"
@@ -94,38 +91,24 @@
                                 $all_permission_list = array(
                                     "Admin Role Manage",
                                     "Newsletter Manage",
-                                    "Home Variant",
-                                    "Nabvar Settings",
                                     "Home Page Manage",
                                     "About Page Manage",
                                     "Contact Page Manage",
-                                    "Quote Page Manage",
-                                    "Order Page Manage",
-                                    "Price Plan Page Manage",
-                                    "Work Single Page Manage",
                                     "Top Bar Settings",
                                     "Services",
-                                    "Works",
                                     "FAQ",
                                     "Brand Logos",
-                                    "Price Plan",
                                     "Team Members",
                                     "Testimonial",
                                     "Blog Settings",
                                     "Counterup",
                                     "Blogs",
-                                    "Form Builder",
                                     "Footer Area",
                                     "Menus Manage",
                                     "Pages",
                                     "General Settings",
                                     "Languages",
-                                    "Quote Manage",
-                                    "Order Manage",
-                                    "All Payment Logs",
-                                    "Job Post Manage",
                                     "Events Manage",
-                                    "Knowledgebase",
                                 );
                                 @endphp
                                 <select name="permission[]" multiple id="permission" class="form-control nice-select wide">
@@ -144,14 +127,14 @@
     </div>
 
     <div class="modal fade" id="user_edit_modal" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">{{__('Admin Role Edit')}}</h5>
                     <button type="button" class="close" data-dismiss="modal"><span>×</span></button>
                 </div>
                 <form action="{{route('admin.user.role.edit')}}" id="user_edit_modal_form" method="post" enctype="multipart/form-data">
-                    <div class="modal-body">
+                    <div class="modal-body pb-5">
                         <input type="hidden" name="admin_role_id" id="admin_role_id">
                         @csrf
                         <div class="form-group">
@@ -164,38 +147,24 @@
                                 $all_permission_list = array(
                                     "Admin Role Manage",
                                     "Newsletter Manage",
-                                    "Home Variant",
-                                    "Nabvar Settings",
                                     "Home Page Manage",
                                     "About Page Manage",
                                     "Contact Page Manage",
-                                    "Quote Page Manage",
-                                    "Order Page Manage",
-                                    "Price Plan Page Manage",
-                                    "Work Single Page Manage",
                                     "Top Bar Settings",
                                     "Services",
-                                    "Works",
                                     "FAQ",
                                     "Brand Logos",
-                                    "Price Plan",
                                     "Team Members",
                                     "Testimonial",
                                     "Blog Settings",
                                     "Counterup",
                                     "Blogs",
-                                    "Form Builder",
                                     "Footer Area",
                                     "Menus Manage",
                                     "Pages",
                                     "General Settings",
                                     "Languages",
-                                     "Quote Manage",
-                                     "Order Manage",
-                                     "All Payment Logs",
-                                     "Job Post Manage",
                                      "Events Manage",
-                                     "Knowledgebase",
                                 );
                             @endphp
                             <select name="permission[]" multiple id="edit_permission" class="form-control nice-select wide">
@@ -203,7 +172,7 @@
                                     <option value="{{strtolower(str_replace(' ','_',$per))}}">{{$per}}</option>
                                 @endforeach
                             </select>
-                            <div class="info-text">{{__('assign permission to role, which page can seen by the this role')}}</div>
+                            <div class="info-text mb-5">{{__('assign permission to role, which page can seen by the this role')}}</div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -218,7 +187,9 @@
 @endsection
 
 @section('script')
-    <script src="{{asset('assets/backend/js/jquery.nice-select.min.js')}}"></script>
+
+<script src="{{asset('assets/backend/js/jquery.nice-select.min.js')}}"></script>
+@include('backend.partials.confirm-delete')
     <script>
         $(document).ready(function () {
 

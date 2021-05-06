@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Language;
-use App\Mail\OrderReply;
+use App\Mail\AppliedOnlineReply;
 use App\Mail\PaymentSuccess;
 use App\Mail\QuoteReply;
 use App\Order;
@@ -24,7 +24,32 @@ class OnlineApplyController extends Controller
     {
         $all_orders = OnlineApply::all();
         return view('backend.online-apply.index',compact('all_orders'));
+    }
 
+    public function view($id)
+    {
+        $data = OnlineApply::find($id);
+        // dd($data);
+        return view('backend.online-apply.view',compact('data'));
+    }
+
+    public function send_mail(Request $request)
+    {
+        // dd($request->all());
+        $this->validate($request,[
+            'name' => 'required|string|max:191',
+            'email' => 'required|string|max:191',
+            'subject' => 'required|string',
+            'message' => 'required|string',
+        ]);
+        $data = [
+            'name' => $request->name,
+            'message' => $request->message,
+            'subject' => str_replace('{site}',get_static_option('site_'.get_default_language().'_title'),$request->subject)
+        ];
+
+        Mail::to($request->email)->send(new AppliedOnlineReply($data));
+        return redirect()->back()->with(['msg' => 'Mail Send Success...','type' => 'success']);
     }
 
     public function all_orders(){
@@ -62,21 +87,7 @@ class OnlineApplyController extends Controller
     }
 
 
-    public function send_mail(Request $request){
-        $this->validate($request,[
-            'email' => 'required|string|max:191',
-            'name' => 'required|string|max:191',
-            'subject' => 'required|string',
-            'message' => 'required|string',
-        ]);
-        $data = [
-            'name' => $request->name,
-            'message' => $request->message,
-            'subject' => str_replace('{site}',get_static_option('site_'.get_default_language().'_title'),$request->subject)
-        ];
-        Mail::to($request->email)->send(new OrderReply($data));
-        return redirect()->back()->with(['msg' => 'Order Reply Mail Send Success...','type' => 'success']);
-    }
+ 
 
     public function all_payment_logs(){
         $paymeng_logs = PaymentLogs::all();

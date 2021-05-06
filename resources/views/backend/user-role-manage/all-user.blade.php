@@ -12,6 +12,12 @@
             width: 60px;
             display: inline-block;
         }
+        .target{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 50px !important;
+        }
     </style>
     <link rel="stylesheet" href="{{asset('assets/backend/css/dropzone.css')}}">
     <link rel="stylesheet" href="{{asset('assets/backend/css/media-uploader.css')}}">
@@ -79,17 +85,14 @@
                                                     </td>
                                                     <td>{{get_user_role_name_by_id($data->role)}}</td>
                                                     <td>{{$data->email}}</td>
-                                                    <td>
-                                                        <a tabindex="0" class="btn btn-lg btn-danger btn-sm mb-3 mr-1" role="button" data-toggle="popover" data-trigger="focus" data-html="true" title="" data-content="
-                                                       <h6>Are you sure to delete this user?</h6>
-                                                       <form method='post' action='{{route('admin.delete.user',$data->id)}}'>
-                                                       <input type='hidden' name='_token' value='{{csrf_token()}}'>
-                                                       <br>
-                                                        <input type='submit' class='btn btn-danger btn-sm' value='Yes,Delete'>
+                                                    <td class="target">
+                                                        
+                                                        <form action="{{route('admin.delete.user',$data->id)}}" method="post">
+                                                            @csrf
+                                                            <button type="submit" class="btn btn-sm btn-danger mb-3 mr-1 delete-confirm" >
+                                                                <i class="fas fa-trash" aria-hidden="true"></i>
+                                                            </button>
                                                         </form>
-                                                        " data-original-title="">
-                                                            <i class="ti-trash"></i>
-                                                        </a>
                                                         <a href="#"
                                                            data-id="{{$data->id}}"
                                                            data-name="{{$data->name}}"
@@ -218,12 +221,16 @@
 @endsection
 
 @section('script')
+    @include('backend.partials.confirm-delete')
+
     <!-- Start datatable js -->
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
     <script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>
+
+
     <script>
         $(document).ready(function() {
 

@@ -40,7 +40,6 @@ class AdminDashboardController extends Controller
         $total_team_member = TeamMember::where('lang', $default_lang)->count();
         $total_counterup = Counterup::where('lang', $default_lang)->count();
         $total_services = Services::where('lang', $default_lang)->count();
-        $total_key_features = KeyFeatures::where('lang', $default_lang)->count();
 
         return view('backend.admin-home')->with([
             'blog_count' => $all_blogs,
@@ -49,7 +48,6 @@ class AdminDashboardController extends Controller
             'total_team_member' => $total_team_member,
             'total_counterup' => $total_counterup,
             'total_services' => $total_services,
-            'total_key_features' => $total_key_features,
         ]);
     }
 

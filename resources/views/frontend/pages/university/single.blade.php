@@ -28,7 +28,18 @@
             margin-right: 5px;
             color: var(--main-color-one);
         }
+        .single-job-meta-block .title:before{
+            position: static;
+            content: "\f101";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 700;
+            margin-right: 5px;
+            color: var(--main-color-one);
+        }
 
+        .job-meta-list li .single-job-meta-block ul li:before {
+            content: none;
+        }
         .single-product-details .extra-content-wrap .nav-tabs {
             display: block;
             border: none;
@@ -76,6 +87,10 @@
             margin-top: 20px;
             font-size: 16px;
             color:  var(--paragraph-color);
+        }
+        .single-job-meta-block li{
+            line-height: 32px;
+            font-size: 16px !important;
         }
     </style>
 @endsection

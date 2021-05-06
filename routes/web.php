@@ -162,6 +162,8 @@ Route::prefix('admin-home')
 ->middleware(['pages'])
 ->group(function () {
 Route::get('/apply-online', 'OnlineApplyController@index')->name('admin.online.apply');
+Route::get('/apply-online/view/{id}', 'OnlineApplyController@view')->name('admin.online.apply.view');
+Route::post('/apply-online/mail', 'OnlineApplyController@send_mail')->name('admin.online.apply.mail');
 });
 //order manage route
 // Route::prefix('admin-home')
@@ -368,22 +370,10 @@ Route::post('/general-settings/typography-settings/single',
 Route::get('/general-settings/cache-settings',
 'GeneralSettingsController@cache_settings')->name('admin.general.cache.settings');
 Route::post('/general-settings/cache-settings', 'GeneralSettingsController@update_cache_settings');
-Route::get('/general-settings/page-settings',
-'GeneralSettingsController@page_settings')->name('admin.general.page.settings');
-Route::post('/general-settings/page-settings', 'GeneralSettingsController@update_page_settings');
-Route::get('/general-settings/backup-settings',
-'GeneralSettingsController@backup_settings')->name('admin.general.backup.settings');
-Route::post('/general-settings/backup-settings', 'GeneralSettingsController@update_backup_settings');
-Route::post('/general-settings/backup-settings/delete',
-'GeneralSettingsController@delete_backup_settings')->name('admin.general.backup.settings.delete');
-Route::post('/general-settings/backup-settings/restore',
-'GeneralSettingsController@restore_backup_settings')->name('admin.general.backup.settings.restore');
+
 Route::get('/general-settings/update-system',
 'GeneralSettingsController@update_system')->name('admin.general.update.system');
 Route::post('/general-settings/update-system', 'GeneralSettingsController@update_system_version');
-Route::get('/general-settings/license-setting',
-'GeneralSettingsController@license_settings')->name('admin.general.license.settings');
-Route::post('/general-settings/license-setting', 'GeneralSettingsController@update_license_settings');
 Route::get('/general-settings/custom-css',
 'GeneralSettingsController@custom_css_settings')->name('admin.general.custom.css');
 Route::post('/general-settings/custom-css', 'GeneralSettingsController@update_custom_css_settings');
@@ -391,31 +381,21 @@ Route::get('/general-settings/gdpr-settings',
 'GeneralSettingsController@gdpr_settings')->name('admin.general.gdpr.settings');
 Route::post('/general-settings/gdpr-settings', 'GeneralSettingsController@update_gdpr_cookie_settings');
 
-//update script
-// controller doesn't exist make one
-// Route::get('/general-settings/update-script','ScriptUpdateController@index')->name('admin.general.script.update');
-// Route::post('/general-settings/update-script','ScriptUpdateController@update_script');
-
 //custom js
 Route::get('/general-settings/custom-js',
 'GeneralSettingsController@custom_js_settings')->name('admin.general.custom.js');
 Route::post('/general-settings/custom-js', 'GeneralSettingsController@update_custom_js_settings');
 
-//regenerate media image
-Route::get('/general-settings/regenerate-image',
-'GeneralSettingsController@regenerate_image_settings')->name('admin.general.regenerate.thumbnail');
-Route::post('/general-settings/regenerate-image', 'GeneralSettingsController@update_regenerate_image_settings');
 
 //smtp settings
 Route::get('/general-settings/smtp-settings',
 'GeneralSettingsController@smtp_settings')->name('admin.general.smtp.settings');
 Route::post('/general-settings/smtp-settings', 'GeneralSettingsController@update_smtp_settings');
 
-//payment gateway
-Route::get('/general-settings/payment-settings',
-'GeneralSettingsController@payment_settings')->name('admin.general.payment.settings');
-Route::post('/general-settings/payment-settings', 'GeneralSettingsController@update_payment_settings');
 });
+
+
+
 //home page manage
 Route::prefix('admin-home')
 ->middleware(['home_page_manage'])
@@ -450,32 +430,8 @@ Route::post('/menu-update/{id}', 'MenuController@update_menu')->name('admin.menu
 Route::post('/menu-delete/{id}', 'MenuController@delete_menu')->name('admin.menu.delete');
 Route::post('/menu-default/{id}', 'MenuController@set_default_menu')->name('admin.menu.default');
 });
-//navbar settings
-// Route::prefix('admin-home')->middleware(['nabvar_settings'])->group(function (){
-// //navbar settings
-// Route::get('/navbar-settings',"AdminDashboardController@navbar_settings")->name('admin.navbar.settings');
-// Route::post('/navbar-settings',"AdminDashboardController@update_navbar_settings");
-// });
-//newsletter manage
-Route::prefix('admin-home')
-->middleware(['newsletter_manage'])
-->group(function () {
-//newsletter
-Route::get('/newsletter', 'NewsletterController@index')->name('admin.newsletter');
-Route::post('/newsletter/delete/{id}', 'NewsletterController@delete')->name('admin.newsletter.delete');
-Route::post('/newsletter/single', 'NewsletterController@send_mail')->name('admin.newsletter.single.mail');
-Route::get('/newsletter/all', 'NewsletterController@send_mail_all_index')->name('admin.newsletter.mail');
-Route::post('/newsletter/all', 'NewsletterController@send_mail_all');
-Route::post('/newsletter/new', 'NewsletterController@add_new_sub')->name('admin.newsletter.new.add');
-});
-//order page
-// Route::prefix('admin-home')
-// ->middleware(['order_page_manage'])
-// ->group(function () {
-// //order
-// Route::get('/order-page', 'OrderPageController@index')->name('admin.order.page');
-// Route::post('/order-page', 'OrderPageController@udpate');
-// });
+
+
 //pages
 Route::prefix('admin-home')
 ->middleware(['pages'])
@@ -488,25 +444,7 @@ Route::get('/page-edit/{id}', 'PagesController@edit_page')->name('admin.page.edi
 Route::post('/page-update/{id}', 'PagesController@update_page')->name('admin.page.update');
 Route::post('/page-delete/{id}', 'PagesController@delete_page')->name('admin.page.delete');
 });
-//price plan
-// Route::prefix('admin-home')->middleware(['price_plan'])->group(function (){
-// //price plan
-// Route::get('/price-plan','PricePlanController@index')->name('admin.price.plan');
-// Route::post('/price-plan','PricePlanController@store');
-// Route::post('/update-price-plan','PricePlanController@update')->name('admin.price.plan.update');
-// Route::post('/delete-price-plan/{id}','PricePlanController@delete')->name('admin.price.plan.delete');
-// });
-// //price plan page manage
-// Route::prefix('admin-home')->middleware(['price_plan_page_manage'])->group(function (){
-// // price plan page
-//
 
-//quote page manage
-// Route::prefix('admin-home')->middleware(['quote_page_manage'])->group(function (){
-// //quote
-// Route::get('/quote-page','QuotePageController@index')->name('admin.quote.page');
-// Route::post('/quote-page','QuotePageController@udpate');
-// });
 //services
 Route::prefix('admin-home')
 ->middleware(['services'])
@@ -560,24 +498,7 @@ Route::post('/topbar/delete-social-item/{id}', 'TopBarController@delete_social_i
 Route::post('/topbar/top-menu', 'TopBarController@update_top_menu')->name('admin.top.right.menu');
 Route::post('/topbar/top-button', 'TopBarController@update_top_button')->name('admin.top.button');
 });
-//works
-// Route::prefix('admin-home')->middleware(['works'])->group(function (){
-// //works
-// Route::get('/works','WorksController@index')->name('admin.work');
-// Route::post('/works','WorksController@store');
-// Route::post('/update-works','WorksController@update')->name('admin.work.update');
-// Route::post('/delete-works/{id}','WorksController@delete')->name('admin.work.delete');
-// Route::post('/works-cat-by-slug','WorksController@category_by_slug')->name('admin.work.category.by.slug');
 
-// Route::get('/works/category','WorksController@category_index')->name('admin.work.category');
-// Route::post('/works/category','WorksController@category_store');
-// Route::post('/update-works-category','WorksController@category_update')->name('admin.work.category.update');
-// Route::post('/delete-works-category/{id}','WorksController@category_delete')->name('admin.work.category.delete');
-// });
-//work single page manage
-// Route::prefix('admin-home')->middleware(['work_single_page_manage'])->group(function (){
-// // work single page
-//
 
 Route::prefix('admin-home')->group(function () {
 Route::get('/', 'AdminDashboardController@adminIndex')->name('admin.home');

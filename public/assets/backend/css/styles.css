@@ -2847,3 +2847,7 @@ table.dataTable thead td {
         }
 .note-editable { background-color: white;}
 .note-editable ol{ padding-left: 15px;}
+
+select{
+    min-height: 44.44px;
+}

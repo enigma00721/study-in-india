@@ -32,6 +32,7 @@
     input[type=radio]:focus {
         outline: none !important;
     }
+
 </style>
 @endsection
 
@@ -210,7 +211,7 @@
                         </tbody>
                     </table> --}}
                     <div class="btn-wrapper mt-4">
-                        <input required type="submit" value="Submit" class="boxed-btn btn-rounded  border-none button-green">
+                        <input required type="submit" value="submit" class="boxed-btn btn-rounded  border-none button-green">
                     </div>
                     
                 </div> <!-- container end -->

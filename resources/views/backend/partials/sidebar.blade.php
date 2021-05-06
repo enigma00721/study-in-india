@@ -46,28 +46,12 @@
                         </ul>
                     </li>
                     @endif
-                    @if(check_page_permission('newsletter_manage'))
-                    <li
-                            class="
-                            {{active_menu('admin-home/newsletter')}}
-                            @if(request()->is('admin-home/newsletter/*')) active @endif
-                                    "
-                    >
-                        <a href="javascript:void(0)" aria-expanded="true"><i class="ti-email"></i>
-                            <span>{{__('Newsletter Manage')}}</span></a>
-                        <ul class="collapse">
-                            <li class="{{active_menu('admin-home/newsletter')}}"><a
-                                        href="{{route('admin.newsletter')}}">{{__('All Subscriber')}}</a></li>
-                            <li class="{{active_menu('admin-home/newsletter/all')}}"><a
-                                        href="{{route('admin.newsletter.mail')}}">{{__('Send Mail To All')}}</a></li>
-                        </ul>
-                    </li>
-                    @endif
+                   
                   
                     {{-- order page change to form fill by student --}}
                     @if(check_page_permission('pages'))
                     
-                        <li class="@if(request()->is('admin-home/online-apply/*')) active @endif ">
+                        <li class="@if(request()->is('admin-home/apply-online*')) active @endif ">
                             <a href="{{route('admin.online.apply')}}" aria-expanded="true"><i class="ti-light-bulb"></i>
                                 <span>{{__('Online Apply')}}</span></a>
                         </li>
@@ -192,24 +176,7 @@
                     
                   
                
-                    @if(check_page_permission('services'))
-                    <li class="
-                    @if(request()->is('admin-home/services/*')) active @endif
-                    {{active_menu('admin-home/services')}}
-                            ">
-                        <a href="javascript:void(0)"
-                           aria-expanded="true">
-                            <i class="ti-layout"></i>
-                            <span>{{__('Services')}}</span>
-                        </a>
-                        <ul class="collapse">
-                            <li class="{{active_menu('admin-home/services')}}"><a
-                                        href="{{route('admin.services')}}">{{__('New/All Services')}}</a></li>
-                            <li class="{{active_menu('admin-home/services/category')}}"><a
-                                        href="{{route('admin.service.category')}}">{{__('Category')}}</a></li>
-                        </ul>
-                    </li>
-                    @endif
+                  
 
                     @if(check_page_permission('faq'))
                     <li class="{{active_menu('admin-home/faq')}}">
@@ -263,40 +230,42 @@
                         </li>
                     @endif
 
-                    @if(check_page_permission('home_page_manage'))
-                    <li class="@if(request()->is('admin-home/home-page-01/*')  ) active @endif
-                        {{active_menu('admin-home/header')}}
-                            ">
-                        <a href="javascript:void(0)"
-                        aria-expanded="true">
-                            <i class="ti-home"></i>
-                            <span>{{__('Home Page Manage')}}</span>
-                        </a>
-                        <ul class="collapse">
-                            <li class="{{active_menu('admin-home/header')}}">
-                                <a href="{{route('admin.header')}}">
-                                    {{__('Header Slider')}}
-                                </a>
-                            </li>
-                           
-                            <li class="{{active_menu('admin-home/home-page-01/about-us')}}"><a
-                                        href="{{route('admin.homeone.about.us')}}">{{__('About Us Area')}}</a></li>
+                @if(check_page_permission('home_page_manage'))
+                <li class="@if(request()->is('admin-home/home-page-01/*')  ) active @endif
+                    {{active_menu('admin-home/header')}}
+                        ">
+                    <a href="javascript:void(0)"
+                    aria-expanded="true">
+                        <i class="ti-home"></i>
+                        <span>{{__('Home Page Manage')}}</span>
+                    </a>
+                    <ul class="collapse">
+                        <li class="{{active_menu('admin-home/header')}}">
+                            <a href="{{route('admin.header')}}">
+                                {{__('Header Slider')}}
+                            </a>
+                        </li>
+                        
+                        <li class="{{active_menu('admin-home/home-page-01/about-us')}}"><a
+                                    href="{{route('admin.homeone.about.us')}}">{{__('About Us Area')}}</a></li>
 
-                            <li class="{{active_menu('admin-home/home-page-01/testimonial')}}"><a
-                                        href="{{route('admin.homeone.testimonial')}}">{{__('Testimonial Area')}}</a>
-                            </li>
-                           
-                         
-                            <li class="{{active_menu('admin-home/home-page-01/counterup')}}"><a
-                                        href="{{route('admin.homeone.counterup')}}">{{__('Counterup Area')}}</a></li>
-                            <li class="{{active_menu('admin-home/home-page-01/section-manage')}}"><a
-                                        href="{{route('admin.homeone.section.manage')}}">{{__('Section Manage')}}</a>
-                            </li>
-                        </ul>
-                    </li>
+                        <li class="{{active_menu('admin-home/home-page-01/testimonial')}}"><a
+                                    href="{{route('admin.homeone.testimonial')}}">{{__('Testimonial Area')}}</a>
+                        </li>
+                        
+                        
+                        <li class="{{active_menu('admin-home/home-page-01/counterup')}}"><a
+                                    href="{{route('admin.homeone.counterup')}}">{{__('Counterup Area')}}</a></li>
+                        <li class="{{active_menu('admin-home/home-page-01/section-manage')}}"><a
+                                    href="{{route('admin.homeone.section.manage')}}">{{__('Section Manage')}}</a>
+                        </li>
+                    </ul>
+                </li>
                 @endif
                 @if(check_page_permission('about_page_manage'))
-                    <li class="@if(request()->is('admin-home/about-page/*')  ) active @endif ">
+                    <li class="@if(request()->is('admin-home/about-page/*') || request()->is('admin-home/services/*')) ) active @endif
+                        {{active_menu('admin-home/services')}}
+                        ">
                         <a href="javascript:void(0)"
                         aria-expanded="true">
                             <i class="ti-home"></i>
@@ -310,6 +279,11 @@
                             <li class="{{active_menu('admin-home/about-page/section-manage')}}"><a
                                         href="{{route('admin.about.page.section.manage')}}">{{__('Section Manage')}}</a>
                             </li>
+                            <li class="{{active_menu('admin-home/services')}}"><a
+                                        href="{{route('admin.services')}}">{{__('New/All Services')}}</a></li>
+                            <li class="{{active_menu('admin-home/services/category')}}"><a
+                                        href="{{route('admin.service.category')}}">{{__('Category')}}</a></li>
+
                         </ul>
                     </li>
                 @endif
@@ -331,84 +305,71 @@
                     </li>
                 @endif
 
-                    @if(check_page_permission('footer_area'))
-                    <li class="@if(request()->is('admin-home/footer/*')) active @endif">
-                        <a href="javascript:void(0)"
-                           aria-expanded="true">
-                            <i class="ti-layout"></i>
-                            <span>{{__('Footer Area')}}</span>
-                        </a>
-                        <ul class="collapse">
-                            <li class="{{active_menu('admin-home/footer/about')}}"><a
-                                        href="{{route('admin.footer.about')}}">{{__('About Widget')}}</a></li>
-                            <li class="{{active_menu('admin-home/footer/useful-links')}}"><a
-                                        href="{{route('admin.footer.useful.link')}}">{{__('Useful Links Widget')}}</a>
-                            </li>
-                            <li class="{{active_menu('admin-home/footer/recent-post')}}"><a
-                                        href="{{route('admin.footer.recent.post')}}">{{__('Recent Posts Widget')}}</a>
-                            </li>
-                            <li class="{{active_menu('admin-home/footer/important-links')}}"><a
-                                        href="{{route('admin.footer.important.link')}}">{{__('Important Links Widget')}}</a>
-                            </li>
-                        </ul>
-                    </li>
-                    @endif
+                @if(check_page_permission('footer_area'))
+                <li class="@if(request()->is('admin-home/footer/*')) active @endif">
+                    <a href="javascript:void(0)"
+                        aria-expanded="true">
+                        <i class="ti-layout"></i>
+                        <span>{{__('Footer Area')}}</span>
+                    </a>
+                    <ul class="collapse">
+                        <li class="{{active_menu('admin-home/footer/about')}}"><a
+                                    href="{{route('admin.footer.about')}}">{{__('About Widget')}}</a></li>
+                        <li class="{{active_menu('admin-home/footer/useful-links')}}"><a
+                                    href="{{route('admin.footer.useful.link')}}">{{__('Useful Links Widget')}}</a>
+                        </li>
+                        <li class="{{active_menu('admin-home/footer/recent-post')}}"><a
+                                    href="{{route('admin.footer.recent.post')}}">{{__('Recent Posts Widget')}}</a>
+                        </li>
+                        <li class="{{active_menu('admin-home/footer/important-links')}}"><a
+                                    href="{{route('admin.footer.important.link')}}">{{__('Important Links Widget')}}</a>
+                        </li>
+                    </ul>
+                </li>
+                @endif
 
 
-                    @if(check_page_permission('general_settings'))
-                    <li class="@if(request()->is('admin-home/general-settings/*')) active @endif">
-                        <a href="javascript:void(0)" aria-expanded="true"><i class="ti-settings"></i>
-                            <span>{{__('General Settings')}}</span></a>
-                        <ul class="collapse ">
-                            <li class="{{active_menu('admin-home/general-settings/site-identity')}}"><a
-                                        href="{{route('admin.general.site.identity')}}">{{__('Site Identity')}}</a></li>
-                            <li class="{{active_menu('admin-home/general-settings/basic-settings')}}"><a
-                                        href="{{route('admin.general.basic.settings')}}">{{__('Basic Settings')}}</a>
-                            </li>
-                            <li class="{{active_menu('admin-home/general-settings/typography-settings')}}"><a
-                                        href="{{route('admin.general.typography.settings')}}">{{__('Typography Settings')}}</a>
-                            </li>
-                            <li class="{{active_menu('admin-home/general-settings/seo-settings')}}"><a
-                                        href="{{route('admin.general.seo.settings')}}">{{__('SEO Settings')}}</a></li>
-                            <li class="{{active_menu('admin-home/general-settings/scripts')}}"><a
-                                        href="{{route('admin.general.scripts.settings')}}">{{__('Third Party Scripts')}}</a>
-                            </li>
-                            <li class="{{active_menu('admin-home/general-settings/email-template')}}"><a
-                                        href="{{route('admin.general.email.template')}}">{{__('Email Template')}}</a>
-                            </li>
-                            </li>
-                            <li class="{{active_menu('admin-home/general-settings/smtp-settings')}}"><a
-                                        href="{{route('admin.general.smtp.settings')}}">{{__('SMTP Settings')}}</a>
-                            </li>
-                            <li class="{{active_menu('admin-home/general-settings/regenerate-image')}}"><a
-                                        href="{{route('admin.general.regenerate.thumbnail')}}">{{__('Regenerate Media Image')}}</a>
-                            </li>
-                            <li class="{{active_menu('admin-home/general-settings/page-settings')}}"><a
-                                        href="{{route('admin.general.page.settings')}}">{{__('Page Settings')}}</a></li>
-                            @if(!empty(get_static_option('site_payment_gateway')))
-                            <li class="{{active_menu('admin-home/general-settings/payment-settings')}}"><a
-                                        href="{{route('admin.general.payment.settings')}}">{{__('Payment Gateway Settings')}}</a></li>
-                            @endif
-                            <li class="{{active_menu('admin-home/general-settings/custom-css')}}"><a
-                                        href="{{route('admin.general.custom.css')}}">{{__('Custom CSS')}}</a></li>
-                            <li class="{{active_menu('admin-home/general-settings/custom-js')}}"><a
-                                        href="{{route('admin.general.custom.js')}}">{{__('Custom JS')}}</a></li>
+                @if(check_page_permission('general_settings'))
+                <li class="@if(request()->is('admin-home/general-settings/*')) active @endif">
+                    <a href="javascript:void(0)" aria-expanded="true"><i class="ti-settings"></i>
+                        <span>{{__('General Settings')}}</span></a>
+                    <ul class="collapse ">
+                        <li class="{{active_menu('admin-home/general-settings/site-identity')}}"><a
+                                    href="{{route('admin.general.site.identity')}}">{{__('Site Identity')}}</a></li>
+                        <li class="{{active_menu('admin-home/general-settings/basic-settings')}}"><a
+                                    href="{{route('admin.general.basic.settings')}}">{{__('Basic Settings')}}</a>
+                        </li>
+                        <li class="{{active_menu('admin-home/general-settings/typography-settings')}}"><a
+                                    href="{{route('admin.general.typography.settings')}}">{{__('Typography Settings')}}</a>
+                        </li>
+                        <li class="{{active_menu('admin-home/general-settings/seo-settings')}}"><a
+                                    href="{{route('admin.general.seo.settings')}}">{{__('SEO Settings')}}</a></li>
+                        <li class="{{active_menu('admin-home/general-settings/scripts')}}"><a
+                                    href="{{route('admin.general.scripts.settings')}}">{{__('Third Party Scripts')}}</a>
+                        </li>
+                        <li class="{{active_menu('admin-home/general-settings/email-template')}}"><a
+                                    href="{{route('admin.general.email.template')}}">{{__('Email Template')}}</a>
+                        </li>
+                        </li>
+                        <li class="{{active_menu('admin-home/general-settings/smtp-settings')}}"><a
+                                    href="{{route('admin.general.smtp.settings')}}">{{__('SMTP Settings')}}</a>
+                        </li>
+                    
+                        <li class="{{active_menu('admin-home/general-settings/custom-css')}}"><a
+                                    href="{{route('admin.general.custom.css')}}">{{__('Custom CSS')}}</a></li>
+                        <li class="{{active_menu('admin-home/general-settings/custom-js')}}"><a
+                                    href="{{route('admin.general.custom.js')}}">{{__('Custom JS')}}</a></li>
 
-                            <li class="{{active_menu('admin-home/general-settings/cache-settings')}}"><a
-                                        href="{{route('admin.general.cache.settings')}}">{{__('Cache Settings')}}</a>
-                            </li>
-                            <li class="{{active_menu('admin-home/general-settings/gdpr-settings')}}"><a
-                                        href="{{route('admin.general.gdpr.settings')}}">{{__('GDPR Compliant Cookies Settings')}}</a>
-                            </li>
-                            <li class="{{active_menu('admin-home/general-settings/backup-settings')}}"><a
-                                        href="{{route('admin.general.backup.settings')}}">{{__('Backup Settings')}}</a>
-                            </li>
-                            <li class="{{active_menu('admin-home/general-settings/license-setting')}}"><a
-                                        href="{{route('admin.general.license.settings')}}">{{__('Licence Settings')}}</a>
-                            </li>
-                        </ul>
-                    </li>
-                    @endif
+                        <li class="{{active_menu('admin-home/general-settings/cache-settings')}}"><a
+                                    href="{{route('admin.general.cache.settings')}}">{{__('Cache Settings')}}</a>
+                        </li>
+                        <li class="{{active_menu('admin-home/general-settings/gdpr-settings')}}"><a
+                                    href="{{route('admin.general.gdpr.settings')}}">{{__('GDPR Compliant Cookies Settings')}}</a>
+                        </li>
+                        
+                    </ul>
+                </li>
+                @endif
                    
                 </ul>
             </nav>

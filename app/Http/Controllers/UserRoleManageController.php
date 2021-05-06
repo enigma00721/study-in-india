@@ -27,7 +27,6 @@ class UserRoleManageController extends Controller
             'username' => 'required|string|max:191|unique:admins',
             'email' => 'required|email|max:191',
             'role' => 'required|string|max:191',
-            'image' => 'nullable|string|max:191',
             'password' => 'required|min:8|confirmed'
         ]);
 

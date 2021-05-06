@@ -16,6 +16,7 @@
             width: 60px;
             display: inline-block;
         }
+       
     </style>
 @endsection
 @section('site-title')
@@ -80,40 +81,32 @@
                                                             $all_custom_fields = json_encode($all_custom_fields_un);
                                                         @endphp
                                                     <td>{{date_format($data->created_at,'d M Y')}}</td>
-                                                    <td>
-                                                        {{-- delete --}}
-                                                        <a tabindex="0" class="btn btn-lg btn-danger btn-sm mb-3 mr-1" role="button" data-toggle="popover" data-trigger="focus" data-html="true" title="" data-content="
-                                                       <h6>Are you sure to delete this order?</h6>
-                                                       <form method='post' action='#'>
-                                                       <input type='hidden' name='_token' value='{{csrf_token()}}'>
-                                                       <br>
-                                                        <input type='submit' class='btn btn-danger btn-sm' value='Yes,Delete'>
+                                                    <td class="d-flex">
+
+                                                        <form action='{{route('admin.blog.delete',$data->id)}}' method="POST">
+                                                            @csrf
+                                                            <button type="submit" class="btn btn-sm btn-danger mb-3 mr-1  delete-confirm" >
+                                                                <i class="fas fa-trash" aria-hidden="true"></i>
+                                                            </button>
                                                         </form>
-                                                        " data-original-title="">
-                                                            <i class="ti-trash"></i>
-                                                        </a>
+                                                       
                                                         {{-- send mail button --}}
                                                         <a href="#"
                                                            data-toggle="modal"
                                                            data-target="#user_edit_modal"
+                                                           data-email="{{$data->email}}"
+                                                           data-name="{{$data->name}}"
+                                                            data-toggle="tooltip" data-placement="left" title="Send Mail!"
                                                            class="btn btn-lg btn-primary btn-sm mb-3 mr-1 user_edit_btn"
                                                         >
                                                             <i class="ti-email"></i>
                                                         </a>
-                                                        <a href="#"
-                                                        data-toggle="modal"
-                                                        data-target="#view_all_details_modal"
-                                                           data-status="{{$data->name}}"
-                                                           data-packageid="{{$data->email}}"
-                                                           data-address="{{$data->address}}"
-                                                           data-packagename="{{$data->mobile_number}}"
-                                                           data-date="{{date_format($data->created_at,'d M Y')}}"
-                                                           data-attachment="{{json_encode(unserialize($data->attachment))}}"
-                                                           class="btn btn-lg btn-primary btn-sm mb-3 mr-1 view_order_details_btn"
-                                                           >
+
+                                                        <a href="{{route('admin.online.apply.view',$data->id)}}" 
+                                                            data-toggle="tooltip" data-placement="left" title="View All Info!"
+                                                        class="btn btn-lg btn-primary btn-sm mb-3 mr-1 ">
                                                            <i class="ti-eye"></i>
-
-
+                                                       
                                                         <a href="#"
                                                            data-id="{{$data->id}}"
                                                            data-status="{{$data->status}}"
@@ -165,6 +158,7 @@
         </div>
     </div>
 
+    {{-- send mail modal --}}
     <div class="modal fade" id="user_edit_modal" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -173,21 +167,21 @@
                     <button type="button" class="close" data-dismiss="modal"><span>×</span></button>
                 </div>
 
-                <form action="#" method="post" enctype="multipart/form-data">
+                <form action="{{route('admin.online.apply.mail')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         @csrf
                         <div class="form-group">
                             <label for="name">{{__('Name')}}</label>
-                            <input type="text" class="form-control" name="name" placeholder="{{__('Enter name')}}">
+                            <input type="text" class="form-control" id="name" name="name" placeholder="{{__('Enter name')}}">
                         </div>
                         <div class="form-group">
                             <label for="email">{{__('Email')}}</label>
-                            <input type="text" class="form-control" name="email" placeholder="{{__('Email')}}">
+                            <input type="text" class="form-control" id="email" name="email" placeholder="{{__('Email')}}">
                         </div>
                         <div class="form-group">
                             <label for="Subject">{{__('Subject')}}</label>
-                            <input type="text" class="form-control" name="subject" value="{{__('Your order Replay From {site}')}}">
+                            <input type="text" class="form-control" name="subject" value="{{__('Regarding Your Interest In {site}')}}">
                             <small class="info-text">{{__('{site} will be replaced by site title')}}</small>
                         </div>
                         <div class="form-group">
@@ -247,6 +241,7 @@
 @endsection
 
 @section('script')
+@include('backend.partials.confirm-delete')
     <script src="{{asset('assets/backend/js/summernote-bs4.js')}}"></script>
     <script src="{{asset('assets/backend/js/bootstrap-tagsinput.js')}}"></script>
     <!-- Start datatable js -->
@@ -297,6 +292,19 @@
                 var form = $('#order_status_change_modal');
                 form.find('#order_id').val(el.data('id'));
                 form.find('#order_status option[value="'+el.data('status')+'"]').attr('selected',true);
+            });
+
+            // send mail button click handler
+            $(document).on('click','.user_edit_btn',function(e){
+                e.preventDefault();
+                var el = $(this);
+                console.log(el);
+                var form = $('#user_edit_modal');
+                console.log(form);
+                form.find('#email').val(el.data('email'));
+                form.find('#name').val(el.data('name'));
+                console.log(el.data('email'));
+                // form.find('#order_status option[value="'+el.data('status')+'"]').attr('selected',true);
             });
 
             $('#all_user_table').DataTable( {

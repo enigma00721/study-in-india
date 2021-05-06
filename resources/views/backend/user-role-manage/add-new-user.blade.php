@@ -2,6 +2,10 @@
 @section('site-title')
     {{__('Add New User')}}
 @endsection
+@section('style')
+    <link rel="stylesheet" href="{{asset('assets/backend/css/dropzone.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/backend/css/media-uploader.css')}}">
+@endsectio
 @section('content')
     <div class="col-lg-12 col-ml-12 padding-bottom-30">
         <div class="row">
@@ -51,9 +55,19 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="custom-file">
+                            {{-- <div class="custom-file">
                                 <input type="file" class="custom-file-input" name="image" id="image">
                                 <label class="custom-file-label" for="image">{{__('Image')}}</label>
+                            </div> --}}
+                            <div class="form-group">
+                                <label for="image">{{__('Image')}}</label>
+                                <div class="media-upload-btn-wrapper">
+                                    <div class="img-wrap"></div>
+                                    <input type="hidden" name="image">
+                                    <button type="button" class="btn btn-info media_upload_form_btn" data-btntitle="Select Event Image" data-modaltitle="Upload Event Image" data-toggle="modal" data-target="#media_upload_modal">
+                                        {{__('Upload Image')}}
+                                    </button>
+                                </div>
                             </div>
                             <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">{{__('Add New User')}}</button>
                         </form>
@@ -62,4 +76,12 @@
             </div>
         </div>
     </div>
+    @include('backend.partials.media-upload.media-upload-markup')
+
+@endsection
+
+@section('script')
+      <script src="{{asset('assets/backend/js/summernote-bs4.js')}}"></script>
+    <script src="{{asset('assets/backend/js/dropzone.js')}}"></script>
+    @include('backend.partials.media-upload.media-js')
 @endsection
