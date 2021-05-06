@@ -64,17 +64,6 @@
                                                     <td>{{$data->email}}</td>
                                                     <td>{{$data->address}}</td>
                                                    
-                                                    {{-- <td>
-                                                        @if($data->status == 'pending')
-                                                        <span class="alert alert-warning text-capitalize">{{$data->status}}</span>
-                                                        @elseif($data->status == 'canceled')
-                                                            <span class="alert alert-danger text-capitalize">{{$data->status}}</span>
-                                                        @elseif($data->status == 'in_progress')
-                                                            <span class="alert alert-info text-capitalize">{{$data->status}}</span>
-                                                        @else
-                                                            <span class="alert alert-success text-capitalize">{{$data->status}}</span>
-                                                        @endif
-                                                    </td> --}}
                                                         @php
                                                             $all_custom_fields = [];
                                                             $all_custom_fields_un = unserialize($data->custom_fields);
@@ -83,7 +72,7 @@
                                                     <td>{{date_format($data->created_at,'d M Y')}}</td>
                                                     <td class="d-flex">
 
-                                                        <form action='{{route('admin.blog.delete',$data->id)}}' method="POST">
+                                                        <form action='{{route('admin.online.apply.delete',$data->id)}}' method="POST">
                                                             @csrf
                                                             <button type="submit" class="btn btn-sm btn-danger mb-3 mr-1  delete-confirm" >
                                                                 <i class="fas fa-trash" aria-hidden="true"></i>

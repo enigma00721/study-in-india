@@ -164,6 +164,8 @@ Route::prefix('admin-home')
 Route::get('/apply-online', 'OnlineApplyController@index')->name('admin.online.apply');
 Route::get('/apply-online/view/{id}', 'OnlineApplyController@view')->name('admin.online.apply.view');
 Route::post('/apply-online/mail', 'OnlineApplyController@send_mail')->name('admin.online.apply.mail');
+Route::post('/apply-online/delete/{id}', 'OnlineApplyController@delete')->name('admin.online.apply.delete');
+
 });
 //order manage route
 // Route::prefix('admin-home')
