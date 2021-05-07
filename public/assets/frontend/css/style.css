@@ -5684,19 +5684,28 @@ object {
 .submit-btn {
     display: inline-block;
     padding: 15px 40px;
-    border: none;
+    border: 2px solid var(--main-color-one);
     border-radius: 3px;
     background-color: var(--main-color-one);
     color: #fff;
     cursor: pointer;
+    font-weight: 600;
     -webkit-transition: all 0.3s ease-in;
     -moz-transition: all 0.3s ease-in;
     -o-transition: all 0.3s ease-in;
     transition: all 0.3s ease-in;
+    outline: none;
 }
 
 .submit-btn:hover {
-    background-color: var(--secondary-color);
+    background-color: transparent;
+    border: 2px solid var(--main-color-one);
+    transition: ease .3s;
+    color: var(--paragraph-color);
+}
+.submit-btn:focus{
+    outline: none !important;
+    border: 2px solid var(--main-color-one);
 }
 
 /*-------------------------
@@ -5732,7 +5741,7 @@ object {
     line-height: 60px;
     text-align: center;
     margin-right: 20px;
-    background-color: var(--secondary-color);
+    background-color: var(--main-color-one);
     font-size: 30px;
     color: #fff;
     -webkit-transition: all 0.3s ease-in;

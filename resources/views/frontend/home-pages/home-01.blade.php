@@ -134,7 +134,7 @@
     <div id="marquee">
         <marquee behaviour="scroll" style="padding-top: 20px;">
             <ul>
-                @foreach ($all_blog as $blog)
+                @foreach ($marquee_news as $blog)
                     <li> {{ $blog->title }} </li>
                 @endforeach
             </ul>
@@ -172,7 +172,9 @@
                         </select>
                     </div>
                     <div class="col-md-3 btn-wrapper">
-                        <input type="submit" value="Search" class=" boxed-btn border-none ">
+                        {{-- <input type="submit" value="Search" class=" boxed-btn border-none "> --}}
+                        <input type="submit" value="Search" class=" submit-btn btn-block ">
+
                     </div>
 
                 </div>

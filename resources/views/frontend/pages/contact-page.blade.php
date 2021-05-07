@@ -54,7 +54,7 @@
                                     @endforeach
                                 </div>
                                 <div class="col-lg-12">
-                                    <button class="submit-btn" type="submit">{{__('Send Message')}}</button>
+                                    <button class="submit-btn btn-block" type="submit">{{__('Send Message')}}</button>
                                 </div>
                             </div>
 

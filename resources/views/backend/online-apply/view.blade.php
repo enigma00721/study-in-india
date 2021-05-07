@@ -8,7 +8,7 @@
             display: inline-grid;
             line-height: 33px;
             margin-bottom: 20px;
-            font-size: 16px;
+            font-size: 20px;
             font-weight: 500;
         }
         b{

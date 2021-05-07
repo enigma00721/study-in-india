@@ -23,6 +23,7 @@ class TeamMemberController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request->all());
         $this->validate($request, [
             'name' => 'required|string|max:191',
             'lang' => 'required|string|max:191',

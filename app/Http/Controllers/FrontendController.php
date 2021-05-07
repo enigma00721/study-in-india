@@ -38,6 +38,7 @@ use App\Counterup;
 use App\Testimonial;
 use App\Works;
 use App\WorksCategory;
+use App\SupportInfo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -57,52 +58,55 @@ class FrontendController extends Controller
 {
 public function index()
 {
-if (!empty(get_static_option('site_maintenance_mode'))) {
-return view('frontend.maintain');
-}
+    if (!empty(get_static_option('site_maintenance_mode'))) {
+    return view('frontend.maintain');
+    }
 
-$lang = !empty(session()->get('lang')) ? session()->get('lang') : Language::where('default', 1)->first()->slug;
-// dd($lang); //english
-$all_header_slider = HeaderSlider::where('lang', $lang)->get();
-$all_counterup = Counterup::where('lang', $lang)->get();
-$all_service = Services::where('lang', $lang)
-->orderBy('id', 'desc')
-->take(get_static_option('home_page_01_service_area_items'))
-->get();
-$all_testimonial = Testimonial::where('lang', $lang)->get();
-$all_brand_logo = Brand::all();
-// $all_work = Works::where('lang', $lang)->get();
-$all_news = News::with('category')
-->latest()
-->take(3)
-->get();
-$all_blog = Blog::orderBy('id', 'desc')
-->where('lang', $lang)
-->take(9)
-->get();
-$all_faq = Faq::where('lang', $lang)
-->orderBy('id', 'desc')
-->take(get_static_option('home_page_01_faq_area_items'))
-->get();
+    $lang = !empty(session()->get('lang')) ? session()->get('lang') : Language::where('default', 1)->first()->slug;
+    // dd($lang); //english
+    $all_header_slider = HeaderSlider::where('lang', $lang)->get();
+    $all_counterup = Counterup::where('lang', $lang)->get();
+    $all_service = Services::where('lang', $lang)
+    ->orderBy('id', 'desc')
+    ->take(get_static_option('home_page_01_service_area_items'))
+    ->get();
+    $all_testimonial = Testimonial::where('lang', $lang)->get();
+    $all_brand_logo = Brand::all();
+    // $all_work = Works::where('lang', $lang)->get();
+    $all_news = News::with('category')
+    ->latest()
+    ->take(3)
+    ->get();
+    $all_blog = Blog::orderBy('id', 'desc')
+    ->where('lang', $lang)
+    ->take(9)
+    ->get();
+    $all_faq = Faq::where('lang', $lang)
+    ->orderBy('id', 'desc')
+    ->take(get_static_option('home_page_01_faq_area_items'))
+    ->get();
 
-$all_disciplines = Discipline::all();
-$all_courses = Course::all();
-$all_levels = Level::all();
+    $all_disciplines = Discipline::all();
+    $all_courses = Course::all();
+    $all_levels = Level::all();
+    $marquee_news = News::select('title')->latest()->take(8)->get();
+    // dd($marquee_news);
 
-// dd($all_blog);
-return view('frontend.frontend-home')->with([
-'all_header_slider' => $all_header_slider,
-'all_counterup' => $all_counterup,
-'all_service' => $all_service,
-'all_testimonial' => $all_testimonial,
-'all_blog' => $all_blog,
-'all_brand_logo' => $all_brand_logo,
-'all_news' => $all_news,
-'all_faq' => $all_faq,
-'all_levels' => $all_levels,
-'all_courses' => $all_courses,
-'all_disciplines' => $all_disciplines,
-]);
+    // dd($all_blog);
+    return view('frontend.frontend-home')->with([
+        'all_header_slider' => $all_header_slider,
+        'all_counterup' => $all_counterup,
+        'all_service' => $all_service,
+        'all_testimonial' => $all_testimonial,
+        'all_blog' => $all_blog,
+        'all_brand_logo' => $all_brand_logo,
+        'all_news' => $all_news,
+        'all_faq' => $all_faq,
+        'all_levels' => $all_levels,
+        'all_courses' => $all_courses,
+        'all_disciplines' => $all_disciplines,
+        'marquee_news' => $marquee_news,
+    ]);
 }
 
 public function universities(Request $request)
@@ -110,11 +114,6 @@ public function universities(Request $request)
 $disciplines = Discipline::all();
 $all_courses = Course::with('university')->paginate(6);
 $levels = Level::all();
-// dd($all_courses);
-    // $img = get_attachment_image_by_id($all_courses->university->image, 'grid', false);
-    // dd($img);
-    // <img src="{{ $related_work_image['img_url'] }}"
-    //     alt="{{ __($data->university->title) }}">
 
 return view('frontend.pages.university.index', compact('disciplines', 'all_courses', 'levels'));
 }
@@ -165,13 +164,25 @@ return view('frontend.pages.online-apply', compact('levels', 'disciplines'));
 
 public function onlineApplySubmit(Request $request)
 {
-dd($request->all());
-$row = OnlineApply::create($request->all());
-if ($row) {
-return redirect()
-->back()
-->with(['msg' => 'Form Submitted Succesfully!', 'type' => 'success']);
-}
+    // dd($request->all());
+    $this->validate($request, [
+        'name' => 'required|string|min:4',
+        'mobile_number' => 'required|digits_between:5,15',
+        'gender' => 'required',
+        'dob' => 'required',
+        'email' => 'required|email',
+        'address' => 'required',
+        'district' => 'required',
+        'level' => 'required',
+        'discipline' => 'required',
+        'parent_contact' => 'required|digits_between:5,15'
+    ]);
+    $row = OnlineApply::create($request->all());
+    if ($row) {
+    return redirect()
+    ->back()
+    ->with(['msg' => 'Form Submitted Succesfully!', 'type' => 'success']);
+    }
 }
 
 public function singleUniversity($id,$slug)
@@ -493,7 +504,12 @@ return view('frontend.frontend-home-demo')->with([
 public function send_contact_message(Request $request)
 {
 
-// dd($request->all());
+    $this->validate($request, [
+        'name' => 'required',
+        'email' => 'required|email',
+        'subject' => 'required',
+        'message' => 'required',
+    ]);
 
     $all_quote_form_fields = json_decode(get_static_option('contact_page_form_fields'));
     $required_fields = [];
@@ -580,39 +596,30 @@ $service_item = Services::where(['categories_id' => $id, 'lang' => $lang])->pagi
 return view('frontend.pages.services')->with(['service_items' => $service_item, 'category_name' => $category_name]);
 }
 
-public function work_single_page($id, $any)
-{
-$work_item = Works::where('id', $id)->first();
-$all_works = [];
-$all_related_works = [];
-foreach ($work_item->categories_id as $cat) {
-$all_by_cat = Works::where(['lang' => get_user_lang()])
-->where('categories_id', 'LIKE', '%' . $work_item->$cat . '%')
-->take(6)
-->get();
-for ($i = 0; $i < count($all_by_cat); $i++) { array_push($all_works, $all_by_cat[$i]); } } array_unique($all_works);
-    return view('frontend.pages.work-single')->with(['work_item' => $work_item, 'related_works' => $all_works]);
-    }
 
     public function about_page()
     {
-    $lang = !empty(session()->get('lang')) ? session()->get('lang') : Language::where('default', 1)->first()->slug;
-    $all_brand_logo = Brand::all();
-    $all_team_members = TeamMember::where('lang', $lang)
-    ->orderBy('id', 'desc')
-    ->take(4)
-    ->get();
-    $all_know_about = KnowAbout::where('lang', $lang)->get();
-    $all_service = Services::where('lang', $lang)
-    ->orderBy('id', 'desc')
-    ->take(4)
-    ->get();
-    return view('frontend.pages.about')->with([
-    'all_brand_logo' => $all_brand_logo,
-    'all_team_members' => $all_team_members,
-    'all_service' => $all_service,
-    'all_know_about' => $all_know_about,
-    ]);
+        $lang = !empty(session()->get('lang')) ? session()->get('lang') : Language::where('default', 1)->first()->slug;
+        $all_brand_logo = Brand::all();
+        $all_team_members = TeamMember::where('lang', $lang)
+        ->orderBy('id', 'desc')
+        ->take(4)
+        ->get();
+        $all_know_about = KnowAbout::where('lang', $lang)->get();
+        $all_service = Services::where('lang', $lang)
+        ->orderBy('id', 'desc')
+        ->take(4)
+        ->get();
+        // dd($all_team_members);
+        $mobile_number = SupportInfo::where('title','like','%'.'number'.'%')->first();
+        // dd($mobile_number);
+        return view('frontend.pages.about')->with([
+            'all_brand_logo' => $all_brand_logo,
+            'all_team_members' => $all_team_members,
+            'all_service' => $all_service,
+            'all_know_about' => $all_know_about,
+            'mobile_number' => $mobile_number
+        ]);
     }
 
     public function service_page()
@@ -662,6 +669,7 @@ for ($i = 0; $i < count($all_by_cat); $i++) { array_push($all_works, $all_by_cat
     {
     $lang = !empty(session()->get('lang')) ? session()->get('lang') : Language::where('default', 1)->first()->slug;
     $all_contact_info = ContactInfoItem::where('lang', $lang)->get();
+    // dd($all_contact_info);
     return view('frontend.pages.contact-page')->with([
     'all_contact_info' => $all_contact_info,
     ]);

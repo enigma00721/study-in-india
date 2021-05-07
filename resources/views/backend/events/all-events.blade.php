@@ -1,6 +1,5 @@
 @extends('backend.admin-master')
 @section('style')
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
@@ -135,21 +134,6 @@
             } );
         } );
     </script>
-    <script>
-        $('.delete-confirm').on('click', function (event) {
-            event.preventDefault();
-            var form = event.target.form; // storing the form
-            //   console.log(form);
-            swal({
-                title: 'Are you sure?',
-                text: 'This record will be permanantly deleted!',
-                icon: 'warning',
-                buttons: ["Cancel", "Yes!"],
-            }).then(function(value) {
-                if (value) {
-                    form.submit(); 
-                }
-            });
-        });
-    </script>
+    
+    @include('backend.partials.confirm-delete')
 @endsection

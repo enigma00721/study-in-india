@@ -81,6 +81,8 @@
         </div>
     </section>
     @endif
+
+    {{-- call to action section  --}}
 @if(!empty(get_static_option('about_page_call_to_action_section_status')))
     <section class="cta-area-one cta-bg-one padding-top-95 padding-bottom-100"
              @php
@@ -95,13 +97,16 @@
                 <div class="col-lg-9">
                     <div class="left-content-area">
                         <h3 class="title">{{get_static_option('home_page_01_'.get_user_lang().'_cta_area_title')}}</h3>
-                        <p>{{get_static_option('home_page_01_'.get_user_lang().'_cta_area_description')}}</p>
+                        <p class="text-center">{{get_static_option('home_page_01_'.get_user_lang().'_cta_area_description')}}</p>
                     </div>
                 </div>
                 <div class="col-lg-3">
                     <div class="right-content-area">
                         <div class="btn-wrapper">
-                            <a href="{{get_static_option('home_page_01_'.get_user_lang().'_cta_area_button_url')}}" class="boxed-btn btn-rounded white">{{get_static_option('home_page_01_'.get_user_lang().'_cta_area_button_title')}}</a>
+                            {{-- <a href="{{get_static_option('home_page_01_'.get_user_lang().'_cta_area_button_url')}}" class="boxed-btn btn-rounded white">{{get_static_option('home_page_01_'.get_user_lang().'_cta_area_button_title')}}</a> --}}
+                            <a href="tel:{{$mobile_number->details}}" class="boxed-btn btn-rounded white">
+                                {{$mobile_number->details}}
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -109,6 +114,8 @@
         </div>
     </section>
     @endif
+{{-- call to action section end --}}
+
 @if(!empty(get_static_option('about_page_team_member_section_status')))
     <section class="meet-the-team-area section-bg-1 padding-top-110 padding-bottom-120">
         <div class="container">
@@ -142,7 +149,7 @@
                                         @endphp
                                         <ul class="social-icon">
                                             @foreach($social_fields as $key => $value)
-                                                <li><a href="{{$data->$value}}"><i class="{{$data->$key}}"></i></a></li>
+                                                <li><a target="_blank" href="{{$data->$value}}"><i class="{{$data->$key}}"></i></a></li>
                                             @endforeach
                                         </ul>
                                     </div>

@@ -142,7 +142,9 @@
                                 <input type="text" class="form-control"  id="designation"  name="designation" placeholder="{{__('Designation')}}">
                             </div>
                             <div class="form-group">
-                                <label for="icon_one" class="d-block">{{__('Social Profile One')}}</label>
+                                <label for="icon_one" class="d-block ">{{__('Social Profile One')}}</label>
+                                <span class="float-right" style="color: #dc3d45;font-size:16px;">Full Url</span>
+
                                 <div class="btn-group ">
                                     <button type="button" class="btn btn-primary iconpicker-component">
                                         <i class="fab fa-instagram"></i>
@@ -158,7 +160,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="icon_one_url">{{__('Social Profile One URL')}}</label>
-                                <input type="text" class="form-control"  id="icon_one_url"  name="icon_one_url" placeholder="{{__('Social Profile One URL')}}">
+                                <input type="text" class="form-control"  id="icon_one_url"  name="icon_one_url" placeholder="{{__('Full URL http://instagram.com/user.9288')}}">
                             </div>
                             <div class="form-group">
                                 <label for="icon_two" class="d-block">{{__('Social Profile Two')}}</label>
@@ -177,7 +179,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="icon_two_url">{{__('Social Profile Two URL')}}</label>
-                                <input type="text" class="form-control"  id="icon_two_url"  name="icon_two_url" placeholder="{{__('Social Profile Two URL')}}">
+                                <input type="text" class="form-control"  id="icon_two_url"  name="icon_two_url" placeholder="{{__('http://twitter.com/')}}">
                             </div>
                             <div class="form-group">
                                 <label for="icon_three" class="d-block">{{__('Social Profile Three')}}</label>
@@ -196,7 +198,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="icon_three_url">{{__('Social Profile Three URL')}}</label>
-                                <input type="text" class="form-control"  id="icon_three_url"  name="icon_three_url" placeholder="{{__('Social Profile Three URL')}}">
+                                <input type="text" class="form-control"  id="icon_three_url"  name="icon_three_url" placeholder="{{__('http://fb.com/user.9288')}}">
                             </div>
                             <div class="form-group">
                                 <label for="image">{{__('Image')}}</label>
