@@ -2621,7 +2621,7 @@ object {
 }
 
 .info-items li:first-child {
-    margin-left: 0;
+    margin-left: 15px !important;
 }
 
 .info-items li:last-child {
@@ -4568,7 +4568,8 @@ object {
     font-size: 60px;
     line-height: 60px;
     margin-bottom: 15px;
-    color: var(--main-color-one);
+    /* color: var(--main-color-one); */
+    color: #36A000;
 }
 
 .single-testimonial-item .thumb {
@@ -5202,7 +5203,8 @@ object {
 .singler-counterup-item-01 .icon {
     font-size: 50px;
     line-height: 60px;
-    color: var(--main-color-one);
+    /* color: var(--main-color-one); */
+    color: #36A000;
     margin-right: 20px;
 }
 

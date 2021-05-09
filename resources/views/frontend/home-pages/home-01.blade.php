@@ -1,4 +1,4 @@
-@php  $static_page_list = ['About','Service','FAQ','Team','Works','Price Plan','Blog','Contact','Career With Us','Events','Knowledgebase']; @endphp
+@php  $static_page_list = ['About','Service','FAQ','Team','Blog','Contact','Events']; @endphp
 
 
 @section('style')
@@ -148,7 +148,7 @@
             <form action="{{ route('university.search') }}" method="get">
                 <div class="row" style="margin-bottom:70px;">
                     <div class="col-md-3">
-                        <select name="discipline" id="" class="form-control">
+                        <select name="discipline" id="" class="form-control custom-select">
                             <option readonly value="all">Discipline</option>
                             @foreach ($all_disciplines as $data)
                                 <option value="{{ $data->id }}"> {{ $data->title }} </option>
@@ -156,7 +156,7 @@
                         </select>
                     </div>
                     <div class="col-md-3">
-                        <select name="course" id="" class="form-control">
+                        <select name="course" id="" class="form-control custom-select">
                             <option readonly value="all">Course</option>
                             @foreach ($all_courses as $data)
                                 <option value="{{ $data->title }}"> {{ $data->title }} </option>
@@ -164,7 +164,7 @@
                         </select>
                     </div>
                     <div class="col-md-3">
-                        <select name="level" id="" class="form-control">
+                        <select name="level" id="" class="form-control custom-select">
                             <option readonly value="all">Level</option>
                             @foreach ($all_levels as $data)
                                 <option value="{{ $data->id }}"> {{ $data->title }} </option>
@@ -181,7 +181,8 @@
             </form>
             <div class="mt-5 row justify-content-center">
                 <div class="col-lg-10 col-md-12">
-                    <div class="section-title desktop-center margin-bottom-55">
+                    {{-- margin-bottom-55 used below along desktop-center --}}
+                    <div class="section-title desktop-center ">
                         <h2 class="title ">WHY INDIA ?</h2>
                         <hr style="width: 30%;" class="mb-5">
                         <p class="sub-title">
@@ -193,6 +194,9 @@
                             The Indian Education system is vast in size, as well as its academic offerings. A vibrant
                             and diverse education system means a wide variety of courses are available.
                         </p>
+                        <div class="btn-wrapper mt-5">
+                            <a class="submit-btn"  href="{{route('frontend.dynamic.page',['id'=>15,'any'=>'why-india'])}}">Learn More</a>    
+                        </div>
                     </div>
                 </div>
             </div>

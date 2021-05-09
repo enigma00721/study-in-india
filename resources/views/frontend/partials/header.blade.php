@@ -67,7 +67,7 @@
 <body>
 
 
-@php  $static_page_list = ['About','Service','FAQ','Team','Works','Price Plan','Blog','Contact','Career With Us','Events','Knowledgebase']; @endphp
+@php  $static_page_list = ['About','Service','FAQ','Team','Blog','Contact','Events']; @endphp
 
 <div class="info-bar-area">
     <div class="container">
