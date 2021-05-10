@@ -1,5 +1,6 @@
 @php  $static_page_list = ['About','Service','FAQ','Team','Works','Price Plan','Blog','Contact','Career With Us','Events','Knowledgebase']; @endphp
 
+{{-- {{dd($static_page_list[])}} --}}
 @extends('frontend.frontend-master')
 @section('site-title')
     {{__('University')}}

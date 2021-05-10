@@ -56,8 +56,15 @@ use App\OnlineApply;
 
 class FrontendController extends Controller
 {
+
+    public $programmes;
+    public function __construct()
+    {
+        $this->programmes = Level::latest()->get();
+    }
 public function index()
 {
+    // dd($this->programmes);
     if (!empty(get_static_option('site_maintenance_mode'))) {
     return view('frontend.maintain');
     }

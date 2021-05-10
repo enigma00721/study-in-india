@@ -85,7 +85,6 @@ class Kernel extends HttpKernel
         'newsletter_manage' => \App\Http\Middleware\NewsletterManage::class,
         'order_page_manage' => \App\Http\Middleware\OrderPageManage::class,
         'pages' => \App\Http\Middleware\Pages::class,
-        'quote_page_manage' => \App\Http\Middleware\QuotePagemanage::class,
         'services' => \App\Http\Middleware\Services::class,
         'discipline' => \App\Http\Middleware\Discipline::class,
         'team_members' => \App\Http\Middleware\TeamMembers::class,

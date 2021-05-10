@@ -1907,9 +1907,11 @@ object {
 
 .navbar-area .nav-container .navbar-collapse .navbar-nav li {
     display: inline-block;
-    font-size: 18px;
+    /* font-size: 18px; */
+    font-size: 16px;
     font-weight: 600;
-    line-height: 90px;
+    /* line-height: 90px; */
+    line-height: 80px;
 }
 
 .navbar-area .nav-container .navbar-collapse .navbar-nav li + li {
@@ -2297,7 +2299,8 @@ object {
     .navbar-area .nav-container .navbar-collapse .navbar-nav li {
         display: block;
         text-align: left;
-        line-height: 30px;
+        /* line-height: 30px; */
+        line-height: 22px;
         padding: 10px 0;
         border-bottom: 1px solid #e2e2e2;
     }

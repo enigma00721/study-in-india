@@ -289,7 +289,7 @@
     }
     .info-bar-area {
         border-bottom: 1px solid #e2e2e2;
-        padding-bottom: 20px;
+        /* padding-bottom: 20px; */
     }
     .latest-news{
         padding-bottom: 90px;
