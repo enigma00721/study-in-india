@@ -20,11 +20,21 @@
             box-shadow: 0 0 15px rgb(0 0 0 / 2%);
         }
 
+        .header-area .right-content-area ul li::marker{
+            font-size: 19px;
+            vertical-align: middle;
+            color: var(--main-color-one);
+        }
+
         .right-content-area .title {
             font-size: 30px;
-            line-height: 40px;
+            line-height: 38px;
             font-weight: 700;
             margin-bottom: 15px;
+            border-bottom: 1px solid var(--main-color-one);
+        }
+        .right-content-area ul li{
+            font-size: 20px;
         }
 
         .overlay {
@@ -57,12 +67,14 @@
             margin-right: 20px;
             color: black;
             display: inline;
-            list-style: none;
             color: #fff;
         }
-
+        
         #marquee li::before {
             content: "•";
+            font-size:50px;
+            vertical-align:middle;
+            line-height:2px;
         }
 
         .our-cover-area .sub-title {
