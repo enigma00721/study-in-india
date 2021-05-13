@@ -3125,7 +3125,7 @@ object {
     height: 40px;
     line-height: 40px;
     text-align: center;
-    background-color: var(--secondary-color);
+    background-color: var(--secondary-color) !important;
     color: #fff;
     font-size: 18px;
     -webkit-transition: all 0.3s ease-in;

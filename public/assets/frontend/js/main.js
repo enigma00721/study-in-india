@@ -164,7 +164,7 @@
                 autoplay: true, //true if you want enable autoplay
                 autoPlayTimeout: 1000,
                 margin: 30,
-                dots: true,
+                dots: false,
                 nav: true,
                 navText:['<i class="fa fa-angle-left"></i>','<i class="fa fa-angle-right"></i>'],
                 smartSpeed: 2000,
@@ -245,7 +245,7 @@
                 autoplay: true, //true if you want enable autoplay
                 autoPlayTimeout: 1000,
                 margin: 30,
-                dots: true,
+                dots: false,
                 nav: true,
                 navText:['<i class="fa fa-angle-left"></i>','<i class="fa fa-angle-right"></i>'],
                 smartSpeed: 2000,

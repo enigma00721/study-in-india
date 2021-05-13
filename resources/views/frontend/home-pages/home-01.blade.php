@@ -113,10 +113,10 @@
         .single-work-item i {
             color: var(--main-color-one);
         }
-        .owl-stage-outer {
+        .header-carousel-two .owl-stage-outer {
             z-index:10;
         }
-        .owl-dots .owl-dot span{
+        .header-carousel-two .owl-dots .owl-dot span{
             width: 15px !important;
             height: 15px !important;
             border-radius: 50%;
@@ -124,7 +124,7 @@
             background: #ccc;
             margin: 0 3px;
         }
-        .owl-controls{
+        .header-carousel-two .owl-controls{
             z-index:22;
             position:absolute;
             width:100%;
