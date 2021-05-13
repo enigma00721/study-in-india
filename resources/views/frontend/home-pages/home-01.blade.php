@@ -104,12 +104,22 @@
         .owl-stage-outer {
             z-index:10;
         }
-
-        .owl-controls {
-            position: relative;;
-            z-index:99;
-            margin-top:-37px;
+        .owl-dots .owl-dot span{
+            width: 15px !important;
+            height: 15px !important;
+            border-radius: 50%;
+            display: inline-block;
+            background: #ccc;
+            margin: 0 3px;
         }
+        .owl-controls{
+            z-index:22;
+            position:absolute;
+            width:100%;
+            bottom:20px;
+            text-align:center;
+        }
+        
 
     </style>
 @endsection
