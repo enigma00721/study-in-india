@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Blog;
+use App\Level;
 use App\Language;
 use App\Menu;
 use App\SocialIcons;
@@ -31,5 +31,12 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+
+        view()->composer('*', function ($view) {
+            $programmes= \Cache::rememberForever('programmes', function(){
+                return Level::orderBy('id','DESC')->select('id','title')->get();
+            });
+            $view->with('programmes',  $programmes);
+        });
     }
 }

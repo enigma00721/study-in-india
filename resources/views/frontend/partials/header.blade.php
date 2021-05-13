@@ -127,6 +127,8 @@
         </div>
         <div class="collapse navbar-collapse" id="bizcoxx_main_menu">
             <ul class="navbar-nav" style="display:flex;justify-content: space-between;">
+
+               
                 @if(!empty($primary_menu->content))
                     @php
                         $cc = 0;
@@ -134,7 +136,25 @@
                        $menu_content = json_decode($primary_menu->content);
 
                     @endphp
-                    @foreach($menu_content as $data)
+
+                    @foreach($menu_content as $key => $data)
+
+                         @if($key == 2)
+                             <li class="menu-item-has-children @if(request()->is() == '*university*') current-menu-item @endif">
+                                <a href="#">Programmes</a>
+                                <ul class="sub-menu">
+                                    @foreach($programmes as $programme)
+                                        <li >
+                                            <a  href="{{route('university.search.category',
+                                                ['id' => $programme->id, 'level' => strtolower($programme->title)] )}}">
+                                                 {{ $programme->title }}
+                                             </a>
+                                        </li>
+                                    @endforeach 
+                                </ul>
+                            </li>
+
+                        @endif                       
                         @php
                             if ($cc > 0 && $cc == $parent_item_count){ print '</ul>'; $cc = 0; }
                            if (!empty($data->parent_id) && $data->depth > 0){
@@ -144,6 +164,7 @@
                                 }else{  print '</li>'; }
                             }else{ print '</li>'; }
                         @endphp
+                       
                         <li class="@if(request()->path() == substr($data->menuUrl,6)) current-menu-item @endif">
                             @php
                                 $page_title = str_replace(' ','_',strtolower($data->menuTitle));
@@ -156,6 +177,12 @@
                     <li class="@if(request()->path() == '/') current-menu-item @endif">
                         <a  href="{{url('/')}}">{{__('Home')}}</a>
                     </li>
+                        /* @foreach($programmes as $programme)
+                        <li class="@if(request()->path() == '/universities') current-menu-item @endif">
+                            <a  href="{{url('/')}}">{{ $programme->title }}</a>
+                        </li>
+                        @endforeach */
+
                 @endif
             </ul>
         </div>

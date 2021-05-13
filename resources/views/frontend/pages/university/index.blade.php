@@ -72,7 +72,7 @@
                     <div class="col-md-3 form-group">
                         <select name="level" id="" class=" custom-select">
                             <option value="all">All Levels</option>
-                            @foreach ($levels as $data)
+                            @foreach ($programmes as $data)
                                 <option value="{{ $data->id }}" @if ($data->id == request()->query('level')) selected @endif>{{ $data->title }}</option>
                             @endforeach
                         </select>

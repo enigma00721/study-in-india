@@ -6752,6 +6752,22 @@ object {
         max-height: 50px;
         margin-top: -10px;
     }
+    .info-bar-area{
+        display: none;
+    }
+    
+}
+
+@media screen and (max-width: 768px) {
+    .info-bar-area{
+        display: flex;
+    }
+    .info-bar-inner{
+        padding:20px 0 10px 0;
+    }
+    .singler-counterup-item-01 .icon {
+        margin-right: 0 !important;
+    }
 }
 
 @media screen and (max-width: 1200px) {
