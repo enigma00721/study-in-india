@@ -2,6 +2,7 @@
 
 
 @section('style')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
     <style>
         .search-form #search_btn {
             border-radius: 20px 20px;
@@ -100,6 +101,15 @@
         .single-work-item i {
             color: var(--main-color-one);
         }
+        .owl-stage-outer {
+            z-index:10;
+        }
+
+        .owl-controls {
+            position: relative;;
+            z-index:99;
+            margin-top:-37px;
+        }
 
     </style>
 @endsection
@@ -130,7 +140,7 @@
         </div>
     @endforeach
 </header>
-<div style="font-size:17px;background: #f7522d;">
+<div style="font-size:17px;background: #f7522d;position:relative;">
     <div id="marquee">
         <marquee behaviour="scroll" style="padding-top: 20px;">
             <ul>
