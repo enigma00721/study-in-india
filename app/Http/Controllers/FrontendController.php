@@ -159,7 +159,7 @@ $searchCourses = Course::where('level_id', $id)->paginate(5);
 return view('frontend.pages.university.index', compact('searchCourses', 'disciplines', 'levels', 'all_courses'));
 }
 
-public function onlineApply($id)
+public function onlineApply($id=1)
 {
 $forCourse = Course::find($id);
 // $forCourse = Course::findOrFail($id);

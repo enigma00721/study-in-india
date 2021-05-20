@@ -26,7 +26,7 @@ Route::get('/university/search', 'FrontendController@searchUniversity')->name('u
 Route::get('{id}/{slug}/university', 'FrontendController@singleUniversity')->name('single.university');
 Route::get('university/{id}/{level}','FrontendController@searchUniversityCategory')->name('university.search.category');
 
-Route::get('/online/apply/{id}', 'FrontendController@onlineApply')->name('online.apply');
+Route::get('/online/apply/{id?}', 'FrontendController@onlineApply')->name('online.apply');
 Route::post('/online/apply', 'FrontendController@onlineApplySubmit')->name('online.apply.submit');
 
 //payment status route

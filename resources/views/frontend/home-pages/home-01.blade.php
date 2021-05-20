@@ -228,7 +228,7 @@
                         </p>
                         <div class="btn-wrapper mt-5 flex">
                             <a class="submit-btn mr-2"  href="{{route('frontend.dynamic.page',['id'=>15,'any'=>'why-india'])}}">Learn More</a>    
-                            <a class="white-btn"  href="{{route('frontend.dynamic.page',['id'=>15,'any'=>'why-india'])}}">Register Now</a>    
+                            <a class="white-btn"  href="{{route('online.apply')}}">Register Now</a>    
                         </div>
                     </div>
                 </div>

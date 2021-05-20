@@ -164,7 +164,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <select name="level" id="" class="form-control" required>
+                                <select name="level" id="" class="form-control custom-select" required>
                                     <option value="" readonly>Select Level</option>
                                     @foreach ($levels as $level)
                                         <option value="{{ $level->title }}"> {{ $level->title }} </option>
@@ -174,7 +174,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <select name="discipline" id="" class="form-control" required>
+                                <select name="discipline" id="" class="form-control custom-select" required>
                                     <option value="" readonly>Select Discipline</option>
                                     @foreach ($disciplines as $discipline)
                                         <option value="{{ $discipline->title }}"> {{ $discipline->title }} </option>
