@@ -4572,7 +4572,8 @@ object {
     line-height: 60px;
     margin-bottom: 15px;
     /* color: var(--main-color-one); */
-    color: #19b342;
+    /* color: #19b342; */
+    color: white;
 }
 
 .single-testimonial-item .thumb {
@@ -5207,7 +5208,8 @@ object {
     font-size: 50px;
     line-height: 60px;
     /* color: var(--main-color-one); */
-    color: #19b342;
+    /* color: #19b342; */
+    color: white;
     margin-right: 20px;
 }
 
@@ -5711,6 +5713,27 @@ object {
 .submit-btn:focus{
     outline: none !important;
     border: 2px solid var(--main-color-one);
+}
+.white-btn{
+    display: inline-block;
+    font-weight: 600;
+    padding: 15px 33px;
+   background-color: transparent;
+    border: 2px solid var(--main-color-one);
+    transition: ease .3s;
+    color: var(--paragraph-color);
+    -webkit-transition: all 0.3s ease-in;
+    -moz-transition: all 0.3s ease-in;
+    -o-transition: all 0.3s ease-in;
+    transition: all 0.3s ease-in;
+    outline: none;
+}
+.white-btn:hover {
+    background-color: transparent;
+    border: 2px solid var(--main-color-one);
+    transition: ease .3s;
+    color: var(--paragraph-color);
+    box-shadow: 0 0 10px 0 rgb(0 0 0 / 10%);
 }
 
 /*-------------------------
@@ -6767,6 +6790,10 @@ object {
     }
     .singler-counterup-item-01 .icon {
         margin-right: 0 !important;
+    }
+    .why-india-section .white-btn{
+        margin-top: 10px;
+        margin-right: 6px;
     }
 }
 

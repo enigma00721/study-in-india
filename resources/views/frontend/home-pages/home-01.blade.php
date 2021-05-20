@@ -145,7 +145,7 @@
         @endphp @if (!empty($header_bg_img)) style="background-image: url({{ $header_bg_img['img_url'] }})" @endif>
             <div class="container-fluid">
                 <div class="row ">
-                    <div class="col-lg-4 ml-auto mr-5">
+                    <div class="col-xl-4 col-lg-12 ml-auto">
                         <div class="header-inner overlay right-content-area">
                             <h4 class="title">{{ $data->title }}</h4>
                             <p>{!! $data->description !!}</p>
@@ -226,8 +226,9 @@
                             The Indian Education system is vast in size, as well as its academic offerings. A vibrant
                             and diverse education system means a wide variety of courses are available.
                         </p>
-                        <div class="btn-wrapper mt-5">
-                            <a class="submit-btn"  href="{{route('frontend.dynamic.page',['id'=>15,'any'=>'why-india'])}}">Learn More</a>    
+                        <div class="btn-wrapper mt-5 flex">
+                            <a class="submit-btn mr-2"  href="{{route('frontend.dynamic.page',['id'=>15,'any'=>'why-india'])}}">Learn More</a>    
+                            <a class="white-btn"  href="{{route('frontend.dynamic.page',['id'=>15,'any'=>'why-india'])}}">Register Now</a>    
                         </div>
                     </div>
                 </div>
