@@ -143,9 +143,9 @@
         <div class="header-area header-bg" @php
             $header_bg_img = get_attachment_image_by_id($data->image, null, false);
         @endphp @if (!empty($header_bg_img)) style="background-image: url({{ $header_bg_img['img_url'] }})" @endif>
-            <div class="container-fluid">
+            <div class="container">
                 <div class="row ">
-                    <div class="col-xl-4 col-lg-12 ml-auto">
+                    <div class="col-xl-6 offset-xl-8 col-lg-6  offset-lg-6 ">
                         <div class="header-inner overlay right-content-area">
                             <h4 class="title">{{ $data->title }}</h4>
                             <p>{!! $data->description !!}</p>

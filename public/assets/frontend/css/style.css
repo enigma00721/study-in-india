@@ -6749,6 +6749,12 @@ object {
     height: 233px;
     object-fit: cover;
 }
+.single-work-item .content{
+    max-width: 350px;
+} 
+.single-blog-grid-01 .content{
+    max-width: 350px;
+}
 
 @media only screen and (max-width: 991px) {
     .info-bar-area .widget-area {
