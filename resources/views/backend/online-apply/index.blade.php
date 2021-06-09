@@ -51,7 +51,7 @@
                                                 <th>{{__('Mobile')}}</th>
                                                 <th>{{__('Email')}}</th>
                                                 <th>{{__('Address')}}</th>
-                                                <th>{{__('Date')}}</th>
+                                                <th>{{__('Sent At')}}</th>
                                                 <th>{{__('Action')}}</th>
                                             </tr>
                                             </thead>
@@ -96,7 +96,7 @@
                                                         class="btn btn-lg btn-primary btn-sm mb-3 mr-1 ">
                                                            <i class="ti-eye"></i>
                                                        
-                                                        <a href="#"
+                                                        {{-- <a href="#"
                                                            data-id="{{$data->id}}"
                                                            data-status="{{$data->status}}"
                                                            data-toggle="modal"
@@ -104,7 +104,7 @@
                                                            class="btn btn-lg btn-info btn-sm mb-3 mr-1 order_status_change_btn"
                                                         >
                                                             {{__("Update Status")}}
-                                                        </a>
+                                                        </a> --}}
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -121,31 +121,6 @@
         </div>
     </div>
     
-    <div class="modal fade" id="view_all_details_modal" tabindex="-1" role="dialog"  aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-               <div class="view-order-details-info">
-                   <h4 class="title">{{__('View All Information')}}</h4>
-                   <div class="view-order-top-wrap">
-                       <div class="status-wrap">
-                           Order Status: <span class="order-status-span"></span>
-                       </div>
-                       <div class="data-wrap">
-                           Order Date: <span class="order-date-span"></span>
-                       </div>
-                   </div>
-                   <div class="">
-                       <div class="address-wrap">
-                            Address:: <span class="order-address-span"></span>
-                       </div>
-                   </div>
-                   <div class="table-responsive">
-                       <table class="order-all-custom-fields table-striped table-bordered"></table>
-                   </div>
-               </div>
-            </div>
-        </div>
-    </div>
 
     {{-- send mail modal --}}
     <div class="modal fade" id="user_edit_modal" aria-hidden="true">
@@ -188,7 +163,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="order_status_change_modal" aria-hidden="true">
+    {{-- <div class="modal fade" id="order_status_change_modal" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -225,7 +200,7 @@
                 </form>
             </div>
         </div>
-    </div>
+    </div> --}}
     @include('backend.partials.media-upload.media-upload-markup')
 @endsection
 
@@ -241,47 +216,14 @@
     <script src="//cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>
     <script>
         $(document).ready(function() {
-            $(document).on('click','.view_order_details_btn',function (e) {
-                e.preventDefault();
-                var el = $(this);
-                var allData = el.data();
-                console.log(allData);
-                var parent = $('#view_all_details_modal');
-                var statusClass = allData.status == 'pending' ? 'alert alert-warning' : 'alert alert-success';
-
-                parent.find('.order-status-span').text(allData.status).addClass(statusClass);
-                parent.find('.order-date-span').text(allData.date);
-                parent.find('.order-address-span').text(allData.address);
-                parent.find('.order-all-custom-fields').html('');
-                $.each(allData.customfield,function (index,value) {
-                    if(index == 'package'){
-                        var paymentStatusClass = allData.paystatus == 'pending' ? 'alert alert-warning' : 'alert alert-success';
-
-                        parent.find('.order-all-custom-fields').append('<tr><td class="fname">Package ID</td> <td class="fvalue">'+value+'</td></tr>');
-                        parent.find('.order-all-custom-fields').append('<tr><td class="fname">Package Name</td> <td class="fvalue">'+allData.packagename+'</td></tr>');
-                        parent.find('.order-all-custom-fields').append('<tr><td class="fname">Package Price</td> <td class="fvalue">'+allData.packageprice+'</td></tr>');
-                        parent.find('.order-all-custom-fields').append('<tr><td class="fname">Payment Status</td> <td class="fvalue"><span class="'+paymentStatusClass+' text-capitalize">'+allData.paystatus+'</span></td></tr>');
-                    }else if(index == 'selected_payment_gateway'){
-                        parent.find('.order-all-custom-fields').append('<tr><td class="fname">Payment Gateway</td> <td class="fvalue">'+value+'</td></tr>');
-                    }
-                    else{
-                        parent.find('.order-all-custom-fields').append('<tr><td class="fname">'+index.replace('-',' ')+'</td> <td class="fvalue">'+value+'</td></tr>');
-                    }
-                });
-
-                if(allData.attachment){
-                    $.each(allData.attachment,function (index,value) {
-                        parent.find('.order-all-custom-fields tbody').append('<tr class="attachment_list"><td class="fname">'+index.replace('-',' ')+'</td><td class="fvalue"><a href="'+value+'" download>'+value.substr(26)+'</a></td></tr>');
-                    });
-                }
-            })
-            $(document).on('click','.order_status_change_btn',function(e){
-                e.preventDefault();
-                var el = $(this);
-                var form = $('#order_status_change_modal');
-                form.find('#order_id').val(el.data('id'));
-                form.find('#order_status option[value="'+el.data('status')+'"]').attr('selected',true);
-            });
+           
+            // $(document).on('click','.order_status_change_btn',function(e){
+            //     e.preventDefault();
+            //     var el = $(this);
+            //     var form = $('#order_status_change_modal');
+            //     form.find('#order_id').val(el.data('id'));
+            //     form.find('#order_status option[value="'+el.data('status')+'"]').attr('selected',true);
+            // });
 
             // send mail button click handler
             $(document).on('click','.user_edit_btn',function(e){
@@ -299,21 +241,8 @@
             $('#all_user_table').DataTable( {
                 "order": [[ 0, "desc" ]]
             } );
-            $('.summernote').summernote({
-                height: 250,   //set editable area's height
-                codemirror: { // codemirror options
-                    theme: 'monokai'
-                },
-                callbacks: {
-                    onChange: function(contents, $editable) {
-                        $(this).prev('input').val(contents);
-                    }
-                }
-            });
 
         } );
     </script>
-    <script src="{{asset('assets/backend/js/dropzone.js')}}"></script>
-    @include('backend.partials.media-upload.media-js')
 @endsection
 

@@ -44,6 +44,13 @@
             height: 100%;
             object-fit: cover;
         }
+        @media only screen and (max-width: 600px) {
+        
+            .single-job-list-item .jobs-meta li{
+                margin-left: 0 !important;
+                margin-bottom:10px;
+            }
+        }
 
     </style>
 @endsection
@@ -144,7 +151,7 @@
                                                 <span class="deadline"><strong>{{ __('Available Seat:') }}</strong> {{$data->pivot->seats}} </span>
                                                 <ul class="jobs-meta">
                                                     <li><i class="fas fa-briefcase"></i> <a href="{{ route('single.university', ['id'=>$data->id,'slug'=>Str::slug($data->name)]) }}">Learn More</a></li>
-                                                    <li><i class="fas fa-wallet"></i><a href="{{ route('online.apply',$data->id) }}">Apply
+                                                    <li><i class="fas fa-wallet"></i><a href="{{ route('online.apply',['universityId'=>$data->id , 'courseId'=>$course->id]) }}">Apply
                                                             Now</a></li>
                                                 </ul>
                                             </div>

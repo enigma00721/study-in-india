@@ -64,7 +64,7 @@ class FrontendController extends Controller
     }
 public function index()
 {
-    // dd($this->programmes);
+
     if (!empty(get_static_option('site_maintenance_mode'))) {
         return view('frontend.maintain');
     }
@@ -185,11 +185,6 @@ public function onlineApply($universityId=null,$courseId=null)
         $course = Course::select('id','title')->find($courseId);
         $info['course'] = $course;
     }
-    // dd($info);
-    // dd($info['university']->id);
-    // if($info['university'] || $info['course']){
-    //    return view('frontend.pages.online-apply', compact('levels', 'disciplines','infos'));
-    // }
   
     return view('frontend.pages.online-apply', compact('courses','universities','levels', 'disciplines','info'));
 }
@@ -207,14 +202,13 @@ public function onlineApplySubmit(Request $request)
         'district' => 'required',
         'level' => 'required',
         'discipline' => 'required',
+        'university' => 'required',
+        'course' => 'required',
         'parent_contact' => 'required|digits_between:5,15'
     ]);
     $row = OnlineApply::create($request->all());
-    if ($row) {
-    return redirect()
-    ->back()
-    ->with(['msg' => 'Form Submitted Succesfully!', 'type' => 'success']);
-    }
+    if ($row) 
+        return redirect()->back()->with(['msg' => 'Form Submitted Succesfully!', 'type' => 'success']);
 }
 
 

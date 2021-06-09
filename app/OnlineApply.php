@@ -11,6 +11,6 @@ class OnlineApply extends Model
     protected $fillable = ['name','gender','mobile_number','dob','email','address',
                     'district' ,'parent_name','parent_relationship',
                     'parent_address','parent_occupation','parent_contact',
-                     'level','discipline'
+                     'level','discipline','course','university'
     ];
 }

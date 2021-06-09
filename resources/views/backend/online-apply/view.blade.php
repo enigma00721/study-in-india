@@ -91,13 +91,13 @@
                                 <div class="col-md-4">
                                     <li class="list-inline-item">
                                         <b> University: </b> 
-                                        <span> University Nme </span>
+                                        <span> {{$data->university}} </span>
                                     </li>
                                 </div>
                                 <div class="col-md-4">
                                     <li class="list-inline-item">
                                         <b> Course: </b> 
-                                        <span> Course Name </span>
+                                        <span> {{$data->course}} </span>
                                     </li>
                                 </div>
                                 <div class="col-md-4">

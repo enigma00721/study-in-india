@@ -177,6 +177,9 @@ return [
         App\Providers\RouteServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
 
+        // cache static options table
+        App\Providers\StaticOptionServiceProvider::class,
+
 
     ],
 

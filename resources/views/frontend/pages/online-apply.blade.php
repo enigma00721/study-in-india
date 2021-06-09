@@ -164,7 +164,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <select name="level" id="" class="form-control custom-select" required>
+                                <select name="university" id="" class="form-control custom-select" required>
                                     <option value="" readonly>Select University</option>
                                     @foreach ($universities as $data)
                                         @isset($info['university'])
@@ -178,7 +178,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <select name="discipline" id="" class="form-control custom-select" required>
+                                <select name="course" id="" class="form-control custom-select" required>
                                     <option value="" readonly>Select Courses</option>
                                     @foreach ($courses as $data)
                                         @isset($info['course'])

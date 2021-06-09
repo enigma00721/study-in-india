@@ -32,6 +32,8 @@ class CreateOnlineAppliesTable extends Migration
             $table->string('parent_contact',20);
             $table->string('level',20);
             $table->string('discipline',20);
+            $table->string('course',50);
+            $table->string('university',50);
         });
     }
 
