@@ -2,12 +2,16 @@
 
 namespace App;
 
+use App\Traits\CacheClear;
 use Illuminate\Database\Eloquent\Model;
 use App\Scopes\StatusScope;
 
 
+
 class Level extends Model
 {
+    use CacheClear;
+
     protected $table = 'levels';
     protected $fillable = ['title','status'];
 
@@ -17,10 +21,10 @@ class Level extends Model
     }
 
     // add global scope
-    protected static function boot()
-    {
-        parent::boot();
-        static::addGlobalScope(new StatusScope);
-    }
+    // protected static function boot()
+    // {
+    //     parent::boot();
+    //     static::addGlobalScope(new StatusScope);
+    // }
     
 }

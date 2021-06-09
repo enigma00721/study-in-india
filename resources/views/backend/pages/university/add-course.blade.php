@@ -111,7 +111,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="fee">{{__('Fee')}}</label>
-                                <input type="number" class="form-control"  id="fee" name="fee" placeholder="{{__('College Fee')}}">
+                                <input type="number" class="form-control"  id="fee" name="fee" placeholder="{{__('Course Fee')}}">
                             </div>
                             <div class="form-group">
                                 <label for="seats">{{__('Total Seats')}}</label>
