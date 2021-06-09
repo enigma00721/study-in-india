@@ -199,31 +199,15 @@
                                         </div>
                                     </div>
                                 </li>
-                                {{-- <li>
-                                    <div class="single-job-info">
-                                        <div class="icon">
-                                            <i class="far fa-calendar-alt"></i>
-                                        </div>
-                                        <div class="content">
-                                            <h4 class="title">{{ __('Deadline') }}</h4>
-                                            <span class="details">{{ date('d M Y', strtotime($job->deadline)) }}</span>
-                                        </div>
-                                    </div>
-                                </li> --}}
                             </ul>
                         </div>
-                        {{-- <div class="widget widget_nav_menu">
-                            <h2 class="widget-title">
-                                Category    
-                            </h2>
-                            <ul>
-                                @foreach ($levels as $level)
-                                    <li>
-                                        <a href="{{ route('university.search.category', ['id' => $level->id, 'level' => strtolower($level->title)]) }}">{{ ucfirst($level->title) }}</a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </div> --}}
+                        <div class="widget job_information  flex justify-content-center">
+                            <h1 class="widget-sub-title py-2 display-4 lead">Contact Us </h1>
+                            <a href="{{route('online.apply',['universityId'=> $university->id])}}" class="submit-btn btn-block my-2 text-center">
+                                Register Now
+                            </a>
+
+                        </div>
                     </div>
                 </div>
                 {{-- right sidebar --}}
@@ -261,7 +245,7 @@
                                                                 <div class="col-md-6">
                                                                     <li class="list-inline-item">
                                                                         <b> Course Fee: </b>
-                                                                        <span> {{$aCourse->fee}} </span>
+                                                                        <span> {{$aCourse->pivot->fee}} </span>
                                                                     </li>
                                                                 </div>
                                                                 <div class="col-md-6">
@@ -273,7 +257,7 @@
                                                                 <div class="col-md-6">
                                                                     <li class="list-inline-item">
                                                                         <b> Number Of Seats: </b> 
-                                                                        <span> {{$aCourse->seats}} </span>
+                                                                        <span> {{$aCourse->pivot->seats}} </span>
                                                                     </li>
                                                                 </div>
                                                             </div>

@@ -19,15 +19,18 @@ class University extends Model
     }
     public function getCoursesSeatsCount()
     {
-        return $this->hasMany('App\Course')->sum('seats');
+        return $this->belongsToMany('App\Course')->sum('seats');
     }
 
-    // relationships
+    // old relationships
+    // public function courses()
+    // {
+    //     return $this->hasMany('App\Course');
+    // }
     public function courses()
     {
-        return $this->hasMany('App\Course');
+        return $this->belongsToMany('App\Course')->withPivot('seats', 'fee');
     }
-
     // relationship models delete
     public function delete()
     {

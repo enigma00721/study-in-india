@@ -15,6 +15,11 @@ use Illuminate\Support\Facades\Auth;
 
 // Auth::routes();
 
+Route::get('/clear', function() {
+    Artisan::call('cache:clear');
+    return "Cache is cleared";
+});
+
 Route::group(['middleware' => ['setlang', 'globalVariable']], function () {
 Route::get('/', 'FrontendController@index')->name('homepage');
 Route::get('/p/{id}/{any}', 'FrontendController@dynamic_single_page')->name('frontend.dynamic.page');
@@ -26,7 +31,7 @@ Route::get('/university/search', 'FrontendController@searchUniversity')->name('u
 Route::get('{id}/{slug}/university', 'FrontendController@singleUniversity')->name('single.university');
 Route::get('university/{id}/{level}','FrontendController@searchUniversityCategory')->name('university.search.category');
 
-Route::get('/online/apply/{id?}', 'FrontendController@onlineApply')->name('online.apply');
+Route::get('/online/apply/{universityId?}/{courseId?}', 'FrontendController@onlineApply')->name('online.apply');
 Route::post('/online/apply', 'FrontendController@onlineApplySubmit')->name('online.apply.submit');
 
 //payment status route
@@ -560,10 +565,17 @@ Route::prefix('admin-home')
 ->group(function () {
 Route::get('/university', 'UniversityController@index')->name('admin.university');
 Route::get('/university/create', 'UniversityController@create')->name('admin.university.create');
+// Route::get('/university/add/course', 'UniversityController@addCourse')->name('admin.university.add.course');
 Route::post('/university/store', 'UniversityController@store')->name('admin.university.store');
 Route::get('/university/edit/{id}', 'UniversityController@edit')->name('admin.university.edit');
 Route::post('/university/update', 'UniversityController@update')->name('admin.university.update');
 Route::post('/university/delete/{id}', 'UniversityController@delete')->name('admin.university.delete');
+
+Route::get('/university/add/course/{id}', 'UniversityController@addCourse')->name('admin.university.add.course');
+Route::post('/university/add/course', 'UniversityController@storeCourse')->name('admin.university.store.course');
+Route::post('/university/{id}/delete/course/{courseId}', 'UniversityController@deleteCourse')->name('admin.university.delete.course');
+Route::post('/university/update/course/{id}', 'UniversityController@updateCourse')->name('admin.university.update.course');
+
 
 //job page settings
 // Route::get('/jobs/page-settings','UniversityController@page_settings')->name('admin.jobs.page.settings');
@@ -574,7 +586,7 @@ Route::prefix('admin-home')
 ->middleware('pages')
 ->group(function () {
 Route::get('/course', 'CourseController@index')->name('admin.course');
-Route::get('/course/create/{id}', 'CourseController@create')->name('admin.course.create');
+Route::get('/course/create', 'CourseController@create')->name('admin.course.create');
 Route::post('/course/store', 'CourseController@store')->name('admin.course.store');
 Route::get('/course/edit/{id}', 'CourseController@edit')->name('admin.course.edit');
 Route::post('/course/update', 'CourseController@update')->name('admin.course.update');

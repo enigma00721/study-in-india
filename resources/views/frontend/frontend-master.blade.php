@@ -1,3 +1,5 @@
 @include('frontend.partials.header')
-@yield('content')
+
+    @yield('content')
+    
 @include('frontend.partials.footer')

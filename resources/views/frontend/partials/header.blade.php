@@ -177,11 +177,11 @@
                     <li class="@if(request()->path() == '/') current-menu-item @endif">
                         <a  href="{{url('/')}}">{{__('Home')}}</a>
                     </li>
-                        /* @foreach($programmes as $programme)
+                        @foreach($programmes as $programme)
                         <li class="@if(request()->path() == '/universities') current-menu-item @endif">
                             <a  href="{{url('/')}}">{{ $programme->title }}</a>
                         </li>
-                        @endforeach */
+                        @endforeach
 
                 @endif
             </ul>

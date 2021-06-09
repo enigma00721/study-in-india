@@ -66,7 +66,7 @@ public function index()
 {
     // dd($this->programmes);
     if (!empty(get_static_option('site_maintenance_mode'))) {
-    return view('frontend.maintain');
+        return view('frontend.maintain');
     }
 
     $lang = !empty(session()->get('lang')) ? session()->get('lang') : Language::where('default', 1)->first()->slug;
@@ -85,7 +85,6 @@ public function index()
     ->take(3)
     ->get();
     $all_blog = Blog::orderBy('id', 'desc')
-    ->where('lang', $lang)
     ->take(9)
     ->get();
     $all_faq = Faq::where('lang', $lang)
@@ -118,55 +117,81 @@ public function index()
 
 public function universities(Request $request)
 {
-$disciplines = Discipline::all();
-$all_courses = Course::with('university')->paginate(6);
-$levels = Level::all();
+    $disciplines = Discipline::all();
+    $all_courses = Course::with('universities')->paginate(6);
+    $levels = Level::all();
 
-return view('frontend.pages.university.index', compact('disciplines', 'all_courses', 'levels'));
+    return view('frontend.pages.university.index', compact('disciplines', 'all_courses', 'levels'));
 }
 
 public function searchUniversity(Request $request)
 {
-$disciplines = Discipline::all();
-$all_courses = Course::select(['id', 'title'])->get();
-$levels = Level::all();
+    $disciplines = Discipline::all();
+    $all_courses = Course::select(['id', 'title'])->get();
+    $levels = Level::all();
 
-$searchCourses = Course::with('university')
-->when(request()->filled('discipline') && request()->query('discipline') != 'all', function ($query) {
-return $query->where('discipline_id', request()->query('discipline'));
-})
-->when(request()->filled('level') && request()->query('level') != 'all', function ($query) {
-return $query->whereLevelId(request('level'));
-})
-->when(request()->filled('course') && request()->query('course') != 'all', function ($query) {
-return $query->where('title', 'like', '%' . request()->get('course') . '%');
-});
+    $searchCourses = Course::with('universities')
+    ->when(request()->filled('discipline') && request()->query('discipline') != 'all', function ($query) {
+    return $query->where('discipline_id', request()->query('discipline'));
+    })
+    ->when(request()->filled('level') && request()->query('level') != 'all', function ($query) {
+    return $query->whereLevelId(request('level'));
+    })
+    ->when(request()->filled('course') && request()->query('course') != 'all', function ($query) {
+    return $query->where('title', 'like', '%' . request()->get('course') . '%');
+    });
 
-$searchCourses = $searchCourses->paginate();
-// dd($searchCourses);
+    $searchCourses = $searchCourses->paginate();
 
-return view('frontend.pages.university.index', compact(['searchCourses', 'disciplines', 'levels', 'all_courses']));
+    return view('frontend.pages.university.index', compact(['searchCourses', 'disciplines', 'levels', 'all_courses']));
+}
+
+public function singleUniversity($id,$slug)
+{
+    $university = University::with('courses')->find($id);
+    // dd($university);
+    // dd($university->getCoursesSeatsCount());
+    $levels = Level::all();
+    // dd($university);
+    return view('frontend.pages.university.single')->with(['university' => $university,'levels'=>$levels]);
 }
 
 public function searchUniversityCategory($id, $level)
 {
-$disciplines = Discipline::all();
-$all_courses = Course::all();
-$levels = Level::all();
+    $disciplines = Discipline::all();
+    $all_courses = Course::all();
+    $levels = Level::all();
 
-// dd($level);
-$searchCourses = Course::where('level_id', $id)->paginate(5);
-return view('frontend.pages.university.index', compact('searchCourses', 'disciplines', 'levels', 'all_courses'));
+    // dd($level);
+    $searchCourses = Course::where('level_id', $id)->with('universities')->paginate(5);
+    return view('frontend.pages.university.index', compact('searchCourses', 'disciplines', 'levels', 'all_courses'));
 }
 
-public function onlineApply($id=1)
+public function onlineApply($universityId=null,$courseId=null)
 {
-$forCourse = Course::find($id);
-// $forCourse = Course::findOrFail($id);
-// dd($forCourse);
-$levels = Level::all();
-$disciplines = Discipline::all();
-return view('frontend.pages.online-apply', compact('levels', 'disciplines'));
+    // dd($universityId);
+    $levels = Level::all();
+    $disciplines = Discipline::all();
+    $courses = Course::select('title','id')->get();
+    $universities = University::select('name','id')->get();
+    // dd($universities);
+
+    $info = [];
+    if($universityId){
+        $university = University::select('id','name')->find($universityId);
+        $info['university'] = $university;
+    }
+    if($courseId){
+        $course = Course::select('id','title')->find($courseId);
+        $info['course'] = $course;
+    }
+    // dd($info);
+    // dd($info['university']->id);
+    // if($info['university'] || $info['course']){
+    //    return view('frontend.pages.online-apply', compact('levels', 'disciplines','infos'));
+    // }
+  
+    return view('frontend.pages.online-apply', compact('courses','universities','levels', 'disciplines','info'));
 }
 
 public function onlineApplySubmit(Request $request)
@@ -192,14 +217,7 @@ public function onlineApplySubmit(Request $request)
     }
 }
 
-public function singleUniversity($id,$slug)
-{
-$university = University::with('courses')->find($id);
-// dd($university);
-// dd($university->getCoursesSeatsCount());
-$levels = Level::all();
-return view('frontend.pages.university.single')->with(['university' => $university,'levels'=>$levels]);
-}
+
 
 public function maintain_page()
 {

@@ -23,6 +23,11 @@ class CreateCourseUniversityTable extends Migration
             $table->bigInteger('university_id')->unsigned()->nullable();
             $table->foreign('university_id')->references('id')->on('universities');
 
+            $table->integer('seats')->nullable();
+            $table->integer('fee')->nullable();
+
+
+
         });
     }
 

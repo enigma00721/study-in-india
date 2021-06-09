@@ -7,14 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 class Course extends Model
 {
     protected $table = 'courses';
-    protected $fillable = ['title' , 'fee' , 'seats' , 'course_duration',
+    protected $fillable = ['title' , 'course_duration',
                             'elligibility' , 'description',
-                            'status' , 'discipline_id' , 'level_id' , 'university_id'];
+                            'status' , 'discipline_id' , 'level_id'];
 
 
-    public function university()
+    // old relationships
+    // public function university()
+    // {
+    //     return $this->belongsTo('App\University');
+    // }
+    public function universities()
     {
-        return $this->belongsTo('App\University');
+        return $this->belongsToMany('App\University')->withPivot('seats', 'fee');
     }
     public function level()
     {

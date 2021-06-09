@@ -165,6 +165,34 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <select name="level" id="" class="form-control custom-select" required>
+                                    <option value="" readonly>Select University</option>
+                                    @foreach ($universities as $data)
+                                        @isset($info['university'])
+                                            <option value="{{ $data->name }}" {{ ($info['university']->id == $data->id) ? ' selected' : '' }}>{{ $data->name }}</option>
+                                        @else
+                                            <option value="{{ $data->name }}" > {{ $data->name }} </option>
+                                        @endisset
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <select name="discipline" id="" class="form-control custom-select" required>
+                                    <option value="" readonly>Select Courses</option>
+                                    @foreach ($courses as $data)
+                                        @isset($info['course'])
+                                            <option value="{{ $data->title }}" {{ ($info['course']->id == $data->id) ? ' selected' : '' }}>{{ $data->title }}</option>
+                                        @else
+                                            <option value="{{ $data->title }}" > {{ $data->title }} </option>
+                                        @endisset
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <select name="level" id="" class="form-control custom-select" required>
                                     <option value="" readonly>Select Level</option>
                                     @foreach ($levels as $level)
                                         <option value="{{ $level->title }}"> {{ $level->title }} </option>
@@ -182,6 +210,7 @@
                                 </select>
                             </div>
                         </div>
+
                     </div>
 
                     {{-- <h2>Academic Qualification</h2> --}}

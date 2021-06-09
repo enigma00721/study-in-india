@@ -37,17 +37,18 @@
             <div class="col-lg-12 mt-5">
                 <div class="card">
                     <div class="card-body">
-
-                        <h4 class="header-title">{{__('All Courses')}}</h4>
+                        <div style="display: flex;justify-content:space-between;align-items:center">
+                            <h4 class="header-title">{{__('All Courses')}}</h4>
+                            {{-- <a href="{{route('admin.course.create')}}"><button class="btn btn-primary mb-2">Add Course</button>
+                                </a> --}}
+                        </div>
                         <div class="table-wrap table-responsive">
                             <table class="table table-default" id="all_blog_table">
                                 <thead>
                                     <th>Id</th>
                                     <th>Course Title</th>
-                                    <th>University Name</th>
                                     <th>Duration</th>
-                                    <th>Fee</th>
-                                    <th>Seats</th>
+                                    <th>Discipline</th>
                                     <th>Level</th>
                                     <th>Action</th>
                                 </thead>
@@ -56,10 +57,8 @@
                                     <tr>
                                         <td>{{$data->id}}</td>
                                         <td>{{$data->title}}</td>
-                                        <td>{{optional($data->university)->name}}</td>
                                         <td>{{$data->course_duration}}</td>
-                                        <td>{{$data->fee}}</td>
-                                        <td>{{$data->seats}}</td>
+                                        <td>{{optional($data->discipline)->title}}</td>
                                         <td>{{optional($data->level)->title}}</td>
                                         <td style="display: flex">
                                             <form action='{{route('admin.course.delete',$data->id)}}' method="POST" >

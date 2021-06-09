@@ -20,10 +20,10 @@ class CreateCoursesTable extends Migration
 
             $table->string('title',150);
             $table->string('status')->nullable();
-            $table->integer('fee');
+            // $table->integer('fee');
             $table->text('elligibility');
             $table->text('description');
-            $table->integer('seats');
+            // $table->integer('seats');
             $table->string('course_duration');
 
             // foreign keys

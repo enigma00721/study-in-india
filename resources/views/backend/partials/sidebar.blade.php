@@ -1,7 +1,7 @@
 <div class="sidebar-menu">
     <div class="sidebar-header">
         <div class="logo">
-            <a href="{{route('admin.home')}}">
+            <a href="{{route('homepage')}}">
                 @php
                 $logo_type = 'site_logo';
                     if(!empty(get_static_option('site_admin_dark_mode'))){
@@ -145,7 +145,6 @@
                         class="
                         {{active_menu('admin-home/university')}}
                                 @if(request()->is('admin-home/university/*')) active @endif
-                                @if(request()->is('admin-home/course*')) active @endif
                                         "
                         >
                         <a href="javascript:void(0)" aria-expanded="true"><i class="ti-write"></i>
@@ -155,8 +154,23 @@
                                         href="{{route('admin.university')}}">{{__('All Universities')}}</a></li>
                             <li class="{{active_menu('admin-home/university/create')}}"><a
                                         href="{{route('admin.university.create')}}">Add New University</a></li>
+                        </ul>
+                    </li>
+                    @endif
+                    @if(check_page_permission('pages'))
+                        <li
+                        class="
+                        {{active_menu('admin-home/course')}}
+                                @if(request()->is('admin-home/course*')) active @endif
+                                        "
+                        >
+                        <a href="javascript:void(0)" aria-expanded="true"><i class="ti-write"></i>
+                            <span>{{__('Course Manage')}}</span></a>
+                        <ul class="collapse">
                             <li class="{{active_menu('admin-home/course')}}"><a
-                                        href="{{route('admin.course')}}">{{__('All Courses')}}</a></li>
+                                href="{{route('admin.course')}}">{{__('All Courses')}}</a></li>
+                            <li class="{{active_menu('admin-home/course/create')}}"><a
+                                        href="{{route('admin.course.create')}}">Add New Course</a></li>
                         </ul>
                     </li>
                     @endif

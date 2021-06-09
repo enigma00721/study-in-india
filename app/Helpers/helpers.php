@@ -324,6 +324,7 @@ function get_language_by_slug($slug)
 function get_default_language()
 {
     $defaultLang = Language::where('default', 1)->first();
+    // dd($defaultLang->slug);
     return $defaultLang->slug;
 }
 

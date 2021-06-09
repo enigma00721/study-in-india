@@ -81,6 +81,12 @@
                                                     <td>{{date_format($data->created_at,'d - M - Y')}}</td>
                                                     <td style="display: flex">
 
+                                                        <a class="btn btn-lg btn-primary btn-sm mb-3 mr-1"
+                                                             data-toggle="tooltip" data-placement="left" title="Add Course To University!"
+                                                             href="{{route('admin.university.add.course',$data->id)}}">
+                                                            <i class="fas fa-plus-circle"></i>
+                                                        </a>
+
                                                         <form action='{{route('admin.university.delete',$data->id)}}' method="POST" >
                                                             @csrf
                                                             <button type="submit" class="btn btn-sm btn-danger mb-3 mr-1  delete-confirm" >
@@ -91,11 +97,7 @@
                                                         <a class="btn btn-lg btn-primary btn-sm mb-3 mr-1"  href="{{route('admin.university.edit',$data->id)}}">
                                                             <i class="ti-pencil"></i>
                                                         </a>
-                                                        <a class="btn btn-lg btn-primary btn-sm mb-3 mr-1"
-                                                             data-toggle="tooltip" data-placement="left" title="Add Course To University!"
-                                                             href="{{route('admin.course.create',$data->id)}}">
-                                                            <i class="fas fa-plus-circle"></i>
-                                                        </a>
+                                                        
                                                     </td>
                                                 </tr>
                                             @endforeach

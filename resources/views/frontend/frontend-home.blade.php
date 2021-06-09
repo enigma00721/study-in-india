@@ -2,7 +2,7 @@
 
 @section('content')
 
-@include('frontend.home-pages.home-01')
-{{-- @include('frontend.home-pages.home-'.get_static_option('home_page_variant')) --}}
+    @include('frontend.home-pages.home-01')
+    {{-- @include('frontend.home-pages.home-'.get_static_option('home_page_variant')) --}}
 
 @endsection

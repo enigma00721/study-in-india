@@ -17,23 +17,17 @@ class CourseController extends Controller
 
     public function index()
     {
-        $courses = Course::with(['university','level'])->get();
+        $courses = Course::with(['universities','level'])->get();
         // dd($courses);
         return view('backend.pages.course.index',compact('courses'));
     }
 
-    public function create($id)
+    public function create()
     {
-        $university = University::find($id);
-        if(!$university)
-            return redirect()->route('admin.university')->with([
-                'msg'=>'University Could Not Be Found!',
-                'type'=>'danger'
-            ]);
-        $university_id = $university->id;
+        
         $disciplines = Discipline::all();
         $levels = Level::all();
-        return view('backend.pages.course.add',compact('disciplines','levels','university_id'));
+        return view('backend.pages.course.add',compact('disciplines','levels'));
 
     }
 
@@ -41,14 +35,11 @@ class CourseController extends Controller
     {
         $this->validate($request, [
             'title' => 'required|string|max:150',
-            'fee' => 'required|numeric',
             'elligibility' => 'required',
             'description' => 'required',
-            'seats' => 'required|numeric',
             'course_duration' => 'required',
             'discipline_id' => 'required',
             'level_id' => 'required',
-            'university_id' => 'required',
             'status' => 'required|string|max:191',
         ]);
         $course = Course::create($request->all());
@@ -76,10 +67,8 @@ class CourseController extends Controller
         $this->validate($request, [
             'course_id'=>'required|numeric',
             'title' => 'required|string|max:150|unique:courses,title,'.$request->get('course_id'),
-            'fee' => 'required|numeric',
             'elligibility' => 'required',
             'description' => 'required',
-            'seats' => 'required|numeric',
             'course_duration' => 'required',
             'discipline_id' => 'required',
             'level_id' => 'required',

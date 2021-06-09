@@ -32,7 +32,6 @@
                         <h4 class="header-title">{{ __('Add New Course') }}</h4>
                         <form action="{{ route('admin.course.store') }}" method="POST">
                             @csrf
-                            <input type="hidden" name="university_id" value="{{ $university_id }}">
                             <div class="row">
                                 <div class="col-lg-12">
 
@@ -41,16 +40,7 @@
                                         <input type="text" class="form-control" id="title" name="title"
                                             value="{{ old('title') }}" placeholder="{{ __('Title') }}">
                                     </div>
-                                    <div class="form-group">
-                                        <label for="fee">{{ __('Fee') }}</label>
-                                        <input type="number" class="form-control" id="fee" name="fee"
-                                            value="{{ old('fee') }}" placeholder="{{ __('Fee') }}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="seats">{{ __('Seats') }}</label>
-                                        <input type="number" class="form-control" id="seats" name="seats"
-                                            value="{{ old('seats') }}" placeholder="{{ __('Seats') }}">
-                                    </div>
+                                  
                                     <div class="form-group">
                                         <label for="course_duration">{{ __('Course Duration') }}</label>
                                         <input type="text" class="form-control" id="course_duration" name="course_duration"

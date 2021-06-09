@@ -33,8 +33,9 @@ class AdminDashboardController extends Controller
     public function adminIndex()
     {
         $default_lang = get_default_language();
+        // dd($default_lang);
 
-        $all_blogs = Blog::where('lang', $default_lang)->count();
+        $all_blogs = Blog::count();
         $total_admin = Admin::count();
         $total_testimonial = Testimonial::where('lang', $default_lang)->count();
         $total_team_member = TeamMember::where('lang', $default_lang)->count();

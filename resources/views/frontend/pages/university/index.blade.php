@@ -78,7 +78,8 @@
                         </select>
                     </div>
                     <div class="col-md-3 btn-wrapper">
-                        <input type="submit" value="Search" class="form-control-2 btn-block boxed-btn  border-none">
+                        {{-- <input type="submit" value="Search" class="form-control-2 btn-block boxed-btn  border-none "> --}}
+                        <input type="submit" value="Search" class="submit-btn btn-block ">
                     </div>
                 </div>
             </form>
@@ -117,68 +118,76 @@
                     {{-- After Search --}}
                     @if(isset($searchCourses))
                         @if (count($searchCourses) > 0)
-                            @foreach ($searchCourses as $data)
-                                <div class="row single-job-list-item">
-                                    <div class="col-md-4 thumb">
-                                        @php
-                                            $university_image = get_attachment_image_by_id($data->university->image, 'grid', false);
-                                        @endphp
-                                        @if (!empty($university_image))
-                                            <img src="{{ $university_image['img_url'] }}"
-                                                alt="{{ __($data->university->title) }}">
-                                        @endif
-                                    </div>
-                                    <div class="col-lg-8">
-                                        {{-- <span class="job_type"><i class="far fa-clock"></i> {{str_replace('_',' ',$data->employment_status)}}</span> --}}
-                                        {{-- <a href="{{route('frontend.jobs.single',['id' => $data->id,'any' => Str::slug($data->name)])}}"><h3 class="title"> {{$data->title}} </h3></a> --}}
-                                        <a href="{{route('single.university',['id'=>$data->university->id,'slug'=>Str::slug($data->university->name)])}}">
-                                            <h3 class="title"> {{ $data->university->name }} </h3>
-                                        </a>
-                                        <span class="company_name"><strong>{{ __('Course:') }}</strong>
-                                            {{ $data->title }}</span>
-                                        <span class="company_name"><strong>{{ __('Address:') }}</strong>
-                                            {{ $data->university->location }}</span>
-                                        <span class="deadline"><strong>{{ __('Available Seat:') }}</strong> 200</span>
-                                        <ul class="jobs-meta">
-                                            <li><i class="fas fa-briefcase"></i> <a href="{{ route('single.university', ['id'=>$data->university->id,'slug'=>Str::slug($data->university->name)]) }}">Learn More</a></li>
-                                            <li><i class="fas fa-wallet"></i><a href="{{ route('online.apply',$data->id) }}">Apply
-                                                    Now</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
+                            @foreach ($searchCourses as $course)
+                                @if(count($course->universities)>0)
+                                    @foreach($course->universities as $data)
+                                        <div class="row single-job-list-item">
+                                            <div class="col-md-4 thumb p-1">
+                                                @php
+                                                    $university_image = get_attachment_image_by_id($data->image, 'grid', false);
+                                                @endphp
+                                                @if (!empty($university_image))
+                                                    <img src="{{ $university_image['img_url'] }}"
+                                                        alt="{{ __($data->title) }}">
+                                                @endif
+                                            </div>
+                                            <div class="col-lg-8">
+                                                {{-- <span class="job_type"><i class="far fa-clock"></i> {{str_replace('_',' ',$data->employment_status)}}</span> --}}
+                                                {{-- <a href="{{route('frontend.jobs.single',['id' => $data->id,'any' => Str::slug($data->name)])}}"><h3 class="title"> {{$data->title}} </h3></a> --}}
+                                                <a href="{{route('single.university',['id'=>$data->id,'slug'=>Str::slug($data->name)])}}">
+                                                    <h3 class="title"> {{ $data->name }} </h3>
+                                                </a>
+                                                <span class="company_name"><strong>{{ __('Course:') }}</strong>
+                                                    {{ $course->title }}</span>
+                                                <span class="company_name"><strong>{{ __('Address:') }}</strong>
+                                                    {{ $data->location }}</span>
+                                                <span class="deadline"><strong>{{ __('Available Seat:') }}</strong> {{$data->pivot->seats}} </span>
+                                                <ul class="jobs-meta">
+                                                    <li><i class="fas fa-briefcase"></i> <a href="{{ route('single.university', ['id'=>$data->id,'slug'=>Str::slug($data->name)]) }}">Learn More</a></li>
+                                                    <li><i class="fas fa-wallet"></i><a href="{{ route('online.apply',$data->id) }}">Apply
+                                                            Now</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                @endif
                             @endforeach
                         @else
                             <h4 class="title">No Records Found</h4>
                         @endif
                     @else
                         {{-- No Search --}}
-                        @foreach ($all_courses as $data)
-                            <div class="row single-job-list-item">
-                                <div class="col-md-4 thumb">
-                                         @php
-                                            $university_image = get_attachment_image_by_id($data->university->image, 'grid', false);
-                                        @endphp
-                                        @if (!empty($university_image))
-                                            <img src="{{ $university_image['img_url'] }}"
-                                                alt="{{ __($data->university->title) }}">
-                                        @endif
+                        @foreach ($all_courses as $course)
+                        @if (count($course->universities)>0)
+                            @foreach ($course->universities as $data)
+                                <div class="row single-job-list-item">
+                                    <div class="col-md-4 thumb p-1">
+                                            @php
+                                                $university_image = get_attachment_image_by_id($data->image, 'grid', false);
+                                            @endphp
+                                            @if (!empty($university_image))
+                                                <img src="{{ $university_image['img_url'] }}"
+                                                    alt="{{ __($data->title) }}">
+                                            @endif
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <a href="{{ route('single.university', ['id'=>$data->id,'slug'=>Str::slug($data->name)]) }}">
+                                            <h3 class="title"> {{ $data->name }} </h3>
+                                        </a>
+                                        <span class="company_name"><strong>{{ __('Course:') }}</strong>
+                                            {{ $course->title }}</span>
+                                        <span class="company_name"><strong>{{ __('Address:') }}</strong>
+                                            {{ $data->location }}</span>
+                                        <span class="deadline"><strong>{{ __('Available Seat:') }}</strong> {{$data->pivot->seats}} </span>
+                                        <ul class="jobs-meta">
+                                            <li><i class="fas fa-briefcase"></i> <a href="{{ route('single.university', ['id'=>$data->id,'slug'=>Str::slug($data->name)]) }}">Learn More</a> </li>
+                                            <li><i class="fas fa-wallet"></i><a href="{{ route('online.apply',['universityId'=>$data->id , 'courseId'=>$course->id]) }}">Apply
+                                                    Now</a></li>
+                                        </ul>
+                                    </div>
                                 </div>
-                                <div class="col-lg-8">
-                                    <a href="{{ route('single.university', ['id'=>$data->university->id,'slug'=>Str::slug($data->university->name)]) }}">
-                                        <h3 class="title"> {{ $data->university->name }} </h3>
-                                    </a>
-                                    <span class="company_name"><strong>{{ __('Course:') }}</strong>
-                                        {{ $data->title }}</span>
-                                    <span class="company_name"><strong>{{ __('Address:') }}</strong>
-                                        {{ $data->university->location }}</span>
-                                    <span class="deadline"><strong>{{ __('Available Seat:') }}</strong> 200</span>
-                                    <ul class="jobs-meta">
-                                        <li><i class="fas fa-briefcase"></i> <a href="{{ route('single.university', ['id'=>$data->university->id,'slug'=>Str::slug($data->university->name)]) }}">Learn More</a> </li>
-                                        <li><i class="fas fa-wallet"></i><a href="{{ route('online.apply',$data->id) }}">Apply
-                                                Now</a></li>
-                                    </ul>
-                                </div>
-                            </div>
+                            @endforeach
+                        @endif
                         @endforeach
                     @endif
 

@@ -1048,6 +1048,16 @@ object {
     line-height: 31px;
     margin-bottom: 20px;
     position: relative;
+    letter-spacing: 0.3px;
+}
+.widget .widget-sub-title {
+    font-family: sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 44px;
+    letter-spacing: 0.3px;
+    margin-bottom: 20px;
+    position: relative;
 }
 
 .widget.widget_calendar {

@@ -66,6 +66,22 @@
                            $static_page_list = ['About','Service','FAQ','Team','Works','Price Plan','Blog','Contact','Career With Us','Events','Knowledgebase']
                         @endphp
                         @foreach($menu_content as $data)
+                         @if($key == 2)
+                             <li class="menu-item-has-children @if(request()->is() == '*university*') current-menu-item @endif">
+                                <a href="#">Programmes</a>
+                                <ul class="sub-menu">
+                                    @foreach($programmes as $programme)
+                                        <li >
+                                            <a  href="{{route('university.search.category',
+                                                ['id' => $programme->id, 'level' => strtolower($programme->title)] )}}">
+                                                 {{ $programme->title }}
+                                             </a>
+                                        </li>
+                                    @endforeach 
+                                </ul>
+                            </li>
+
+                        @endif
                             @php
                                 if ($cc > 0 && $cc == $parent_item_count){ print '</ul>'; $cc = 0; }
                                if (!empty($data->parent_id) && $data->depth > 0){
