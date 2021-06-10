@@ -366,14 +366,11 @@ Route::post('/general-settings/seo-settings', 'GeneralSettingsController@update_
 Route::get('/general-settings/scripts',
 'GeneralSettingsController@scripts_settings')->name('admin.general.scripts.settings');
 Route::post('/general-settings/scripts', 'GeneralSettingsController@update_scripts_settings');
+
 Route::get('/general-settings/email-template',
 'GeneralSettingsController@email_template_settings')->name('admin.general.email.template');
 Route::post('/general-settings/email-template', 'GeneralSettingsController@update_email_template_settings');
-Route::get('/general-settings/typography-settings',
-'GeneralSettingsController@typography_settings')->name('admin.general.typography.settings');
-Route::post('/general-settings/typography-settings', 'GeneralSettingsController@update_typography_settings');
-Route::post('/general-settings/typography-settings/single',
-'GeneralSettingsController@get_single_font_variant')->name('admin.general.typography.single');
+
 Route::get('/general-settings/cache-settings',
 'GeneralSettingsController@cache_settings')->name('admin.general.cache.settings');
 Route::post('/general-settings/cache-settings', 'GeneralSettingsController@update_cache_settings');

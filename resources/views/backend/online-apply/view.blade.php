@@ -9,11 +9,12 @@
             line-height: 33px;
             margin-bottom: 20px;
             font-size: 20px;
-            font-weight: 500;
+            font-weight: 600;
+            color:#b6b6b6;
         }
         b{
-            font-size: 18px;
             color: #919191;
+            font-size: 18px;
         }
         ul{
             color: white;

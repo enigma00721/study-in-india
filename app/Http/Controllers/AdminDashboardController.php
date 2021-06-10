@@ -10,11 +10,13 @@ use App\Blog;
 use App\ContactInfoItem;
 use App\Counterup;
 use App\KeyFeatures;
-use App\PricePlan;
 use App\TeamMember;
 use App\Testimonial;
 use App\Works;
 use App\User;
+use App\OnlineApply;
+use App\University;
+use App\Course;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -35,19 +37,19 @@ class AdminDashboardController extends Controller
         $default_lang = get_default_language();
         // dd($default_lang);
 
-        $all_blogs = Blog::count();
-        $total_admin = Admin::count();
+        $total_online_apply = OnlineApply::count();
+        $total_university = University::count();
+        $total_course = Course::count();
         $total_testimonial = Testimonial::where('lang', $default_lang)->count();
-        $total_team_member = TeamMember::where('lang', $default_lang)->count();
-        $total_counterup = Counterup::where('lang', $default_lang)->count();
+        $all_blogs = Blog::count();
         $total_services = Services::where('lang', $default_lang)->count();
 
         return view('backend.admin-home')->with([
             'blog_count' => $all_blogs,
-            'total_admin' => $total_admin,
+            'total_online_apply' => $total_online_apply,
             'total_testimonial' => $total_testimonial,
-            'total_team_member' => $total_team_member,
-            'total_counterup' => $total_counterup,
+            'total_university' => $total_university,
+            'total_course' => $total_course,
             'total_services' => $total_services,
         ]);
     }

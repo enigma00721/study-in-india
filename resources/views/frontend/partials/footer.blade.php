@@ -112,11 +112,11 @@
     </div>
 </footer>
 
-<div class="preloader" id="preloader">
+{{-- <div class="preloader" id="preloader">
     <div class="preloader-inner">
         <div class="lds-ripple"><div></div><div></div></div>
     </div>
-</div>
+</div> --}}
 
 <div class="back-to-top">
     <i class="fas fa-angle-up"></i>
@@ -136,7 +136,7 @@
 <script src="{{asset('assets/frontend/js/wow.min.js')}}"></script>
 <script src="{{asset('assets/frontend/js/jquery.ihavecookies.min.js')}}"></script>
 <script src="{{asset('assets/frontend/js/main.js')}}"></script>
-<script>
+{{-- <script>
     (function($){
         "use strict";
         $(document).ready(function(){
@@ -154,7 +154,7 @@
             });
         });
     }(jQuery));
-</script>
+</script> --}}
 
 @yield('scripts')
 

@@ -256,22 +256,22 @@ public function news_single_page($slug)
 
 public function blog_page()
 {
-$lang = !empty(session()->get('lang')) ? session()->get('lang') : Language::where('default', 1)->first()->slug;
-$all_recent_blogs = Blog::where('lang', $lang)
-->orderBy('id', 'desc')
-->take(get_static_option('blog_page_recent_post_widget_item'))
-->get();
-$all_blogs = Blog::where('lang', $lang)
-->orderBy('id', 'desc')
-->paginate(get_static_option('blog_page_item'));
-$all_category = BlogCategory::where(['status' => 'publish', 'lang' => $lang])
-->orderBy('id', 'desc')
-->get();
-return view('frontend.pages.blog')->with([
-'all_blogs' => $all_blogs,
-'all_categories' => $all_category,
-'all_recent_blogs' => $all_recent_blogs,
-]);
+    $lang = !empty(session()->get('lang')) ? session()->get('lang') : Language::where('default', 1)->first()->slug;
+    $all_recent_blogs = Blog::where('lang', $lang)
+    ->orderBy('id', 'desc')
+    ->take(get_static_option('blog_page_recent_post_widget_item'))
+    ->get();
+    $all_blogs = Blog::where('lang', $lang)
+    ->orderBy('id', 'desc')
+    ->paginate(get_static_option('blog_page_item'));
+    $all_category = BlogCategory::where(['status' => 'publish', 'lang' => $lang])
+    ->orderBy('id', 'desc')
+    ->get();
+    return view('frontend.pages.blog')->with([
+    'all_blogs' => $all_blogs,
+    'all_categories' => $all_category,
+    'all_recent_blogs' => $all_recent_blogs,
+    ]);
 }
 
 public function category_wise_blog_page($id)

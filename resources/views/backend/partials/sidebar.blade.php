@@ -250,7 +250,7 @@
                         ">
                     <a href="javascript:void(0)"
                     aria-expanded="true">
-                        <i class="ti-home"></i>
+                        <i class="ti-settings"></i>
                         <span>{{__('Home Page Manage')}}</span>
                     </a>
                     <ul class="collapse">
@@ -282,7 +282,7 @@
                         ">
                         <a href="javascript:void(0)"
                         aria-expanded="true">
-                            <i class="ti-home"></i>
+                            <i class="ti-settings"></i>
                             <span>{{__('About Page Manage')}}</span>
                         </a>
                         <ul class="collapse">
@@ -305,7 +305,7 @@
                     <li class="@if(request()->is('admin-home/contact-page/*')  ) active @endif">
                         <a href="javascript:void(0)"
                         aria-expanded="true">
-                            <i class="ti-home"></i>
+                            <i class="ti-settings"></i>
                             <span>{{__('Contact Page Manage')}}</span>
                         </a>
                         <ul class="collapse">
@@ -323,7 +323,7 @@
                 <li class="@if(request()->is('admin-home/footer/*')) active @endif">
                     <a href="javascript:void(0)"
                         aria-expanded="true">
-                        <i class="ti-layout"></i>
+                        <i class="ti-settings"></i>
                         <span>{{__('Footer Area')}}</span>
                     </a>
                     <ul class="collapse">
@@ -352,9 +352,6 @@
                                     href="{{route('admin.general.site.identity')}}">{{__('Site Identity')}}</a></li>
                         <li class="{{active_menu('admin-home/general-settings/basic-settings')}}"><a
                                     href="{{route('admin.general.basic.settings')}}">{{__('Basic Settings')}}</a>
-                        </li>
-                        <li class="{{active_menu('admin-home/general-settings/typography-settings')}}"><a
-                                    href="{{route('admin.general.typography.settings')}}">{{__('Typography Settings')}}</a>
                         </li>
                         <li class="{{active_menu('admin-home/general-settings/seo-settings')}}"><a
                                     href="{{route('admin.general.seo.settings')}}">{{__('SEO Settings')}}</a></li>

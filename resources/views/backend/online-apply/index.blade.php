@@ -127,7 +127,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">{{__('Send Mail To Order Sender')}}</h5>
+                    <h5 class="modal-title">{{__('Send Mail To Online Applied Student')}}</h5>
                     <button type="button" class="close" data-dismiss="modal"><span>×</span></button>
                 </div>
 
@@ -241,6 +241,17 @@
             $('#all_user_table').DataTable( {
                 "order": [[ 0, "desc" ]]
             } );
+              $('.summernote').summernote({
+                height: 250,   //set editable area's height
+                codemirror: { // codemirror options
+                    theme: 'monokai'
+                },
+                callbacks: {
+                    onChange: function(contents, $editable) {
+                        $(this).prev('input').val(contents);
+                    }
+                }
+            });
 
         } );
     </script>
