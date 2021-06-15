@@ -32,9 +32,10 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
 
+        // cache remember for 7 days
         view()->composer('*', function ($view) {
-            $programmes= \Cache::rememberForever('programmes', function(){
-                return Level::orderBy('id','DESC')->select('id','title')->get();
+            $programmes= \Cache::remember('programmes',60*24*7 ,function(){
+                return Level::orderBy('position','ASC')->select('id','title')->get();
             });
             $view->with('programmes',  $programmes);
         });

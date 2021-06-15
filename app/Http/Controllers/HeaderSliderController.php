@@ -19,18 +19,21 @@ class HeaderSliderController extends Controller
 
         $all_header_slider = HeaderSlider::all()->groupBy('lang');
         $all_language = Language::all();
-        return view('backend.pages.home.header')->with(['all_header_slider' => $all_header_slider,'all_languages' => $all_language]);
+        $universities = University::select('id','name')->orderBy('id','desc')->get();
+        // dd($universities);
+        return view('backend.pages.home.header')->with(['universities'=>$universities, 'all_header_slider' => $all_header_slider,'all_languages' => $all_language]);
     }
 
     public function store(Request $request){
 
+        // dd($request->all());
         $this->validate($request,[
             'title' => 'required|string|max:191',
-            'btn_01_text' => 'nullable|string|max:191',
-            'btn_01_url' => 'nullable|string|max:191',
+            'btn_01_text' => 'required|string|max:191',
+            'btn_01_url' => 'required|string|max:191',
             'btn_01_status' => 'nullable|string|max:191',
             'description' => 'required|string',
-            'image' => 'nullable|string|max:191',
+            'image' => 'required|string|max:191',
             'lang' => 'required|string|max:191'
         ]);
         if(!$request->has('btn_01_status'))
@@ -52,12 +55,12 @@ class HeaderSliderController extends Controller
     public function update(Request $request){
         // dd($request->all());
         $this->validate($request,[
-            'title' => 'nullable|string|max:191',
-            'btn_01_text' => 'nullable|string|max:191',
-            'btn_01_url' => 'nullable|string|max:191',
+            'title' => 'required|string|max:191',
+            'btn_01_text' => 'required|string|max:191',
+            'btn_01_url' => 'required|string|max:191',
             'btn_01_status' => 'nullable|string|max:191',
-            'description' => 'nullable|string',
-            'image' => 'nullable|string|max:191',
+            'description' => 'required|string',
+            'image' => 'required|string|max:191',
             'lang' => 'required|string|max:191'
         ]);
         if(!$request->has('btn_01_status'))

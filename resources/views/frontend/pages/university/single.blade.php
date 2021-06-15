@@ -201,8 +201,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="widget job_information  flex justify-content-center">
-                            <h1 class="widget-sub-title py-2 display-4 lead">Contact Us </h1>
+                        <div class="widget job_information  flex justify-content-center py-5 px-4">
                             <a href="{{route('online.apply',['universityId'=> $university->id])}}" class="submit-btn btn-block my-2 text-center">
                                 Register Now
                             </a>

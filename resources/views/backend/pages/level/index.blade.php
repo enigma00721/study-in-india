@@ -32,6 +32,7 @@
                         </ul>
                     </div>
                 @endif
+               
             </div>
             <div class="col-lg-6 mt-5">
                 <div class="card">
@@ -57,11 +58,12 @@
                                         <th>{{__('ID')}}</th>
                                         <th>{{__('Title')}}</th>
                                         <th>{{__('Status')}}</th>
+                                        <th>{{__('Position')}}</th>
                                         <th>{{__('Action')}}</th>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="tablecontents">
                                         @foreach($level as $data)
-                                            <tr>
+                                            <tr class="row1" data-id="{{ $data->id }}">
                                                 <td>{{$data->id}}</td>
                                                 <td>{{$data->title}}</td>
                                                 <td>
@@ -71,6 +73,7 @@
                                                         <span class="btn btn-warning btn-sm">{{ucfirst($data->status)}}</span>
                                                     @endif
                                                 </td>
+                                                <td> {{$data->position}} </td>
                                                 <td style="display: flex;">
                                                     <form action='{{route('admin.level.delete',$data->id)}}' method="POST" >
                                                         @csrf
@@ -181,6 +184,9 @@
 
 @section('script')
 
+{{-- for sortable --}}
+ <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+
 
 
     <script>
@@ -209,9 +215,49 @@
         $(document).ready(function() {
 
             $('.table-wrap > table').DataTable( {
-                "order": [[ 0, "desc" ]]
+                "order": [[ 3, "asc" ]]
             } );
         } );
+    </script>
+
+    <script>
+         $(function () {
+
+            $( "#tablecontents" ).sortable({
+                items: "tr",
+                cursor: 'move',
+                opacity: 0.1,
+                update: function() {
+                    sendOrderToServer();
+                }
+            });
+
+            function sendOrderToServer() {
+                var order = [];
+                // var token = $('meta[name="csrf-token"]').attr('content');
+                $('tr.row1').each(function(index,element) {
+                    order.push({
+                        id: $(this).attr('data-id'),
+                        position: index+1
+                    });
+                });
+
+                $.ajax({
+                    type: "POST", 
+                    dataType: "json", 
+                    url: "{{  route('admin.level.order.update') }}",
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            "order": order,
+                        },
+                    success: function(response) {
+                        // console.log(response);
+                        // location.reload();
+                        window.location.href = "{{ url('clear') }}";
+                    }
+                });
+            }
+        });
     </script>
 
 

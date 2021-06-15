@@ -3639,10 +3639,10 @@ object {
 /*---------------------------------------
     ## Back Top
 ---------------------------------------*/
-.back-to-top {
+/* .back-to-top {
     position: fixed;
     right: 120px;
-    bottom: 30px;
+    bottom: 100px;
     width: 50px;
     height: 50px;
     background-color: var(--main-color-one);
@@ -3656,6 +3656,38 @@ object {
     -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
     display: none;
+} */
+.bottom-button{
+    position: fixed;
+    right: 80px;
+    bottom: 30px;
+    width: 200px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    display: none;
+}
+.bottom-btn{
+    display: inline-block;
+    font-weight: 600;
+    padding: 0 33px;
+    background-color: var(--main-color-one);
+   color: #fff;
+    border: none;
+    transition: ease .3s;
+    -webkit-transition: all 0.3s ease-in;
+    -moz-transition: all 0.3s ease-in;
+    -o-transition: all 0.3s ease-in;
+    transition: all 0.3s ease-in;
+    outline: none;
+}
+.bottom-btn:hover {
+      background-color: white;
+      border: 2px solid var(--main-color-one);
+      color: var(--heading-color);
+      outline: none;
+      z-index: 1000;
+        transition: ease .3s;
 }
 
 /*-------------------------
@@ -6725,9 +6757,12 @@ object {
 
 /* for main logo */
 .desktop-logo {
-    width: 180px;
+    /* width: 180px;
     max-height: 50px;
-    margin-top: -10px;
+    margin-top: -10px; */
+    width: 230px;
+    max-height: 50px;
+    margin-top: -23px;
 }
 
 .form-control{

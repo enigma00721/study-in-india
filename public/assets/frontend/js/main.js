@@ -469,6 +469,12 @@
         } else {
             ScrollTop.fadeOut(1000);
         }
+        var ScrollTop = $('.bottom-button');
+        if ($(window).scrollTop() > 1000) {
+            ScrollTop.fadeIn(1000);
+        } else {
+            ScrollTop.fadeOut(1000);
+        }
 
         /*--------------------------
          sticky menu activation

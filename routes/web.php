@@ -17,8 +17,8 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('/clear', function() {
     Artisan::call('cache:clear');
-    return "Cache is cleared";
-});
+    return redirect()->back();
+})->name('clear');
 
 Route::group(['middleware' => ['setlang', 'globalVariable']], function () {
 Route::get('/', 'FrontendController@index')->name('homepage');
@@ -553,6 +553,7 @@ Route::prefix('admin-home')
 Route::get('/level', 'LevelController@index')->name('admin.level');
 Route::post('/level', 'LevelController@store')->name('admin.level.store');
 Route::post('/level/update', 'LevelController@update')->name('admin.level.update');
+Route::post('/level/order/update', 'LevelController@orderUpdate')->name('admin.level.order.update');
 Route::post('/level/delete/{id}', 'LevelController@delete')->name('admin.level.delete');
 });
 

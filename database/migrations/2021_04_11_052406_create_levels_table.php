@@ -19,6 +19,7 @@ class CreateLevelsTable extends Migration
 
             $table->string('title',150);
             $table->string('status')->nullable();
+            $table->integer('position')->nullable();
         });
     }
 

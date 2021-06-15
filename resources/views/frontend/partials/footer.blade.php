@@ -118,8 +118,12 @@
     </div>
 </div> --}}
 
-<div class="back-to-top">
+{{-- <div class="back-to-top">
     <i class="fas fa-angle-up"></i>
+</div> --}}
+<div class="bottom-button">
+    {{-- <button class="btn btn-info">Register Now</button> --}}
+    <button class="bottom-btn"><a href="{{route('online.apply')}}">Register Now</a></button>
 </div>
 
 <!-- jquery -->
@@ -185,8 +189,10 @@
             acceptBtnLabel: "{{get_static_option('site_gdpr_cookie_'.get_user_lang().'_accept_button_label')}}"
         });
         $('body').on('click','#gdpr-cookie-close',function (e) {
-            e.preventDefault();
+            // e.preventDefault();
             $(this).parent().remove();
+            $(this).parent().css("display","none");
+            $("#gdpr-cookie-accept").click();
         });
     });
 </script>

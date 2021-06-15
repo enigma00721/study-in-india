@@ -138,6 +138,7 @@
                     </div>
                 </div>
             </div>
+            {{-- create modal --}}
             <div class="col-lg-6 mt-5">
                 <div class="card">
                     <div class="card-body">
@@ -155,11 +156,17 @@
                                 </select>
                                 <small>{{ __('select language for make this text multilingual') }}</small>
                             </div>
-                            <div class="form-group">
-                                <label for="title">{{ __('Title') }}</label>
-                                <input type="text" class="form-control" id="title" name="title"
-                                    placeholder="{{ __('Title') }}">
-                            </div>
+                          
+                             <div class="form-group">
+                             <label for="title">
+                                <h6><strong>{{ __('Title') }}</strong><span style="font-size: 10px;">&nbsp; (From University)</span></h6>
+                            </label>
+                            <select name="title" id="title" class="form-control">
+                                @foreach ($universities as $data)
+                                    <option value="{{ $data->name }}">{{ $data->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                             {{-- <div class="form-group">
                                 <label for="description">{{__('Description')}}</label>
                                 <textarea class="form-control max-height-150"  id="description"  name="description" placeholder="{{__('Description')}}" cols="30" rows="10"></textarea>
@@ -179,12 +186,12 @@
                             <div class="form-group">
                                 <label for="btn_01_text">{{ __('Button Text') }}</label>
                                 <input type="text" class="form-control" id="btn_01_text" name="btn_01_text"
-                                    placeholder="{{ __('Button Text') }}">
+                                    placeholder="{{ __('Button Text eg: Learn More') }}">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" style="display: none;">
                                 <label for="btn_01_url">{{ __('University ID') }}</label>
                                 <input type="number" class="form-control" id="btn_01_url" name="btn_01_url"
-                                    placeholder="{{ __('University ID') }}">
+                                    placeholder="{{ __('University ID') }}" value="{{$data->id}}" >
                                 <small>{{ __('should be valid to generate url/slug') }}</small>
                             </div>
 
@@ -209,6 +216,7 @@
         </div>
     </div>
 
+    {{-- edit modal --}}
     <div class="modal fade" id="header_slider_item_edit_modal" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -232,10 +240,21 @@
                             </select>
                             <small>{{ __('select language for make this text multilingual') }}</small>
                         </div>
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="edit_title">{{ __('Title') }}</label>
                             <input type="text" class="form-control" id="edit_title" name="title"
                                 placeholder="{{ __('Title') }}">
+                        </div> --}}
+                        <div class="form-group">
+                             <label for="title">
+                                <h6><strong>{{ __('Title') }}</strong></h6>
+                            </label>
+                            <select name="title" id="edit_title" class="form-control">
+                                <option value="">Select Title from University</option>
+                                @foreach ($universities as $data)
+                                    <option value="{{ $data->name }}">{{ $data->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
                       
                         <div class="form-group">
@@ -254,9 +273,9 @@
                         <div class="form-group">
                             <label for="edit_btn_01_text">{{ __('Button Text') }}</label>
                             <input type="text" class="form-control" id="edit_btn_01_text" name="btn_01_text"
-                                placeholder="{{ __('Button Text') }}">
+                                placeholder="{{ __('Button Text') }}"  value="{{$data->id}}" >
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" style="display: none;">
                             <label for="edit_btn_01_url">{{ __('University ID') }}</label>
                             <input type="number" class="form-control" id="edit_btn_01_url" name="btn_01_url"
                                 placeholder="{{ __('University ID') }}">
@@ -306,9 +325,15 @@
 
                 form.attr('action', action);
                 form.find('#header_slider_id').val(id);
-                form.find('#edit_title').val(el.data('title'));
+                // form.find('#edit_title').val(el.data('title'));
+
+                // $('#edit_title option[value=el.data('id')]').attr("selected", "selected");
+                // $('#edit_title').val(el.data('id'));
+                // console.log(el.data('id'));
+
                 form.find('#edit_description').val(el.data('description'));
                 $('#summernote_edit').summernote('code', el.data('description'));
+
 
                 form.find('#edit_btn_01_text').val(el.data('btn_01_text'));
                 form.find('#edit_btn_01_url').val(el.data('btn_01_url'));
@@ -356,6 +381,9 @@
                     }
                 }
             });
+           
+            $('.summernote').summernote('insertUnorderedList');
+
         });
 
     </script>

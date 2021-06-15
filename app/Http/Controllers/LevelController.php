@@ -58,6 +58,43 @@ class LevelController extends Controller
         ]);
     }
 
+    public function orderUpdate(Request $request)
+    {
+        // dd($request->all());
+
+        // $levels = Level::all();
+
+        //  "order" => array:4 [
+        //     0 => array:2 [
+        //     "id" => "2"
+        //     "position" => "1"
+        //     ]
+        //     1 => array:2 [
+        //     "id" => "1"
+        //     "position" => "2"
+        //     ]
+        //     2 => array:2 [
+        //     "id" => "3"
+        //     "position" => "3"
+        //     ]
+        //     3 => array:2 [
+        //     "id" => "4"
+        //     "position" => "4"
+        //     ]
+        // ]
+
+        foreach ($request->order as $order) {
+
+            Level::where('id',$order['id'])
+                ->update([
+                    'position'=> $order['position'],
+                ]);
+
+        }
+        
+        return response()->json(['status'=>'success','order_message'=>'Level Order Updated Successfully!']);
+    }
+
     public function delete($id)
     {
         $row = Level::find($id)->delete();
