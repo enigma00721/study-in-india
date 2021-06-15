@@ -5,6 +5,7 @@ namespace App;
 use App\Traits\CacheClear;
 use Illuminate\Database\Eloquent\Model;
 use App\Scopes\StatusScope;
+use DB;
 
 
 
@@ -26,5 +27,5 @@ class Level extends Model
         parent::boot();
         static::addGlobalScope(new StatusScope);
     }
-    
+
 }

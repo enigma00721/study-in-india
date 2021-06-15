@@ -62,11 +62,12 @@ class DisciplineController extends Controller
 
     public function delete($id)
     {
-        Discipline::find($id)->delete();
-        return redirect()->back()->with([
-            'msg' => 'Discipline Delete Success...',
-            'type' => 'danger'
-        ]);
+        $row = Discipline::find($id);
+        $row->delete();
+          return redirect()->back()->with([
+                'msg' => 'Discipline Delete Success...',
+                'type' => 'danger'
+            ]);
     }
 
 }

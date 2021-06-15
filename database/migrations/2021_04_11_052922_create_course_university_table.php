@@ -18,10 +18,10 @@ class CreateCourseUniversityTable extends Migration
             $table->bigIncrements('id');
 
             $table->bigInteger('course_id')->unsigned();
-            $table->foreign('course_id')->references('id')->on('courses');
+            $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
 
             $table->bigInteger('university_id')->unsigned()->nullable();
-            $table->foreign('university_id')->references('id')->on('universities');
+            $table->foreign('university_id')->references('id')->on('universities')->onDelete('cascade');
 
             $table->integer('seats')->nullable();
             $table->integer('fee')->nullable();

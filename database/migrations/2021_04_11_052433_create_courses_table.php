@@ -29,8 +29,9 @@ class CreateCoursesTable extends Migration
             // foreign keys
             $table->unsignedBigInteger('discipline_id');
             $table->unsignedBigInteger('level_id');
-            $table->foreign('discipline_id')->references('id')->on('disciplines');
-            $table->foreign('level_id')->references('id')->on('levels');
+            $table->foreign('discipline_id')->references('id')->on('disciplines')->onDelete('cascade');
+            $table->foreign('level_id')->references('id')->on('levels')->onDelete('cascade');
+
 
         });
     }

@@ -19,12 +19,17 @@ class LevelController extends Controller
     }
 
     public function store(Request $request){
-        // dd($request->all());
+        $position = ((int)Level::count()) + 1;
+        $request->request->add([
+            'position' => $position
+        ]);
+
         $this->validate($request, [
             'title' => 'required|string|max:150',
             'lang' => 'required|string|max:191',
-            'status' => 'required|string|max:191'
+            'status' => 'required|string|max:191',
         ]);
+
         $row = Level::create($request->all());
         if($row){
             return redirect()->back()->with([
@@ -60,29 +65,6 @@ class LevelController extends Controller
 
     public function orderUpdate(Request $request)
     {
-        // dd($request->all());
-
-        // $levels = Level::all();
-
-        //  "order" => array:4 [
-        //     0 => array:2 [
-        //     "id" => "2"
-        //     "position" => "1"
-        //     ]
-        //     1 => array:2 [
-        //     "id" => "1"
-        //     "position" => "2"
-        //     ]
-        //     2 => array:2 [
-        //     "id" => "3"
-        //     "position" => "3"
-        //     ]
-        //     3 => array:2 [
-        //     "id" => "4"
-        //     "position" => "4"
-        //     ]
-        // ]
-
         foreach ($request->order as $order) {
 
             Level::where('id',$order['id'])
@@ -91,17 +73,31 @@ class LevelController extends Controller
                 ]);
 
         }
-        
         return response()->json(['status'=>'success','order_message'=>'Level Order Updated Successfully!']);
     }
 
     public function delete($id)
     {
-        $row = Level::find($id)->delete();
-        return redirect()->back()->with([
-            'msg' => 'Level Delete Success...',
-            'type' => 'danger'
-        ]);
+        $row = Level::find($id);
+        // dd($row->courses);
+        // $row->courses->each->delete();
+        $row->delete();
+          return redirect()->back()->with([
+                'msg' => 'Level Delete Success...',
+                'type' => 'danger'
+            ]);
+
+        // if($row->delete()){
+        //     return redirect()->back()->with([
+        //         'msg' => 'Level Delete Success...',
+        //         'type' => 'danger'
+        //     ]);
+        // }else{
+        //     return redirect()->back()->with([
+        //         'msg' => 'Failed To Delete Level...',
+        //         'type' => 'error'
+        //         ]); 
+        // }
     }
 
 }
