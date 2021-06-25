@@ -93,7 +93,9 @@ class MediaUploadController extends Controller
 
     public function delete_upload_media_file(Request $request)
     {
+        // dd($request->all());
         $get_image_details = MediaUpload::find($request->img_id);
+        // dd($get_image_details);
         if (file_exists('assets/uploads/media-uploader/'.$get_image_details->path)){
             unlink('assets/uploads/media-uploader/'.$get_image_details->path);
         }

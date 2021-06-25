@@ -203,7 +203,7 @@ Route::post('/media-upload', 'MediaUploadController@upload_media_file')->name('a
 });
 Route::prefix('admin-home')->group(function () {
 Route::post('/media-upload/delete',
-'MediaUploadController@delete_upload_media_file')->name('admin.upload.media.file.delete');
+    'MediaUploadController@delete_upload_media_file')->name('admin.upload.media.file.delete');
 });
 /* media upload routes end */
 

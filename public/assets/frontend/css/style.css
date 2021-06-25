@@ -1917,9 +1917,10 @@ object {
 
 .navbar-area .nav-container .navbar-collapse .navbar-nav li {
     display: inline-block;
-    /* font-size: 18px; */
+     /*font-size: 18px; */
     font-size: 16px;
     font-weight: 600;
+    /*font-weight: 500;*/
     /* line-height: 90px; */
     line-height: 80px;
 }
@@ -2014,7 +2015,8 @@ object {
     display: block;
     margin-left: 0;
     line-height: 24px;
-    font-size: 16px;
+    font-size: 14px;
+    font-weight: 600;
 }
 
 .navbar-area

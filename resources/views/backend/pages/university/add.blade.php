@@ -89,7 +89,7 @@
                                         <label for="image">{{ __('Image') }}</label>
                                         <div class="media-upload-btn-wrapper">
                                             <div class="img-wrap"></div>
-                                            <input type="hidden" name="image">
+                                            <input type="hidden" name="image[]" multiple>
                                             <button type="button" class="btn btn-info media_upload_form_btn"
                                                 data-btntitle="Select University Image"
                                                 data-modaltitle="Upload University Image" data-toggle="modal"

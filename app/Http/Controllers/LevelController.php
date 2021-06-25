@@ -79,25 +79,13 @@ class LevelController extends Controller
     public function delete($id)
     {
         $row = Level::find($id);
-        // dd($row->courses);
-        // $row->courses->each->delete();
         $row->delete();
           return redirect()->back()->with([
                 'msg' => 'Level Delete Success...',
                 'type' => 'danger'
             ]);
 
-        // if($row->delete()){
-        //     return redirect()->back()->with([
-        //         'msg' => 'Level Delete Success...',
-        //         'type' => 'danger'
-        //     ]);
-        // }else{
-        //     return redirect()->back()->with([
-        //         'msg' => 'Failed To Delete Level...',
-        //         'type' => 'error'
-        //         ]); 
-        // }
+
     }
 
 }

@@ -249,7 +249,7 @@
                              <label for="title">
                                 <h6><strong>{{ __('Title') }}</strong></h6>
                             </label>
-                            <select name="title" id="edit_title" class="form-control">
+                            <select name="edit_title" id="edit_title" class="form-control">
                                 <option value="">Select Title from University</option>
                                 @foreach ($universities as $data)
                                     <option value="{{ $data->name }}">{{ $data->name }}</option>
@@ -318,6 +318,7 @@
             $(document).on('click', '.header_slider_edit_btn', function() {
                 var el = $(this);
                 var id = el.data('id');
+                var title = el.data('title');
                 var action = el.data('action');
                 var image = el.data('image');
                 var imageid = el.data('imageid');
@@ -325,11 +326,13 @@
 
                 form.attr('action', action);
                 form.find('#header_slider_id').val(id);
-                // form.find('#edit_title').val(el.data('title'));
+                form.find('#edit_title').val(el.data('title'));
 
-                // $('#edit_title option[value=el.data('id')]').attr("selected", "selected");
-                // $('#edit_title').val(el.data('id'));
-                // console.log(el.data('id'));
+                 //To dynamically select title in edit modal
+                $('select[name=edit_title] option').filter(function() { 
+                    return ($(this).text() == title);
+                }).prop('selected', true);
+
 
                 form.find('#edit_description').val(el.data('description'));
                 $('#summernote_edit').summernote('code', el.data('description'));

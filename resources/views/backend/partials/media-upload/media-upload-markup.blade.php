@@ -46,14 +46,20 @@
                                             <li class="image_id" style="display:none;"></li>
                                             <li class="imgsrc"></li>
                                         </ul>
-                                        <a tabindex="0" style="display: none" class=" btn btn-lg btn-danger btn-sm mb-3 mr-1" role="button" data-placement="right"  data-toggle="popover" data-trigger="focus" data-html="true" title="" data-content="
+                                        {{-- <a tabindex="0" style="display: none" class=" btn btn-lg btn-danger btn-sm mb-3 mr-1" role="button" data-placement="right"  data-toggle="popover" data-trigger="focus" data-html="true" title=""
+                                         data-content="
                                                        <h6>Are you sure to delete this image?</h6>
                                                        <br>
+                                                       <form>
                                                         <input type='submit' class='btn btn-danger btn-sm media_library_image_delete_btn' value='Yes, Delete'>
                                                         </form>
                                                         " data-original-title="">
                                             <i class="ti-trash"></i>
-                                        </a>
+                                        </a> --}}
+                                        <button class="btn btn-danger btn-sm media_library_image_delete_btn">
+                                            <i class="ti-trash"></i>
+                                            Delete
+                                        </button>
                                     </div>
                                 </div>
                             </div>

@@ -2,7 +2,7 @@
     ;(function ($) {
         var mainUploadBtn = '';
 
-        //after select image
+        //when element is selected and is
         $(document).on('click','.media_upload_modal_submit_btn',function (e) {
             e.preventDefault();
             var allData = $('.media-uploader-image-list li.selected').data();
@@ -57,6 +57,29 @@
             }
         });
 
+
+        // when li (single image element is clicked)
+        // $('body').on('click', '.media-uploader-image-list > li', function (e) {
+        //     e.preventDefault();
+        //     var el = $(this);
+        //     var allData = el.data();
+
+        //     console.log('when li click'+' '+allData);
+        //     console.log(allData);
+
+        //     el.addClass('selected');
+        //     // el.addClass('selected').siblings().removeClass('selected');
+
+        //     $('.media-uploader-image-info a,.media-uploader-image-info .img-meta').show();
+        //     var parent = $('.img-meta');
+        //     parent.children('.date').text(allData.date);
+        //     parent.children('.dimension').text(allData.dimension);
+        //     parent.children('.size').text(allData.size);
+        //     parent.children('.imgsrc').text(allData.imgsrc);
+        //     parent.children('.image_id').text(allData.imgid);
+        //     $('.img-info .img-title').text(allData.title)
+        //     $('.media-uploader-image-info .img-wrapper img').attr('src',allData.imgsrc);
+        // });
         $('body').on('click', '.media-uploader-image-list > li', function (e) {
             e.preventDefault();
             var el = $(this);
@@ -76,7 +99,7 @@
         Dropzone.options.placeholderfForm = {
             dictDefaultMessage: "Drag or Select Your Image",
             maxFiles: 50,
-            maxFilesize: 10, //MB
+            maxFilesize: 5, //MB
             acceptedFiles: 'image/*',
             success: function (file, response) {
                 if (file.previewElement) {
