@@ -3186,10 +3186,11 @@ object {
     top: 0;
     width: 100%;
     height: 100%;
-    /* background-color: rgba(245, 138, 138, 0.5); */
-    /* background-color: rgb(245 154 154 / 50%); */
-    background-color: rgb(227 24 24 / 70%);
-    /* background-color: rgba(40, 51, 108, 0.9); */
+    /* background-color: rgb(227 24 24 / 70%); */
+    /* background-color: rgb(208 83 55 / 70%); */
+    /* background-color: rgb(176 55 31 / 90%); */
+    background-color: rgb(144 24 7 / 80%);
+    /* background-color: rgb(176, 55, 31); */
     content: "";
     z-index: -1;
 }
@@ -3416,7 +3417,9 @@ object {
     width: 100%;
     height: 100%;
     /* background-color: rgb(245 154 154 / 50%); */
-    background-color: rgb(227 24 24 / 70%);
+    /* background-color: rgb(227 24 24 / 70%); */
+    /* background-color: rgb(176 55 31 / 80%); */
+    background-color: rgb(144 24 7 / 80%);
     /* background-color: rgba(17, 29, 92, 0.8); */
     content: "";
     z-index: -1;
