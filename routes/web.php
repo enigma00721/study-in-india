@@ -571,7 +571,7 @@ Route::post('/university/delete/{id}', 'UniversityController@delete')->name('adm
 
 Route::get('/university/add/course/{id}', 'UniversityController@addCourse')->name('admin.university.add.course');
 Route::post('/university/add/course', 'UniversityController@storeCourse')->name('admin.university.store.course');
-Route::post('/university/{id}/delete/course/{courseId}', 'UniversityController@deleteCourse')->name('admin.university.delete.course');
+Route::post('/university/{universityId}/delete/course/{id}', 'UniversityController@deleteCourse')->name('admin.university.delete.course');
 Route::post('/university/update/course/{id}', 'UniversityController@updateCourse')->name('admin.university.update.course');
 
 

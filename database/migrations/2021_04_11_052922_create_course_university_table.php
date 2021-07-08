@@ -25,6 +25,8 @@ class CreateCourseUniversityTable extends Migration
 
             $table->integer('seats')->nullable();
             $table->integer('fee')->nullable();
+            $table->integer('hostel')->nullable();
+            $table->integer('mess')->nullable();
 
 
 

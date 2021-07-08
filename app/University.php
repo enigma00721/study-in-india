@@ -29,7 +29,7 @@ class University extends Model
     // }
     public function courses()
     {
-        return $this->belongsToMany('App\Course')->withPivot('seats', 'fee');
+        return $this->belongsToMany('App\Course')->withPivot('id','seats', 'fee','hostel','mess');
     }
     // relationship models delete
     public function delete()

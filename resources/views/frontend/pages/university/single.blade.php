@@ -243,14 +243,14 @@
                                                                 </div>
                                                                 <div class="col-md-6">
                                                                     <li class="list-inline-item">
-                                                                        <b> Course Fee: </b>
-                                                                        <span> {{$aCourse->pivot->fee}} </span>
+                                                                        <b> Course Discipline:  </b>
+                                                                        <span> {{$aCourse->discipline->title}} </span>
                                                                     </li>
                                                                 </div>
                                                                 <div class="col-md-6">
                                                                     <li class="list-inline-item">
-                                                                        <b> Course Discipline:  </b>
-                                                                        <span> {{$aCourse->discipline->title}} </span>
+                                                                        <b> Tution Fee: </b>
+                                                                        <span> {{$aCourse->fee}} </span>
                                                                     </li>
                                                                 </div>
                                                                 <div class="col-md-6">
@@ -259,6 +259,22 @@
                                                                         <span> {{$aCourse->pivot->seats}} </span>
                                                                     </li>
                                                                 </div>
+                                                                @if(!empty($aCourse->pivot->hostel))
+                                                                <div class="col-md-6">
+                                                                    <li class="list-inline-item">
+                                                                        <b> Hostel Fee: </b>
+                                                                        <span> {{$aCourse->hostel}} </span>
+                                                                    </li>
+                                                                </div>
+                                                                @endif
+                                                                @if(!empty($aCourse->pivot->mess))
+                                                                <div class="col-md-6">
+                                                                    <li class="list-inline-item">
+                                                                        <b> Mess Fee: </b> 
+                                                                        <span> {{$aCourse->mess}} </span>
+                                                                    </li>
+                                                                </div>
+                                                                @endif
                                                             </div>
                                                         </ul>
                                                     </div>

@@ -28,9 +28,11 @@
 
         .right-content-area .title {
             font-size: 30px;
-            line-height: 38px;
+            line-height: 32px;
+            /*line-height: 38px;*/
             font-weight: 700;
             margin-bottom: 15px;
+            padding-bottom: 5px;
             border-bottom: 1px solid var(--main-color-one);
         }
         .right-content-area ul li{

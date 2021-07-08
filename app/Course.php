@@ -19,7 +19,7 @@ class Course extends Model
     // }
     public function universities()
     {
-        return $this->belongsToMany('App\University')->withPivot('seats', 'fee');
+        return $this->belongsToMany('App\University')->withPivot('seats', 'fee','hostel','mess');
     }
     public function level()
     {
@@ -29,4 +29,28 @@ class Course extends Model
     {
         return $this->belongsTo('App\Discipline');
     }
+
+
+
+    
+    public function getFeeAttribute($value)
+    {
+        $num = $this->pivot->fee;
+        $num = preg_replace("/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/i", "$1,", $num);
+        // return 'Rs. '.$this->pivot->fee ;
+        return 'Rs. '.$num;
+    }
+    public function getHostelAttribute($value)
+    {
+        $num = $this->pivot->hostel;
+        $num = preg_replace("/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/i", "$1,", $num);
+        return 'Rs. '.$num;
+    }
+    public function getMessAttribute($value)
+    {
+        $num = $this->pivot->mess;
+        $num = preg_replace("/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/i", "$1,", $num);
+        return 'Rs. '.$num;
+    }
+
 }

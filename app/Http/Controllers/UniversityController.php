@@ -78,13 +78,17 @@ class UniversityController extends Controller
         $university = University::findOrFail($id);
         $courses = Course::select('title','id')->get();
         $mycourses = $university->courses;
+        // dd($mycourses->first()->pivot->id);
 
         return view('backend.pages.university.add-course',compact('courses','id','mycourses'));
     }
 
     public function storeCourse(Request $request)
     {
+        // dd($request->all());
         $this->validate($request,[
+            'hostel' => 'nullable|numeric',
+            'mess' => 'nullable|numeric',
             'fee' => 'required|numeric',
             'seats' => 'required|numeric',
             'course_id' => 'required|numeric',
@@ -95,7 +99,7 @@ class UniversityController extends Controller
         if(!$university)
             return redirect()->back()->with(['msg'=>"No University Found",'type'=>'danger']);
         else{
-            $university->courses()->attach($request->course_id, ['fee'=> $request->fee ,'seats'=>$request->seats]);;
+            $university->courses()->attach($request->course_id, ['fee'=> $request->fee ,'seats'=>$request->seats,'hostel'=>$request->hostel,'mess'=>$request->mess]);
             return redirect()->back()->with(['msg'=>"Course Added To University Successfully!",'type'=>'success']);
         }
     }
@@ -103,24 +107,40 @@ class UniversityController extends Controller
     public function updateCourse(Request $request,$id)
     {
          $this->validate($request,[
+            'hostel' => 'nullable|numeric',
+            'mess' => 'nullable|numeric',
             'fee' => 'required|numeric',
             'seats' => 'required|numeric',
-            'modal_course_id' => 'required|numeric',
+            'id' => 'required|numeric',
         ]);
         $university = University::findOrFail($id);
-        $university->courses()->updateExistingPivot($request->modal_course_id , ['seats'=>$request->seats,'fee'=>$request->fee],false);
-        
+            foreach($university->courses as $row){
+                // check for particular id in pivot table to change only that id/row data
+                if($row->pivot->id == $request->id){
+                    $row->pivot->seats =  $request->get('seats');
+                    $row->pivot->fee =  $request->get('fee');
+                    $row->pivot->hostel =  $request->get('hostel');
+                    $row->pivot->mess =  $request->get('mess');
+                    $row->pivot->save();
+                }
+             }
         return redirect()->back()->with(['msg' => 'University Update Success...','type'=>'success']);
     }
 
-    public function deleteCourse($id,$courseId)
+    // id is id in pivot table course_university
+    public function deleteCourse($universityId,$id)
     {
-        $university = University::findOrFail($id);
-        // delete relationship data
-        if($university->courses()->detach($courseId))
-            return redirect()->back()->with(['msg'=>"Course Deleted Successfully!",'type'=>'success']);
-        else 
-            return redirect()->back()->with(['msg'=>"No University Found",'type'=>'danger']);
+        $university = University::findOrFail($universityId);
+        foreach($university->courses as $row){
+            if($row->pivot->id == $id){
+
+                // delete relationship data
+                if($row->pivot->delete())
+                    return redirect()->back()->with(['msg'=>"Course Deleted Successfully!",'type'=>'success']);
+                else 
+                    return redirect()->back()->with(['msg'=>"No University Found",'type'=>'danger']);
+            }
+        }
     }
 
 }
