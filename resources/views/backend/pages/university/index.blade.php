@@ -54,6 +54,7 @@
                                             <th>{{__('Location')}}</th>
                                             <th>Image</th>
                                             <th>{{__('Created At')}}</th>
+                                            <th>Status </th>
                                             <th>{{__('Action')}}</th>
                                             </thead>
                                             <tbody>
@@ -79,6 +80,7 @@
                                                         @endif
                                                     </td>
                                                     <td>{{date_format($data->created_at,'d - M - Y')}}</td>
+                                                    <td> <button class="btn   {{ $data->status=='publish' ? 'btn-primary':'btn-warning'  }} "> {{ $data->status=='publish' ? 'active':'inactive'  }}</button> </td>
                                                     <td style="display: flex">
 
                                                         <a class="btn btn-lg btn-primary btn-sm mb-3 mr-1"

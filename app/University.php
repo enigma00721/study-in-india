@@ -31,6 +31,12 @@ class University extends Model
     {
         return $this->belongsToMany('App\Course')->withPivot('id','seats', 'fee','hostel','mess');
     }
+
+     public function imageUploads()
+    {
+        return $this->hasMany('App\ImageUpload');
+    }
+
     // relationship models delete
     public function delete()
     {
@@ -41,9 +47,9 @@ class University extends Model
     }
 
     // add global scope
-    protected static function boot()
-    {
-        parent::boot();
-        static::addGlobalScope(new StatusScope);
-    }
+    // protected static function boot()
+    // {
+    //     parent::boot();
+    //     static::addGlobalScope(new StatusScope);
+    // }
 }

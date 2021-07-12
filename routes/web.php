@@ -557,6 +557,11 @@ Route::post('/level/order/update', 'LevelController@orderUpdate')->name('admin.l
 Route::post('/level/delete/{id}', 'LevelController@delete')->name('admin.level.delete');
 });
 
+// Route::get('/dropzone','UniversityController@dropzone')->name('admin.dropzone');
+// Route::get('/dropzone', function () {
+//     return view('dropzone');
+// });
+
 // job post routes
 Route::prefix('admin-home')
 ->middleware('pages')
@@ -574,7 +579,8 @@ Route::post('/university/add/course', 'UniversityController@storeCourse')->name(
 Route::post('/university/{universityId}/delete/course/{id}', 'UniversityController@deleteCourse')->name('admin.university.delete.course');
 Route::post('/university/update/course/{id}', 'UniversityController@updateCourse')->name('admin.university.update.course');
 
-
+Route::post('university/image/upload/store','UniversityController@fileStore')->name('image.upload.store');
+Route::post('university/image/delete','UniversityController@fileDestroy')->name('image.delete');
 //job page settings
 // Route::get('/jobs/page-settings','UniversityController@page_settings')->name('admin.jobs.page.settings');
 // Route::post('/jobs/page-settings','UniversityController@update_page_settings');

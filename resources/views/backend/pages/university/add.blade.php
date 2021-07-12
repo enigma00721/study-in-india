@@ -65,6 +65,13 @@
                                     </div>
 
                                     {{-- <div class="form-group">
+                                         <form method="post" action="#" enctype="multipart/form-data" 
+                                                        class="hello" id="hello">
+                                            @csrf
+                                        </form>  
+                                    </div> --}}
+
+                                    {{-- <div class="form-group">
                                         <label for="employment_status">{{__('Employment Status')}}</label>
                                         <select name="employment_status" id="employment_status"  class="form-control">
                                             <option value="full_time">{{__('Full-Time')}}</option>
@@ -86,10 +93,10 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="image">{{ __('Image') }}</label>
+                                        <label for="image">{{ __('Background Image') }}</label>
                                         <div class="media-upload-btn-wrapper">
                                             <div class="img-wrap"></div>
-                                            <input type="hidden" name="image[]" multiple>
+                                            <input type="hidden" name="image" multiple>
                                             <button type="button" class="btn btn-info media_upload_form_btn"
                                                 data-btntitle="Select University Image"
                                                 data-modaltitle="Upload University Image" data-toggle="modal"
@@ -99,6 +106,18 @@
                                         </div>
                                         <small>{{ __('Recommended image size 1920x1280') }}</small>
                                     </div>
+
+                                    {{-- <div class="form-group">
+                                        <label for="gallery">Gallery</label>
+                                          <form id="hello"  class="dropzone dz-clickable" method="POST" enctype="multipart/form-data" action="{{route('image.upload.store')}}">
+                                            <div class="dz-message">
+                                                <h4>Drag Photos to Upload</h4>
+                                                <span>Or click to browse</span>
+                                            </div>
+                                            <input name="_token" type="hidden" value="{{ csrf_token() }}">
+                                        </form>
+                                    </div> --}}
+
                                     <button type="submit"
                                         class="btn btn-primary mt-4 pr-4 pl-4">{{ __('Submit') }}</button>
                                 </div>
@@ -119,12 +138,62 @@
     <script src="{{ asset('assets/backend/js/dropzone.js') }}"></script>
     @include('backend.partials.media-upload.media-js')
 
+
+{{-- <script>
+    var CSRF_TOKEN = "{{csrf_token()}}";
+     Dropzone.options.hello =
+         {
+            maxFilesize: 12,
+            renameFile: function(file) {
+                var dt = new Date();
+                var time = dt.getTime();
+               return time+file.name;
+            },
+            acceptedFiles: ".jpeg,.jpg,.png,.gif",
+            addRemoveLinks: true,
+            timeout: 50000,
+            removedfile: function(file) 
+            {
+                var name = file.upload.filename;
+                $.ajax({
+                    headers: {
+                                // 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                                _token: "{{csrf_token()}}"
+                                // 'x-csrf-token': CSRF_TOKEN,
+                            },
+                    type: 'POST',
+                    url: '{{ route("image.delete") }}',
+                    data: {filename: name},
+                    success: function (data){
+                        console.log("File has been successfully removed!!");
+                    },
+                    error: function(e) {
+                        console.log(e);
+                        console.log('remove file error');
+                        console.log(name);
+                    }});
+                    var fileRef;
+                    return (fileRef = file.previewElement) != null ? 
+                    fileRef.parentNode.removeChild(file.previewElement) : void 0;
+            },
+       
+            success: function(file, response) 
+            {
+                console.log(response);
+            },
+            error: function(file, response)
+            {
+               return false;
+            }
+};
+</script> --}}
+
+    
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             
                 $('.summernote').summernote({
-                    placeholder: 'Hello stand alone ui',
                     tabsize: 2,
                     height: 400,
                     theme:'paper',
@@ -139,6 +208,24 @@
                     ]
                 });
 
+        });
+
+    </script> --}}
+
+     <script>
+        $(document).ready(function() {
+
+            $('.summernote').summernote({
+                height: 400, //set editable area's height
+                codemirror: { // codemirror options
+                    theme: 'monokai'
+                },
+                callbacks: {
+                    onChange: function(contents, $editable) {
+                        $(this).prev('input').val(contents);
+                    }
+                }
+            });
         });
 
     </script>

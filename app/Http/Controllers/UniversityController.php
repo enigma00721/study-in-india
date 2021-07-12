@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\University;
 use App\Course;
+use App\ImageUpload;
 
 class UniversityController extends Controller
 {
@@ -16,6 +17,8 @@ class UniversityController extends Controller
     public function index()
     {
         $all_universities = University::all()->groupBy('lang');
+        // $all_universities = University::all();
+        // dd($all_universities);
         return view('backend.pages.university.index')->with(['all_universities' => $all_universities]);
     }
 
@@ -26,6 +29,7 @@ class UniversityController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request->all());
         $this->validate($request, [
             'name' => 'required|string|max:150',
             'description' => 'required',
@@ -141,6 +145,34 @@ class UniversityController extends Controller
                     return redirect()->back()->with(['msg'=>"No University Found",'type'=>'danger']);
             }
         }
+    }
+
+
+    // university gallery methods
+    public function fileStore(Request $request)
+    {
+        // dd($request->all());
+        $image = $request->file('file');
+        $imageName = $image->getClientOriginalName();
+        $image->move(public_path('assets/uploads/gallery/'),$imageName);
+        
+        $imageUpload = new ImageUpload();
+        $imageUpload->filename = $imageName;
+        $imageUpload->university_id = 1;
+        $imageUpload->save();
+        return response()->json(['success'=>$imageName]);
+    }
+
+     public function fileDestroy(Request $request)
+    {
+        dd($request->all());
+        $filename =  $request->get('filename');
+        ImageUpload::where('filename',$filename)->delete();
+        $path=public_path().'/assets/uploads/gallerys/'.$filename;
+        if (file_exists($path)) {
+            unlink($path);
+        }
+        return $filename;  
     }
 
 }
