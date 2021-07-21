@@ -464,16 +464,16 @@
 
         //back to top show/hide
         var ScrollTop = $('.back-to-top');
-        if ($(window).scrollTop() > 1000) {
-            ScrollTop.fadeIn(1000);
+        if ($(window).scrollTop() > 500) {
+            ScrollTop.fadeIn(500);
         } else {
-            ScrollTop.fadeOut(1000);
+            ScrollTop.fadeOut(500);
         }
         var ScrollTop = $('.bottom-button');
-        if ($(window).scrollTop() > 1000) {
-            ScrollTop.fadeIn(1000);
+        if ($(window).scrollTop() > 100) {
+            ScrollTop.fadeIn(100);
         } else {
-            ScrollTop.fadeOut(1000);
+            ScrollTop.fadeOut(100);
         }
 
         /*--------------------------

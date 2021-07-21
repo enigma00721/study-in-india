@@ -253,12 +253,12 @@
                                                                         <span> {{$aCourse->fee}} </span>
                                                                     </li>
                                                                 </div>
-                                                                <div class="col-md-6">
+                                                                {{-- <div class="col-md-6">
                                                                     <li class="list-inline-item">
                                                                         <b> Number Of Seats: </b> 
                                                                         <span> {{$aCourse->pivot->seats}} </span>
                                                                     </li>
-                                                                </div>
+                                                                </div> --}}
                                                                 @if(!empty($aCourse->pivot->hostel))
                                                                 <div class="col-md-6">
                                                                     <li class="list-inline-item">
@@ -270,7 +270,7 @@
                                                                 @if(!empty($aCourse->pivot->mess))
                                                                 <div class="col-md-6">
                                                                     <li class="list-inline-item">
-                                                                        <b> Mess Fee: </b> 
+                                                                        <b> Mess Charge: </b> 
                                                                         <span> {{$aCourse->mess}} </span>
                                                                     </li>
                                                                 </div>

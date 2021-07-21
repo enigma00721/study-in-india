@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 15, 2021 at 05:25 PM
+-- Generation Time: Jul 08, 2021 at 03:08 PM
 -- Server version: 8.0.25
 -- PHP Version: 7.3.28-2+ubuntu18.04.1+deb.sury.org+1
 
@@ -31,16 +31,18 @@ CREATE TABLE `course_university` (
   `course_id` bigint UNSIGNED NOT NULL,
   `university_id` bigint UNSIGNED DEFAULT NULL,
   `seats` int DEFAULT NULL,
-  `fee` int DEFAULT NULL
+  `fee` int DEFAULT NULL,
+  `hostel` int DEFAULT NULL,
+  `mess` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `course_university`
 --
 
-INSERT INTO `course_university` (`id`, `course_id`, `university_id`, `seats`, `fee`) VALUES
-(1, 1, 6, 100, 100000),
-(2, 2, 3, 260, 80000);
+INSERT INTO `course_university` (`id`, `course_id`, `university_id`, `seats`, `fee`, `hostel`, `mess`) VALUES
+(1, 2, 6, 250, 10000, 8000, 3000),
+(2, 2, 3, 400, 55000, NULL, NULL);
 
 --
 -- Indexes for dumped tables

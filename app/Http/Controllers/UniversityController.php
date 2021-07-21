@@ -89,12 +89,12 @@ class UniversityController extends Controller
 
     public function storeCourse(Request $request)
     {
-        // dd($request->all());
+        dd($request->all());
         $this->validate($request,[
             'hostel' => 'nullable|numeric',
             'mess' => 'nullable|numeric',
             'fee' => 'required|numeric',
-            'seats' => 'required|numeric',
+            'seats' => 'sometimes|numeric',
             'course_id' => 'required|numeric',
             'university_id' => 'required|numeric',
         ]);
@@ -114,7 +114,7 @@ class UniversityController extends Controller
             'hostel' => 'nullable|numeric',
             'mess' => 'nullable|numeric',
             'fee' => 'required|numeric',
-            'seats' => 'required|numeric',
+            'seats' => 'nullable|numeric',
             'id' => 'required|numeric',
         ]);
         $university = University::findOrFail($id);

@@ -37,10 +37,14 @@
         }
         .right-content-area ul li{
             font-size: 20px;
+            color:#e6e6e6;
         }
 
         .overlay {
             background-color: rgba(0, 0, 0, 0.6);
+        }
+        #marquee{
+            background-color:  var(--secondary-color);
         }
 
         .header-inner {

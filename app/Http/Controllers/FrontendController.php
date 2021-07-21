@@ -118,8 +118,10 @@ public function index()
 public function universities(Request $request)
 {
     $disciplines = Discipline::all();
-    $all_courses = Course::with('universities')->paginate(6);
+    // $all_courses = Course::with('universities')->paginate(6);
+    $all_courses = Course::with('universities')->get();
     $levels = Level::all();
+    // dd($all_courses);
 
     return view('frontend.pages.university.index', compact('disciplines', 'all_courses', 'levels'));
 }

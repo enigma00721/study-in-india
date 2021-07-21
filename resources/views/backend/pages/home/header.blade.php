@@ -188,12 +188,13 @@
                                 <input type="text" class="form-control" id="btn_01_text" name="btn_01_text"
                                     placeholder="{{ __('Button Text eg: Learn More') }}">
                             </div>
-                            <div class="form-group" style="display: none;">
+                            
+                            {{-- <div class="form-group" style="display: none;" >
                                 <label for="btn_01_url">{{ __('University ID') }}</label>
                                 <input type="number" class="form-control" id="btn_01_url" name="btn_01_url"
                                     placeholder="{{ __('University ID') }}" value="{{$data->id}}" >
                                 <small>{{ __('should be valid to generate url/slug') }}</small>
-                            </div>
+                            </div> --}}
 
                             <div class="form-group">
                                 <div class="media-upload-btn-wrapper">

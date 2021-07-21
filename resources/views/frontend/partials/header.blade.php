@@ -140,11 +140,11 @@
                     @foreach($menu_content as $key => $data)
 
                          @if($key == 2)
-                             <li class="menu-item-has-children @if(request()->is() == '*university*') current-menu-item @endif">
+                             <li class=" menu-item-has-children @if(request()->is() == '*university*') current-menu-item @endif ">
                                 <a href="#">Programmes</a>
                                 <ul class="sub-menu">
                                     @foreach($programmes as $programme)
-                                        <li >
+                                        <li class="">
                                             <a  href="{{route('university.search.category',
                                                 ['id' => $programme->id, 'level' => strtolower($programme->title)] )}}">
                                                  {{ $programme->title }}
@@ -165,7 +165,7 @@
                             }else{ print '</li>'; }
                         @endphp
                        
-                        <li class="@if(request()->path() == substr($data->menuUrl,6)) current-menu-item @endif">
+                        <li class="nav-menu-item @if(request()->path() == substr($data->menuUrl,6)) current-menu-item @endif">
                             @php
                                 $page_title = str_replace(' ','_',strtolower($data->menuTitle));
                                    $link = (in_array($data->menuTitle,$static_page_list)) ? url('/').'/'.get_static_option($page_title.'_page_slug') :  str_replace('[url]',url('/'),$data->menuUrl);
@@ -174,11 +174,11 @@
                         @php if (!empty($data->parent_id) && $data->depth > 0){ $cc++;} @endphp
                     @endforeach
                 @else
-                    <li class="@if(request()->path() == '/') current-menu-item @endif">
+                    <li class="nav-menu-item @if(request()->path() == '/') current-menu-item @endif">
                         <a  href="{{url('/')}}">{{__('Home')}}</a>
                     </li>
                         @foreach($programmes as $programme)
-                        <li class="@if(request()->path() == '/universities') current-menu-item @endif">
+                        <li class="nav-menu-item @if(request()->path() == '/universities') current-menu-item @endif">
                             <a  href="{{url('/')}}">{{ $programme->title }}</a>
                         </li>
                         @endforeach

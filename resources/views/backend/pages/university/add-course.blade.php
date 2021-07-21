@@ -52,7 +52,7 @@
                                     <th>{{__('ID')}}</th>
                                     <th>{{__('Title')}}</th>
                                     <th>{{__('Fee')}}</th>
-                                    <th>{{__('Seats')}}</th>
+                                    {{-- <th>{{__('Seats')}}</th> --}}
                                     <th>{{__('HostelFee')}}</th>
                                     <th>{{__('MessFee')}}</th>
                                     <th>{{__('Action')}}</th>
@@ -65,7 +65,7 @@
                                                 <td>{{$data->title}}</td>
                                                 {{-- using model accessor on course model --}}
                                                 <td>{{$data->fee}}</td>
-                                                <td>{{$data->pivot->seats}}</td>
+                                                {{-- <td>{{$data->pivot->seats}}</td> --}}
                                                 @if($data->pivot->hostel)
                                                 <td>{{$data->hostel}}</td>
                                                 @else 
@@ -98,7 +98,7 @@
                                                         class="btn btn-lg btn-primary btn-sm mb-3 mr-1 category_edit_btn"
                                                         data-id="{{$data->pivot->id}}"
                                                         data-title="{{$data->title}}"
-                                                        data-seats="{{$data->pivot->seats}}"
+                                                        {{-- data-seats="{{$data->pivot->seats}}" --}}
                                                         data-fee="{{$data->pivot->fee}}"
                                                         data-hostel="{{$data->pivot->hostel}}"
                                                         data-mess="{{$data->pivot->mess}}"
@@ -135,10 +135,10 @@
                                 <label class="required" for="fee">{{__('Tution Fee')}}</label>
                                 <input type="number" class="form-control"  id="fee" name="fee" placeholder="{{__('Tution Fee')}}">
                             </div>
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label class="required" for="seats">{{__('Total Seats')}}</label>
                                 <input type="number" class="form-control"  id="seats" name="seats" placeholder="{{__('Seats')}}">
-                            </div>
+                            </div> --}}
                             <div class="form-group">
                                 <label for="seats">{{__('Hostel Fee')}}</label>
                                 <input type="number" class="form-control"  id="seats" name="hostel" placeholder="{{__('Hostel Fee')}}">
@@ -174,17 +174,17 @@
                         @csrf
                         
                         <div class="form-group">
-                            <label for="title">{{__('Course')}}</label>
+                            <label for="title" class="required">{{__('Course')}}</label>
                             <input type="text" class="form-control"  id="edit_title" name="title" placeholder="{{__('Course Title')}}" disabled readonly>
                         </div>
                         <div class="form-group">
-                            <label for="fee">{{__('Fee')}}</label>
+                            <label for="fee" class="required">{{__('Fee')}}</label>
                             <input type="number" class="form-control"  id="edit_fee" name="fee" placeholder="{{__('Fee')}}" autofocus>
                         </div>
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="seats">{{__('Seats')}}</label>
                             <input type="number" class="form-control"  id="edit_seats" name="seats" placeholder="{{__('Seats')}}">
-                        </div>
+                        </div> --}}
                         <div class="form-group">
                             <label for="hostel">{{__('Hostel Fee')}}</label>
                             <input type="number" class="form-control"  id="edit_hostel" name="hostel" placeholder="{{__('Hostel Fee')}}">
@@ -218,17 +218,17 @@
                 var el = $(this);
                 // var id = el.data('id');
                 var title = el.data('title');
-                var seats = el.data('seats');
+                // var seats = el.data('seats');
                 var fee = el.data('fee');
                 var hostel = el.data('hostel');
                 var mess = el.data('mess');
                 var course_id = el.data('id')
-                console.log(seats);
+                // console.log(seats);
                 // var status = el.data('status');
                 var modal = $('#category_edit_modal');
                 modal.find('#edit_title').val(title);
                 modal.find('#edit_fee').val(fee);
-                modal.find('#edit_seats').val(seats);
+                // modal.find('#edit_seats').val(seats);
                 modal.find('#edit_hostel').val(hostel);
                 modal.find('#edit_mess').val(mess);
                 modal.find('#id').val(course_id);

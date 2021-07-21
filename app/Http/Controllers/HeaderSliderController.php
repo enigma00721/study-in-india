@@ -30,7 +30,7 @@ class HeaderSliderController extends Controller
         $this->validate($request,[
             'title' => 'required|string|max:191',
             'btn_01_text' => 'required|string|max:191',
-            'btn_01_url' => 'required|string|max:191',
+            'btn_01_url' => 'nullable|string|max:191',
             'btn_01_status' => 'nullable|string|max:191',
             'description' => 'required|string',
             'image' => 'required|string|max:191',
@@ -39,10 +39,12 @@ class HeaderSliderController extends Controller
         if(!$request->has('btn_01_status'))
             $request->request->add(['btn_01_status'=>'off']);
 
-        $universityId = $request->get('btn_01_url'); 
+        $university = University::where('name',$request->get('title'))->first();
+        $universityId = $university->id; 
+
         $universityName = $this->checkUniversity($universityId);
         if($universityName == 'fail')
-            return redirect()->back()->with(['msg'=>'Could Not Find University By That Id!','type'=>'danger']);
+            return redirect()->back()->with(['msg'=>'Could Not Find University By That Name!','type'=>'danger']);
 
         $fullUrl = $this->getFullUrlSlug($universityName,$universityId);
         $request->merge(['btn_01_url' => $fullUrl]);
@@ -55,9 +57,9 @@ class HeaderSliderController extends Controller
     public function update(Request $request){
         // dd($request->all());
         $this->validate($request,[
-            'title' => 'required|string|max:191',
+            'edit_title' => 'required|string|max:191',
             'btn_01_text' => 'required|string|max:191',
-            'btn_01_url' => 'required|string|max:191',
+            'btn_01_url' => 'nullable|string|max:191',
             'btn_01_status' => 'nullable|string|max:191',
             'description' => 'required|string',
             'image' => 'required|string|max:191',
@@ -66,13 +68,19 @@ class HeaderSliderController extends Controller
         if(!$request->has('btn_01_status'))
             $request->request->add(['btn_01_status'=>'off']);
         
-        $universityId = $request->get('btn_01_url'); 
+        // $universityId = $request->get('btn_01_url'); 
+        $university = University::where('name',$request->get('edit_title'))->first();
+        $universityId = $university->id; 
+        // dd($universityId);
+
         $universityName = $this->checkUniversity($universityId);
         if($universityName == 'fail')
             return redirect()->back()->with(['msg'=>'Could Not Find University By That Id!','type'=>'danger']);
 
         $fullUrl = $this->getFullUrlSlug($universityName,$universityId);
         $request->merge(['btn_01_url' => $fullUrl]);
+        $request->merge(['title' => $request->edit_title]);
+        // dd($fullUrl);
 
         HeaderSlider::find($request->id)->update($request->all());
 
